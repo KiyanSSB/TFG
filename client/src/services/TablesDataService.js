@@ -1,6 +1,5 @@
-import axios from 'axios';
-
 const API_URL = 'http://localhost:3000/random';
+import axios from 'axios'; //PARA EL XACCESSTOKEN
 
 
 class TableDataService{
@@ -12,4 +11,4 @@ class TableDataService{
 }
 
 
-export default TableDataService();
+export default new TableDataService();
