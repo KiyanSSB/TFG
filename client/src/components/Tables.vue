@@ -9,11 +9,30 @@
                 candidateTable: [],
                 referenceTable: [],
                 columns:[],
-                row_data:[]
+                row_data:[],
+                currentIndex: -1
             };
         },
 
         methods: {
+            di: function(mensaje){
+                alert(mensaje)
+            },
+
+            paintColumn: function(key){
+                // console.log(this.columns.values())
+                // console.log(this.columns.find(element => element = key))
+                console.log(this.columns[key]);
+
+
+                this.referenceTable.forEach( function(valor,indice,array){
+                        console.log(Object.keys(valor));
+                });
+                    
+
+            },
+
+
             GetKeys(Table){
                 return this.colums = Object.keys(Table);
             },
@@ -49,7 +68,9 @@
                     });
                 }
             },
-     
+            saludar(){
+                alert('Soy tonto');
+            },
 
         mounted(){
             this.Reference_Users();
@@ -68,9 +89,11 @@
 
     <div class="container_center">
    
- 
+        <button v-on:click="di('que')">Di que</button>
+
+
     <table>
-        <th v-for="(value,key) in columns">{{value}}</th>
+        <th v-for="(value,key) in columns" @click="saludar" v-on:click="paintColumn(key)" >{{value}}</th>
             <tr v-for="(value,key) in referenceTable">
                 <td v-for="(value2,key) in value">{{value2}}</td> 
             </tr>
@@ -98,5 +121,9 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+}
+
+.active{
+    color: brown;
 }
 </style>
