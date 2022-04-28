@@ -1,6 +1,7 @@
-const API_URL = 'http://localhost:3000/random';
+const API_URL = 'http://localhost:3000/tablas';
 const jsonPlaceHolderAlmbums = 'https://jsonplaceholder.typicode.com/albums'
 const jsonPlaceHolderUsers = 'https://jsonplaceholder.typicode.com/users'
+
 
 import axios from 'axios'; //PARA EL XACCESSTOKEN
 
