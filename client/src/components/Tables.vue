@@ -66,6 +66,22 @@ export default {
                     }
                 });
         },
+
+        selectColumn(table, key) {
+            console.log(table);
+            console.log(key);
+
+            var data = []
+            var title
+
+            console.log(table.title[key])
+
+            table.data.forEach(function (row) {
+                console.log(row[key])
+            })
+
+            this.candidateTable.title.push(table.title[key])
+        }
     },
 
 
@@ -79,28 +95,41 @@ export default {
 
 <template>
     <div class="container_center">
-        <!-- <button v-on:click="di('que')">Di que</button> -->
-        <table>
-            <!-- Nombre de la tabla -->
-            <tr style="display: flex; justify-content: center; ">
-                <th> {{this.referenceTable.title}} </th>
-            </tr>
-            <!-- Resto de la tabla -->
-            <th v-for="(value, key) in columns" @click="saludar" v-on:click="paintColumn(key)">{{ value }}</th>
+        <div class="right_side">
+            <!-- <button v-on:click="di('que')">Di que</button> -->
+            <v-table theme="dark">
+                <colgroup>
+                    <col v-for="(value, key) in referenceTable.title" v-on:click="di('que')">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th v-for="(value, key) in referenceTable.title" v-on:click="selectColumn(referenceTable, key)">
+                            {{ value }} </th>
+                    </tr>
+                </thead>
+
+                <!-- Resto de la tabla -->
+                <tr v-for="(value, key) in referenceTable.data">
+                    <td v-for="(value2, key) in value">{{ value2 }}</td>
+                </tr>
+            </v-table>
 
 
-            <tr v-for="(value, key) in referenceTable">
-                <td v-for="(value2, key) in value">{{ value2 }}</td>
+            <v-table>
+                <thead>
+                    <th v-for="(value, key) in candidateTable.title">{{ value }} </th>
+                </thead>
 
-            </tr>
-        </table>
+                <!-- Resto de la tabla -->
+                <tr v-for="(value, key) in candidateTable.data">
+                    <td v-for="(value2, key) in value">{{ value2 }}</td>
 
+                </tr>
+            </v-table>
+        </div>
 
-        <table>
-            <tr>
-                <th>{{ Object.keys(this.candidateTable) }}</th>
-            </tr>
-        </table>
+        <div class="left_side">
+        </div>
 
     </div>
 </template>
@@ -108,12 +137,33 @@ export default {
 <style>
 .container_center {
     height: 100%;
+    height: 80vh;
     width: 100%;
     min-height: 100%;
 
     display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    align-items: center;
+}
+
+.right_side {
+    display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    width: 60%;
+    height: 100%;
+}
+
+.left_side {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 40%;
+    height: auto;
 }
 
 .active {
@@ -122,7 +172,14 @@ export default {
 
 table,
 th,
-td {
-    border: 1px solid black;
+tr{
+    background: rgba( 255, 255, 255, 0.65 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
+
+
 </style>
