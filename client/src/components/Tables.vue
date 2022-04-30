@@ -90,18 +90,23 @@ export default {
             //     data.push("");
             // }
 
+
+            if(this.notAllowedKeys.indexOf(key) == -1){
+            
+            for(var i = 0 ; i < this.candidateTable.data.length ; i++){
+                this.candidateTable.data[i].push("")
+            }
+            
             for(var i = 0 ; i < table.data.length ; i++){
-                for(var j = 0 ; j < table.data[i].length; j++){
-                    console.log(this.candidateTable.data[i].length)
+                
+                for(var j = 0 ; j < table.data[i].length-2; j++){
                     data.push("")
                 }
                 data.push(table.data[i][key]);
-
                 this.candidateTable.data.push(data)
                 data=[]
             }
 
-            if(this.notAllowedKeys.indexOf(key) == -1){
                 this.notAllowedKeys.push(key)
                 this.candidateTable.title.push(table.title[key])
                 this.candidateTable.data.push(data)
