@@ -25,7 +25,6 @@ export default {
         paintColumn: function (key) {
             // console.log(this.columns.values())
             // console.log(this.columns.find(element => element = key))
-            console.log(this.columns[key]);
             this.referenceTable.forEach(function (valor, indice, array) {
                 console.log(Object.keys(valor));
             });
@@ -44,7 +43,6 @@ export default {
                     const that = this;
                     var i = 0;
                     for (var key of Object.keys(this.tables)) {
-                        console.log(key)
                         if (i == 0) {
                             that.referenceTable = that.tables[key]
                             i++;
@@ -52,10 +50,7 @@ export default {
                             that.candidateTable = that.tables[key]
                         }
                     }
-                    console.log(that.referenceTable)
-                    console.log(that.candidateTable)
                 })
-
         },
         retrieveCandidateTable() {
             TablesDataService.getTable()
@@ -69,54 +64,38 @@ export default {
         },
 
         selectColumn(table, key) {
-            // console.log(table);
-            // console.log(key);
-
             var data = []
             var title
-
-            // console.log(table.title[key])
-            // const that   = this
-
-            // table.data.forEach(function (row) {
-            //     console.log(row[key])
-            //     data.push[row[key]]
-            //     that.candidateTable.data.push([row[key]])
-            // })
-
-            //  console.log(this.candidateTable.data.length)
-
-            // for(var i = 0 ; i < this.candidateTable.data[i].length ; i++){
-            //     data.push("");
-            // }
-
-
-            if(this.notAllowedKeys.indexOf(key) == -1){
             
-            for(var i = 0 ; i < this.candidateTable.data.length ; i++){
-                this.candidateTable.data[i].push("")
-            }
-            
-            for(var i = 0 ; i < table.data.length ; i++){
-                
-                for(var j = 0 ; j < table.data[i].length-2; j++){
-                    data.push("")
+            if (this.notAllowedKeys.indexOf(key) == -1) {
+                //Comprobamos cuanto vale Data = []
+                console.log(data)
+                var x;
+                //1º Añadir a los arrays nuevos tantas entradas vacías como tenga la tabla columnas en el momento:
+                for (var i = 0; i < table.data.length; i++) {
+                    console.log("lo he hecho:" + i)
+                    for (var j = 0; j < this.candidateTable.data[j].length; j++) {
+                        data.push("")
+                    }
+                    //Miramos que tiene Data después de añadir los valores nulos para los campos anteriores
+                    console.log(data)
+                    //Hacemos un push the cada una de las entradas que tenemos 
+                    data.push(table.data[i][key]);
+                    console.log(data)
+                    //Añadimos Data a la tabla candidata
+                    this.candidateTable.data.push(data)
+                    //Reiniciamos Data
+                    data = []
+                    x = i 
                 }
-                data.push(table.data[i][key]);
-                this.candidateTable.data.push(data)
-                data=[]
-            }
-
+                //Añadimos tantas entradas al resto como tamaño máximo tenga el array más grande de los datos
+                for (var i = 0; i < this.candidateTable.data.length-(x+1); i++) {
+                    this.candidateTable.data[i].push("")
+                }
                 this.notAllowedKeys.push(key)
                 this.candidateTable.title.push(table.title[key])
-                this.candidateTable.data.push(data)
-                console.log(this.notAllowedKeys)
             }
-
-
-
-            // this.candidateTable.title.push(table.title[key])
-           
+            console.log(this.candidateTable.data)
         }
     },
 
@@ -208,14 +187,12 @@ export default {
 
 table,
 th,
-tr{
-    background: rgba( 255, 255, 255, 0.65 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 4px );
-    -webkit-backdrop-filter: blur( 4px );
+tr {
+    background: rgba(255, 255, 255, 0.65);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-radius: 10px;
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
-
-
 </style>
