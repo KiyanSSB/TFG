@@ -90,24 +90,28 @@ export default {
             //     data.push("");
             // }
 
-            // for(var i = 0 ; i < table.data.length ; i++){
-            //     console.log(table.data[i][key]);
-            //     data.push(table.data[i][key]);
-            //     this.candidateTable.data.push(data)
-            //     data=[]
-            // }
+            for(var i = 0 ; i < table.data.length ; i++){
+                for(var j = 0 ; j < table.data[i].length; j++){
+                    console.log(this.candidateTable.data[i].length)
+                    data.push("")
+                }
+                data.push(table.data[i][key]);
 
-            console.log(this.notAllowedKeys)
-            console.log(key)
-            console.log(this.notAllowedKeys.indexOf(key))
+                this.candidateTable.data.push(data)
+                data=[]
+            }
+
             if(this.notAllowedKeys.indexOf(key) == -1){
                 this.notAllowedKeys.push(key)
                 this.candidateTable.title.push(table.title[key])
+                this.candidateTable.data.push(data)
                 console.log(this.notAllowedKeys)
             }
 
+
+
             // this.candidateTable.title.push(table.title[key])
-            this.candidateTable.data.push(data)
+           
         }
     },
 
