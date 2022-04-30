@@ -70,29 +70,27 @@ export default {
             if (this.notAllowedKeys.indexOf(key) == -1) {
                 //Comprobamos cuanto vale Data = []
                 console.log(data)
-                var x;
+
                 //1º Añadir a los arrays nuevos tantas entradas vacías como tenga la tabla columnas en el momento:
                 for (var i = 0; i < table.data.length; i++) {
-                    console.log("lo he hecho:" + i)
                     for (var j = 0; j < this.candidateTable.data[j].length; j++) {
                         data.push("")
                     }
-                    //Miramos que tiene Data después de añadir los valores nulos para los campos anteriores
-                    console.log(data)
-                    //Hacemos un push the cada una de las entradas que tenemos 
-                    data.push(table.data[i][key]);
-                    console.log(data)
+
                     //Añadimos Data a la tabla candidata
-                    this.candidateTable.data.push(data)
                     //Reiniciamos Data
                     data = []
-                    x = i 
                 }
+
                 //Añadimos tantas entradas al resto como tamaño máximo tenga el array más grande de los datos
-                for (var i = 0; i < this.candidateTable.data.length-(x+1); i++) {
+                for (var i = 0; i < this.candidateTable.data.length; i++) {
                     this.candidateTable.data[i].push("")
                 }
+
+                //Añadimos la columna a la lista de columnas no permitidas para no volver a añadirla
                 this.notAllowedKeys.push(key)
+
+                //Añadimos los títulos
                 this.candidateTable.title.push(table.title[key])
             }
             console.log(this.candidateTable.data)
