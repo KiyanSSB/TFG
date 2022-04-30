@@ -12,6 +12,7 @@ export default {
             columns: [],
             row_data: [],
             currentIndex: -1,
+            notAllowedKeys: [],
             Tabla: Object
         };
     },
@@ -68,19 +69,45 @@ export default {
         },
 
         selectColumn(table, key) {
-            console.log(table);
-            console.log(key);
+            // console.log(table);
+            // console.log(key);
 
             var data = []
             var title
 
-            console.log(table.title[key])
+            // console.log(table.title[key])
+            // const that   = this
 
-            table.data.forEach(function (row) {
-                console.log(row[key])
-            })
+            // table.data.forEach(function (row) {
+            //     console.log(row[key])
+            //     data.push[row[key]]
+            //     that.candidateTable.data.push([row[key]])
+            // })
 
-            this.candidateTable.title.push(table.title[key])
+            //  console.log(this.candidateTable.data.length)
+
+            // for(var i = 0 ; i < this.candidateTable.data[i].length ; i++){
+            //     data.push("");
+            // }
+
+            // for(var i = 0 ; i < table.data.length ; i++){
+            //     console.log(table.data[i][key]);
+            //     data.push(table.data[i][key]);
+            //     this.candidateTable.data.push(data)
+            //     data=[]
+            // }
+
+            console.log(this.notAllowedKeys)
+            console.log(key)
+            console.log(this.notAllowedKeys.indexOf(key))
+            if(this.notAllowedKeys.indexOf(key) == -1){
+                this.notAllowedKeys.push(key)
+                this.candidateTable.title.push(table.title[key])
+                console.log(this.notAllowedKeys)
+            }
+
+            // this.candidateTable.title.push(table.title[key])
+            this.candidateTable.data.push(data)
         }
     },
 
@@ -97,7 +124,7 @@ export default {
     <div class="container_center">
         <div class="right_side">
             <!-- <button v-on:click="di('que')">Di que</button> -->
-            <v-table theme="dark">
+            <table theme="dark">
                 <colgroup>
                     <col v-for="(value, key) in referenceTable.title" v-on:click="di('que')">
                 </colgroup>
@@ -112,10 +139,10 @@ export default {
                 <tr v-for="(value, key) in referenceTable.data">
                     <td v-for="(value2, key) in value">{{ value2 }}</td>
                 </tr>
-            </v-table>
+            </table>
 
 
-            <v-table>
+            <table>
                 <thead>
                     <th v-for="(value, key) in candidateTable.title">{{ value }} </th>
                 </thead>
@@ -125,7 +152,7 @@ export default {
                     <td v-for="(value2, key) in value">{{ value2 }}</td>
 
                 </tr>
-            </v-table>
+            </table>
         </div>
 
         <div class="left_side">
