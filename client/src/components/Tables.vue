@@ -13,6 +13,9 @@ export default {
             row_data: [],
             currentIndex: -1,
             notAllowedKeys: [],
+
+            columnasRelacionadas:[],
+
             Tabla: Object
         };
     },
@@ -23,14 +26,10 @@ export default {
         },
 
         paintColumn: function (key) {
-            // console.log(this.columns.values())
-            // console.log(this.columns.find(element => element = key))
             this.referenceTable.forEach(function (valor, indice, array) {
                 console.log(Object.keys(valor));
             });
         },
-
-
 
         GetKeys(Table) {
             return this.colums = Object.keys(Table);
@@ -65,7 +64,6 @@ export default {
 
         selectColumn(table, key) {
             var data = []
-            var title
             
             if (this.notAllowedKeys.indexOf(key) == -1) {
                 //Comprobamos cuanto vale Data = []
@@ -94,9 +92,20 @@ export default {
                 this.candidateTable.title.push(table.title[key])
             }
             console.log(this.candidateTable.data)
-        }
-    },
+        },
 
+
+        juntarColumnas(table,key){
+            console.log("Estoy en juntarColumnas")
+            this.columnasRelacionadas.push(table.title[key])
+        },
+
+        cambiarColor(key){
+            document.getElementById(key).classList.add('red')
+        }
+        
+
+    },
 
     mounted() {
         this.retrieveTables();
@@ -108,15 +117,15 @@ export default {
 
 <template>
     <div class="container_center">
-        <div class="right_side">
+        <div class="left_side">
             <!-- <button v-on:click="di('que')">Di que</button> -->
             <table theme="dark">
                 <colgroup>
-                    <col v-for="(value, key) in referenceTable.title" v-on:click="di('que')">
+                    <col v-for="(value, key) in referenceTable.title" v-bind:id="key" >
                 </colgroup>
                 <thead>
                     <tr>
-                        <th v-for="(value, key) in referenceTable.title" v-on:click="selectColumn(referenceTable, key)">
+                        <th v-for="(value, key) in referenceTable.title" v-on:click="selectColumn(referenceTable, key); juntarColumnas(referenceTable,key); cambiarColor(key); this.style.backgroundColor = 'Red' ">
                             {{ value }} </th>
                     </tr>
                 </thead>
@@ -141,7 +150,13 @@ export default {
             </table>
         </div>
 
-        <div class="left_side">
+        <div class="right_side">
+            <h1>Columnas seleccionadas</h1>
+
+            <ul>
+                <li v-for="(value,key) in columnasRelacionadas">{{value}}</li>
+            </ul>
+            
         </div>
 
     </div>
@@ -161,7 +176,7 @@ export default {
     align-items: center;
 }
 
-.right_side {
+.left_side {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -170,27 +185,39 @@ export default {
     height: 100%;
 }
 
-.left_side {
+.right_side {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     width: 40%;
+    height: 100%;
     height: auto;
+    border-left: 1px solid black;
 }
 
 .active {
     color: brown;
 }
 
-table,
-th,
-tr {
-    background: rgba(255, 255, 255, 0.65);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+
+table{
+    border: 1px solid black;
+}
+
+tr{
+    border: 1px solid black;
+}
+
+th{
+    border: 1px solid black !important;
+}
+
+td{
+    border: 1px solid black !important;
+}
+
+.red {
+  background-color: rgba(255,0,0,.25);
 }
 </style>
