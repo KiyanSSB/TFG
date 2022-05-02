@@ -138,9 +138,9 @@ export default {
             //Tenía columna antes?
                 //Si:
                 if(this.currentIndex != -1){
-                    console.log("Tengo una columna, es la misma?")
+                    console.log("Tengo una columna, es la misma EN LA MISMA TABLA?")
                     //Es la misma columna?
-                    if(this.currentIndex == key){
+                    if(this.currentIndex == key && whichTable == this.currentTable){
                         console.log("Has seleccionado la misma columna")
                         this.removeColor(whichTable,this.currentIndex);
                         this.currentIndex = -1
@@ -153,6 +153,15 @@ export default {
                             this.removeColor(whichTable,this.currentIndex)
                             this.cambiarColor(whichTable,key)
                             this.currentIndex=key                            
+                        }else{
+                            //Si hemos llegado aquí es que hemos seleccionado dos columnas de las tablas
+                                //1º Guardamos la pareja creada:
+                                if(whichTable=='candidateTable'){
+                                    this.columnasRelacionadas.push([table.title[key] , this.referenceTable.title[this.currentIndex]])
+                                }else{
+                                    this.columnasRelacionadas.push([table.title[key] , this.candidateTable.title[this.currentIndex]])
+                                }
+                                
                         }
                         // this.currentIndex = key //Guardamos la columna seleccionada
                         // console.log(this.currentIndex)
@@ -251,7 +260,8 @@ export default {
                     <tr>
                         <th v-for="(value, key) in referenceTable.title"
                             v-on:click="juntarColumnas(referenceTable, key, 'referenceTable');">
-                            {{ value }} </th>
+                            {{ value }} 
+                        </th>
                     </tr>
                 </thead>
 
@@ -264,13 +274,12 @@ export default {
 
             <table>
                 <colgroup>
-                    <col v-for="(value, key) in candidateTable.title" v-bind:id="key + 'candidateTable'">
+                    <col v-for="(value, key) in candidateTable.title" v-bind:id="'candidateTable' + key">
                 </colgroup>
                 <thead>
                     <tr>
-                        <th v-for="(value, key) in candidateTable.title" v-on:click="cambiarColor('candidateTable', key);
-                        juntarColumnas(candidateTable, key, 'candidateTable');
-                        ">
+                        <th v-for="(value, key) in candidateTable.title" 
+                            v-on:click="juntarColumnas(candidateTable,key,'candidateTable');">
                             {{ value }}
                         </th>
                     </tr>
@@ -356,5 +365,17 @@ td {
 
 .red {
     background-color: rgba(255, 0, 0, .25);
+}
+
+.blue{
+    background-color: blue;
+}
+
+.green{
+    background-color: green;
+}
+
+.yellow{
+    background-color: yellow;
 }
 </style>
