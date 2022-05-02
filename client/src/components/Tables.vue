@@ -10,11 +10,17 @@ export default {
             referenceTable: [],
             tables: [],
             columns: [],
-            row_data: [],
             currentIndex: -1,
+            currentTable: null,
             notAllowedKeys: [],
             columnasRelacionadas: [],
-            Tabla: Object
+            currentSelection: [],
+            alreadySelected: false,
+            Tabla: Object,
+            referenceClicked: false,
+            candidateClicked: false
+            
+
         };
     },
 
@@ -60,13 +66,14 @@ export default {
                 });
         },
 
+        setCurrentIndex(key) {
+            this.currentIndex = key
+        },
+
         selectColumn(table, key) {
             var data = []
 
             if (this.notAllowedKeys.indexOf(key) == -1) {
-                //Comprobamos cuanto vale Data = []
-                console.log(data)
-
                 //1º Añadir a los arrays nuevos tantas entradas vacías como tenga la tabla columnas en el momento:
                 for (var i = 0; i < table.data.length; i++) {
                     for (var j = 0; j < this.candidateTable.data[j].length; j++) {
@@ -92,18 +99,134 @@ export default {
             console.log(this.candidateTable.data)
         },
 
+        unselectColumn(table,key){
 
-        juntarColumnas(table, key) {
-            console.log("Estoy en juntarColumnas")
-            this.columnasRelacionadas.push(table.title[key])
+            
+
+            this.currentIndex == -1
+
+            console.log(key+table)
+
+            document.getElementById(key + table).classList.remove("red")
         },
 
-        cambiarColor(table,key) {
-            console.log(table)
-            console.log(key)
+
+        checkSameTable(table, key, whichTable) {
+
+            console.log(this.referenceClicked)
+            console.log(whichTable)
+            console.log("El current index es:" + this.currentIndex + " La key es : " + key)
+
+            if (whichTable == 'referenceTable') {
+                console.log('Estoy en referenceTable')
+                if (this.referenceClicked == true && whichTable == 'referenceTable' && this.currentIndex != key) {
+                    return false
+                }
+
+            }
+
+            if (whichTable == 'candidateTable') {
+                console.log('Estoy en CandidateTable')
+                if (this.candidateClicked == true && whichTable == 'candidateTable' && this.currentIndex != key) {
+                    return false
+                }
+            }
+
+        },
+
+        juntarColumnas(table, key, whichTable) {
+            //Tenía columna antes?
+                //Si:
+                if(this.currentIndex != -1){
+                    console.log("Tengo una columna, es la misma?")
+                    //Es la misma columna?
+                    if(this.currentIndex == key){
+                        console.log("Has seleccionado la misma columna")
+                        this.removeColor(whichTable,this.currentIndex);
+                        this.currentIndex = -1
+                        this.currentTable = null
+                        return false;
+                    }else{
+                        console.log("Es otra columna, es de la misma tabla?")
+                        //Comprobamos cual de las tablas ha sido clickada y actuamos en función si ha sido clickada antes o no
+                        if(this.currentTable == whichTable){
+                            this.removeColor(whichTable,this.currentIndex)
+                            this.cambiarColor(whichTable,key)
+                            this.currentIndex=key                            
+                        }
+                        // this.currentIndex = key //Guardamos la columna seleccionada
+                        // console.log(this.currentIndex)
+                        // //Si es la tabla de referencia 
+                        // if(this.referenceClicked == true && whichTable == 'referenceTable'){
+                        //     this.cambiarColor(whichTable,key)
+                        //     this.removeColor(whichTable,this.currentIndex)
+                        // }
+                    }
+
+                }
+
+                //No:
+                if(this.currentIndex == -1){
+                    console.log("No tengo columna clickada, selecciono una")
+                    this.currentIndex = key //Guardamos la columna seleccionada
+                    this.currentTable = whichTable
+                    console.log(this.currentIndex)
+                    //Indicamos que tabla hemos clickado
+                    if(whichTable=='referenceTable'){
+                        this.referenceClicked = true
+                    }else{
+                        this.candidateClicked = true
+                    }
+       
+                    this.cambiarColor(whichTable, key);//Ponemos de color la columna en cuestión
+                }
+
+
+
+            // this.setCurrentIndex(key)
+   
+            // //Antes de nada, comprobar cual de las tablas ha sido clickada para bloquear su click
+            // if (whichTable == 'referenceTable') {
+            //     this.referenceClicked = true
+            // }
+
+            // if (whichTable == 'candidateTable') {
+            //     this.candidateClicked = true
+            // }
+
+
+            // this.cambiarColor('referenceTable',key)
+
+
+            // //1º , Crear un array donde juntar las columnas que se van a seleccionar
+            // //Es current Selection
+
+            // this.currentSelection.push(table.title[key]);
+
+            // //2º, Cuando se selecciona una columna, se debe bloquear de poder seleccionar otra columna de la tabla Origen
+            // //Por ejemplo con un booleano 
+            // //Lo colocamos a true cuando tengamos una columna seleccionada
+
+            // this.alreadySelected = true;
+
+            // //3ª Es necesario cambiar la función de selección de las columnas para comprobar que no se clicka 2 veces sobre la misma columna 
+
+
+
             
-            document.getElementById(key+table).classList.add('red')
+
+        },
+
+        cambiarColor(whichTable, key) {
+            document.getElementById(whichTable+key).classList.add('red')
+        },
+
+        removeColor(whichTable,currentIndex){
+            document.getElementById(whichTable+currentIndex).classList.remove('red')
         }
+
+
+
 
 
     },
@@ -122,12 +245,12 @@ export default {
             <!-- <button v-on:click="di('que')">Di que</button> -->
             <table>
                 <colgroup>
-                    <col v-for="(value, key) in referenceTable.title" v-bind:id="key+'referenceTable'">
+                    <col v-for="(value, key) in referenceTable.title" v-bind:id="'referenceTable' + key">
                 </colgroup>
                 <thead>
                     <tr>
                         <th v-for="(value, key) in referenceTable.title"
-                            v-on:click="selectColumn(referenceTable, key); juntarColumnas(referenceTable, key); cambiarColor('referenceTable',key);">
+                            v-on:click="juntarColumnas(referenceTable, key, 'referenceTable');">
                             {{ value }} </th>
                     </tr>
                 </thead>
@@ -141,13 +264,14 @@ export default {
 
             <table>
                 <colgroup>
-                    <col v-for="(value, key) in candidateTable.title" v-bind:id="key+'candidateTable'">
+                    <col v-for="(value, key) in candidateTable.title" v-bind:id="key + 'candidateTable'">
                 </colgroup>
                 <thead>
                     <tr>
-                        <th v-for="(value, key) in candidateTable.title" 
-                            v-on:click="cambiarColor('candidateTable',key);">
-                            {{ value }} 
+                        <th v-for="(value, key) in candidateTable.title" v-on:click="cambiarColor('candidateTable', key);
+                        juntarColumnas(candidateTable, key, 'candidateTable');
+                        ">
+                            {{ value }}
                         </th>
                     </tr>
                 </thead>
@@ -157,9 +281,6 @@ export default {
                 </tr>
             </table>
         </div>
-
-
-
 
 
 
