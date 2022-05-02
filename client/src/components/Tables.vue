@@ -18,8 +18,13 @@ export default {
             alreadySelected: false,
             Tabla: Object,
             referenceClicked: false,
-            candidateClicked: false
-            
+            candidateClicked: false,
+            nextColor:[
+                "red",
+                "green",
+                "blue",
+                "yellow"
+            ]
 
         };
     },
@@ -110,6 +115,11 @@ export default {
             document.getElementById(key + table).classList.remove("red")
         },
 
+        resetControl(){
+            this.currentIndex = -1
+            this.currentTable = null
+        },
+
 
         checkSameTable(table, key, whichTable) {
 
@@ -152,14 +162,46 @@ export default {
                         if(this.currentTable == whichTable){
                             this.removeColor(whichTable,this.currentIndex)
                             this.cambiarColor(whichTable,key)
-                            this.currentIndex=key                            
+                            this.currentIndex=key         
                         }else{
                             //Si hemos llegado aquí es que hemos seleccionado dos columnas de las tablas
+                                //Comprobamos que no tengamos ya la entrada, si la tenemos , la sustituimos
+                            
                                 //1º Guardamos la pareja creada:
                                 if(whichTable=='candidateTable'){
-                                    this.columnasRelacionadas.push([table.title[key] , this.referenceTable.title[this.currentIndex]])
+                                    var pair = [this.referenceTable.title[this.currentIndex] ,table.title[key]]
+                                    console.log(pair)
+                                    for(var i = 0  ; i < this.columnasRelacionadas.length; i++){
+                                        console.log(JSON.stringify(this.columnasRelacionadas[i]));
+                                        console.log(JSON.stringify(pair))
+                                        if(JSON.stringify(this.columnasRelacionadas[i]) == JSON.stringify(pair) ){
+                                            alert("Ya has hecho esta selección")
+                                            this.removeColor(whichTable,key)
+                                            this.removeColor('referenceTable',key)
+                                            this.resetControl();
+                                            return;
+                                        }
+                                    }
+                                    this.cambiarColor("candidateTable",key)
+                                    this.columnasRelacionadas.push([  this.referenceTable.title[this.currentIndex] , table.title[key]     ])
+                                    this.resetControl(); 
+                                    return
                                 }else{
+                                    console.log("La última clickada es de referencia")
+                                    var pair = [table.title[key] , this.candidateTable.title[this.currentIndex]]
+                                      for(var i = 0  ; i < this.columnasRelacionadas.length; i++){
+                                        if(JSON.stringify(this.columnasRelacionadas[i]) == JSON.stringify(pair) ){
+                                            alert("Ya has hecho esta selección")
+                                            this.removeColor(whichTable,key)
+                                            this.removeColor('candidateTable',key)
+                                            this.resetControl();
+                                            return;
+                                        }
+                                    }
+                                    this.cambiarColor("referenceTable",key)
                                     this.columnasRelacionadas.push([table.title[key] , this.candidateTable.title[this.currentIndex]])
+                                    this.resetControl();
+                                    return;
                                 }
                                 
                         }
@@ -227,11 +269,11 @@ export default {
         },
 
         cambiarColor(whichTable, key) {
-            document.getElementById(whichTable+key).classList.add('red')
+            document.getElementById(whichTable+key).classList.add(this.nextColor[this.columnasRelacionadas.length])
         },
 
         removeColor(whichTable,currentIndex){
-            document.getElementById(whichTable+currentIndex).classList.remove('red')
+            document.getElementById(whichTable+currentIndex).classList.remove(this.nextColor[this.columnasRelacionadas.length])
         }
 
 
