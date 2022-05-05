@@ -213,7 +213,6 @@ export default {
                         //     this.removeColor(whichTable,this.currentIndex)
                         // }
                     }
-
                 }
 
                 //No:
@@ -335,14 +334,12 @@ export default {
 
 
 
-
-
-
         <div class="right_side">
             <h1>Columnas seleccionadas</h1>
 
             <ul>
-                <li v-for="(value, key) in columnasRelacionadas">{{ value }}</li>
+                <li v-for="(value, key) in columnasRelacionadas">{{ value }}</li> 
+                
             </ul>
 
         </div>
