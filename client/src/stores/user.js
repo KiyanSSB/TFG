@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { auth } from "../../config/firebaseConfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword,signOut, getAuth } from "firebase/auth";
 import router from "../router";
 
 export const useUserStore = defineStore("user", {
@@ -27,5 +27,38 @@ export const useUserStore = defineStore("user", {
                 this.loadingUser = false;
             }
         },
+
+        async login(email, password) {
+            const auth = getAuth();
+            this.loadingUser = true;
+            try {
+                const { user } = await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+                this.userData = { email: user.email, uid: user.uid };
+                router.push("/");
+            } catch (error) {
+                console.log(error);
+                this.userData = {};
+            } finally {
+                this.loadingUser = false;
+            }
+        },
+
+        async signOutUser() {
+            this.loading = true;
+            try {
+                await signOut(auth);
+            } catch (error) {
+                console.log(error);
+            } finally {
+                this.userData = {};
+                this.loading = false;
+                router.push("/login");
+            }
+        },
+
     },
 });
