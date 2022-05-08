@@ -3,6 +3,13 @@ import Home from '../components/Home.vue'
 import Tables from '../components/Tables.vue'
 import Register from '../components/Register.vue'
 import Login from '../components/Login.vue'
+import {useStore} from '../stores/piniaStore'
+import { auth } from '../../config/firebaseConfig'
+import { getAuth } from 'firebase/auth'
+import { limitToLast } from 'firebase/firestore'
+
+
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,7 +30,20 @@ const router = createRouter({
     {
       path: '/tables',
       name: 'tables',
-      component: Tables
+      component: Tables,
+      beforeEnter: (to,from,next) => {
+        const main = useStore()
+      
+        console.log(main.email)
+        if(main.email==""){
+          next({path:'/login'})
+        }else{
+          next()
+        }
+      }
+      
+
+
     },
     {
       path : '/register',
@@ -33,9 +53,23 @@ const router = createRouter({
     {
       path : '/login',
       name: 'login',
-      component: Login
+      component: Login,
+
+      beforeEnter: (to,from,next) => {
+        const main = useStore()
+        if(main.email != ""){
+          return false
+        }else{
+          next()
+        }
+
+      }
+
     }
   ]
 })
+
+
+
 
 export default router

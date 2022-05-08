@@ -1,29 +1,46 @@
-<script>
+<script setup>
     import { RouterLink, RouterView } from 'vue-router'
-    import {ref,onMounted} from 'vue'
+    import {ref,onBeforeMount, computed, onMounted} from 'vue'
     import { useUserStore } from "../stores/user";
     import {getAuth} from "firebase/auth"
-    
+    import { storeToRefs } from 'pinia';
+    import { useStore } from '../stores/piniaStore';
+
+    const main = useStore()
+
 
     const auth = getAuth();
     const user = auth.currentUser;
 
-
-
-    export default{
-        data(){
-            return{
-                user:auth.currentUser.email
-            }
-        },
-
-        methods:{
-            logout(){
-                const userStore = useUserStore();
-                userStore.signOutUser();
-            }
-        }
+    var lmao
+    if (user) {
+        lmao = user
+    } else {
+        lmao = {"email":"lmao"}
     }
+
+    onBeforeMount(()=>{
+        var castaña = user
+    })
+
+    function logout(){
+        const userStore = useUserStore();
+        console.log(useUserStore.userData)
+        main.email = null
+        userStore.signOutUser();
+    
+    }
+
+    onMounted(() => {
+        auth.onAuthStateChanged((user) => {
+            if(user){
+                console.log("Usuario logeado")
+            }else{
+                console.log("No Logeado")
+            }
+        })
+    })
+
 </script>
 
 <template>
@@ -31,8 +48,10 @@
         <RouterLink class="navbar-brand" to="/"> Navbar</RouterLink>
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/tables">Tables</RouterLink>
+        <RouterLink to="/login">Login</RouterLink>
+        <RouterLink to="/register">register</RouterLink>
         <button v-on:click="logout()">Logout</button>
-        <h1>{{user}}</h1>
+        <h1>{{}}</h1>
     </nav>
 </template>
 <style>

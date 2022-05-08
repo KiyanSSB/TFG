@@ -18,10 +18,13 @@
 <script setup>
 import { ref } from "vue";
 import { useUserStore } from "../stores/user";
+import { useStore } from '../stores/piniaStore'
 const userStore = useUserStore();
+
 
 const email = ref("bluuweb1@test.com");
 const password = ref("123123");
+const main = useStore()
 
 
 const handleSubmit = () => {
@@ -29,6 +32,9 @@ const handleSubmit = () => {
         alert("ingresa los campos");
     }
 
-    userStore.login(email.value, password.value);
+    userStore.login(email.value, password.value)
+        .then(
+            main.email = email.value
+    );
 };
 </script>

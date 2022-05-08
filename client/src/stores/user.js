@@ -38,7 +38,8 @@ export const useUserStore = defineStore("user", {
                     password
                 );
                 this.userData = { email: user.email, uid: user.uid };
-                router.push("/");
+                console.log(this.userData)
+                router.push("/tables");
             } catch (error) {
                 console.log(error);
                 this.userData = {};
