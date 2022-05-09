@@ -158,8 +158,19 @@ export default {
                             this.currentIndex=key         
                         }else{
                             //Si hemos llegado aquí es que hemos seleccionado dos columnas de las tablas
-                                //Comprobamos que no tengamos ya la entrada, si la tenemos , la sustituimos
-                            
+                                for(i=0; i<this.columnasRelacionadas.length; i++){
+                                    if(whichTable == 'referenceTable'){
+                                        if(this.columnasRelacionadas[i].includes(this.referenceTable.title[key])){
+                                            alert("La columna ya está seleccionada, borral la relación")
+                                            return
+                                        }
+                                    }else{
+                                        if(this.columnasRelacionadas[i].includes(this.candidateTable.title[key])){
+                                            alert("La columna ya está seleccionada, borra la relación")
+                                            return
+                                        }
+                                    }
+                                }
                                 //1º Guardamos la pareja creada:
                                 if(whichTable=='candidateTable'){
                                     var pair = [this.referenceTable.title[this.currentIndex] ,table.title[key]]
@@ -212,10 +223,16 @@ export default {
                 if(this.currentIndex == -1){
                     //Esta columna ha sido seleccionada ya? si es así, borrarla
                     for(i=0; i<this.columnasRelacionadas.length; i++){
-                        console.log(this.columnasRelacionadas[i]);
-                        if(this.columnasRelacionadas[i].includes(this.referenceTable.title[key]) || this.columnasRelacionadas[i].includes(this.candidateTable.title[key]) ){
-                            this.deletePair(i)
-                            return
+                        if(whichTable == 'referenceTable'){
+                            if(this.columnasRelacionadas[i].includes(this.referenceTable.title[key])){
+                                this.deletePair(i)
+                                return
+                            }
+                        }else{
+                            if(this.columnasRelacionadas[i].includes(this.candidateTable.title[key])){
+                                this.deletePair(i)
+                                return
+                            }
                         }
                     }
                    
