@@ -381,7 +381,11 @@ export default {
             <h1>Columnas seleccionadas</h1>
 
             <ul>
-                <li v-for="(value, key) in columnasRelacionadas">{{ value }}</li> 
+                <div v-for="(value, key) in columnasRelacionadas">
+                      <li >{{ value }}</li> 
+                      <button v-on:click="deletePair(key)"> borrame</button>
+                </div>
+              
                 
             </ul>
 
