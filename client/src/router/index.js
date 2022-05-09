@@ -6,7 +6,7 @@ import Login from '../components/Login.vue'
 import { auth } from '../../config/firebaseConfig'
 import { getAuth } from 'firebase/auth'
 import { limitToLast } from 'firebase/firestore'
-
+import {useUserStore}  from '../stores/user'
 
 
 
@@ -31,10 +31,8 @@ const router = createRouter({
       name: 'tables',
       component: Tables,
       beforeEnter: (to,from,next) => {
-        const main = useStore()
-      
-        console.log(main.email)
-        if(main.email==""){
+        const main = useUserStore()
+        if(Object.keys(main.userData).length === 0){
           next({path:'/login'})
         }else{
           next()
@@ -55,13 +53,12 @@ const router = createRouter({
       component: Login,
 
       beforeEnter: (to,from,next) => {
-        const main = useStore()
-        if(main.email != ""){
-          return false
+        const main = useUserStore()
+        if(Object.keys(main.userData).length != 0){
+          return false;
         }else{
           next()
         }
-
       }
 
     }
