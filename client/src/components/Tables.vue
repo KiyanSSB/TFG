@@ -153,6 +153,19 @@ export default {
                         console.log("Es otra columna, es de la misma tabla?")
                         //Comprobamos cual de las tablas ha sido clickada y actuamos en función si ha sido clickada antes o no
                         if(this.currentTable == whichTable){
+                            for(i=0; i<this.columnasRelacionadas.length; i++){
+                                if(whichTable == 'referenceTable'){
+                                    if(this.columnasRelacionadas[i].includes(this.referenceTable.title[key])){
+                                        alert("La columna ya está seleccionada, borral la relación")
+                                        return
+                                    }
+                                }else{
+                                    if(this.columnasRelacionadas[i].includes(this.candidateTable.title[key])){
+                                        alert("La columna ya está seleccionada, borra la relación")
+                                        return
+                                    }
+                                }
+                            }
                             this.removeColor(whichTable,this.currentIndex)
                             this.cambiarColor(whichTable,key)
                             this.currentIndex=key         
