@@ -392,7 +392,13 @@ export default {
                 </div>  
             </ul>
             
-            <button v-on:click="noRelationships()">No hay relaciones</button>
+          
+
+
+            <h2 class="text-center" style="margin: 10% 0 10% 0;">¿Quieres añadir algún comentario?</h2>
+            <input/> 
+
+            <button style="margin-top: 5%;" v-on:click="noRelationships()">No hay relaciones</button>
         </div>
 
     </div>
