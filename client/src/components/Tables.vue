@@ -77,7 +77,6 @@ export default {
 
         selectColumn(table, key) {
             var data = []
-
             if (this.notAllowedKeys.indexOf(key) == -1) {
                 //1º Añadir a los arrays nuevos tantas entradas vacías como tenga la tabla columnas en el momento:
                 for (var i = 0; i < table.data.length; i++) {
@@ -105,13 +104,9 @@ export default {
         },
 
         unselectColumn(table,key){
-
-            
-
             this.currentIndex == -1
 
             console.log(key+table)
-
             document.getElementById(key + table).classList.remove("red")
         },
 
@@ -120,9 +115,7 @@ export default {
             this.currentTable = null
         },
 
-
         checkSameTable(table, key, whichTable) {
-
             console.log(this.referenceClicked)
             console.log(whichTable)
             console.log("El current index es:" + this.currentIndex + " La key es : " + key)
@@ -217,6 +210,17 @@ export default {
 
                 //No:
                 if(this.currentIndex == -1){
+                    //Esta columna ha sido seleccionada ya? si es así, borrarla
+                    for(i=0; i<this.columnasRelacionadas.length; i++){
+                        console.log(this.columnasRelacionadas[i]);
+                        if(this.columnasRelacionadas[i].includes(this.referenceTable.title[key]) || this.columnasRelacionadas[i].includes(this.candidateTable.title[key]) ){
+                            this.deletePair(i)
+                            return
+                        }
+                    }
+                   
+
+
                     console.log("No tengo columna clickada, selecciono una")
                     this.currentIndex = key //Guardamos la columna seleccionada
                     this.currentTable = whichTable
@@ -272,13 +276,22 @@ export default {
         },
 
         removeColor(whichTable,currentIndex){
-            document.getElementById(whichTable+currentIndex).classList.remove(this.nextColor[this.columnasRelacionadas.length])
+            console.log("La columna tiene el Id: " + whichTable+currentIndex)
+            console.log("Vamos a borrar el color:" +  this.nextColor[this.columnasRelacionadas.length])
+            document.getElementById(whichTable+currentIndex).classList = ""
+        },
+        
+
+        deletePair(key){
+            var eliminados = this.columnasRelacionadas.splice(key,1)
+            console.log(this.nextColor[this.columnasRelacionadas.length])
+            //Borramos el color de la columna de referencia
+            this.removeColor('referenceTable', this.referenceTable.title.indexOf(this.referenceTable.title.find(element => element == eliminados[0][0])))
+            //Borramos el color de la columna de candidata
+            this.removeColor('candidateTable', this.candidateTable.title.indexOf(this.candidateTable.title.find(element => element == eliminados[0][1])))
         }
 
-
-
-
-
+        
     },
 
     mounted() {
