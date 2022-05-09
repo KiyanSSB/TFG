@@ -1,14 +1,18 @@
-<template>
+<script setup>
+import {useUserStore}  from '../stores/user'
+const userStore = useUserStore()
 
+
+</script>
+
+
+<template>
     <div class="main_container ">
         <div class="main_left glass">
             <h1>Tablas místicas del TFG</h1>
         </div>
         <div class="main_right glass"></div>
-    </div>
-            
-
-
+    </div>  
 </template>
 
 

@@ -1,6 +1,6 @@
 <script>
 import TablesDataService from '@/services/TablesDataService';
-
+ import {useUserStore} from '../stores/user'
 export default {
     name: "Tables",
 

@@ -1,7 +1,13 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import Navbar from './components/Navbar.vue';
-import HomeVue from './components/Home.vue';
+import { auth } from '../config/firebaseConfig';
+import {useUserStore}  from './stores/user'
+
+
+const UserStore = useUserStore()
+
+
 </script>
 
 
