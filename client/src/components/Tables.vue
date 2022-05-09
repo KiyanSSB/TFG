@@ -319,7 +319,12 @@ export default {
             this.removeColor('referenceTable', this.referenceTable.title.indexOf(this.referenceTable.title.find(element => element == eliminados[0][0])))
             //Borramos el color de la columna de candidata
             this.removeColor('candidateTable', this.candidateTable.title.indexOf(this.candidateTable.title.find(element => element == eliminados[0][1])))
+        },
+
+        noRelationships(){
+            alert("No hay relaciones")
         }
+
 
         
     },
@@ -384,11 +389,10 @@ export default {
                 <div v-for="(value, key) in columnasRelacionadas">
                       <li >{{ value }}</li> 
                       <button v-on:click="deletePair(key)"> borrame</button>
-                </div>
-              
-                
+                </div>  
             </ul>
-
+            
+            <button v-on:click="noRelationships()">No hay relaciones</button>
         </div>
 
     </div>
