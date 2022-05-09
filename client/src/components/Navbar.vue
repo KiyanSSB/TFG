@@ -1,21 +1,7 @@
 <script setup>
     import { RouterLink, RouterView } from 'vue-router'
-    import {getAuth} from "firebase/auth"
     import {useUserStore}  from '../stores/user'
-
-
-
     const userStore = useUserStore()
-    const auth = getAuth();
-
-
-    function logout(){
-        const userStore = useUserStore();
-        console.log(useUserStore.userData)
-        main.email = null
-        userStore.signOutUser();
-    }
-    
 </script>
 
 <template>
@@ -23,10 +9,12 @@
         <RouterLink class="navbar-brand" to="/"> Navbar</RouterLink>
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/tables">Tables</RouterLink>
-        <RouterLink to="/login">Login</RouterLink>
-        <RouterLink to="/register">register</RouterLink>
-        <button v-on:click="logout()">Logout</button>
-        <h1>{{}}</h1>
+        <RouterLink to="/login" v-if="userStore.logged===false">Login</RouterLink>
+        <RouterLink to="/register" v-if="userStore.logged===false">register</RouterLink>
+        <button v-on:click="userStore.signOutUser()"
+                v-if="userStore.logged!=false">
+                Logout
+        </button>
     </nav>
 </template>
 <style>
