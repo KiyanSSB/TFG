@@ -1,34 +1,18 @@
 <script setup>
-    import { useStore } from '../stores/piniaStore'
+import {useUserStore}  from '../stores/user'
+const userStore = useUserStore()
 
-    const main = useStore()
-
-
-    function patata(){
-        console.log("hola que tal")
-        main.email = "patata"
-    }
-
-    function noPatata(){
-        main.email = "no patata"
-    }
 
 </script>
 
 
 <template>
-
     <div class="main_container ">
         <div class="main_left glass">
             <h1>Tablas místicas del TFG</h1>
         </div>
-        {{main.email}}
         <div class="main_right glass"></div>
-    </div>
-            
-    <button v-on:click="patata">patata</button>
-    <button v-on:click="noPatata">noPatata</button>
-
+    </div>  
 </template>
 
 

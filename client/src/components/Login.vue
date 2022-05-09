@@ -17,14 +17,14 @@
 
 <script setup>
 import { ref } from "vue";
-import { useUserStore } from "../stores/user";
-import { useStore } from '../stores/piniaStore'
-const userStore = useUserStore();
+import {useUserStore}  from '../stores/user'
+const userStore = useUserStore()
+
 
 
 const email = ref("bluuweb1@test.com");
 const password = ref("123123");
-const main = useStore()
+
 
 
 const handleSubmit = () => {

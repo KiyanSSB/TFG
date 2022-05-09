@@ -27,7 +27,6 @@ const handleSubmit = () => {
     if (!email.value || password.value.length < 6) {
         alert("ingresa los campos");
     }
-
     userStore.registerUser(email.value, password.value);
 };
 </script>
