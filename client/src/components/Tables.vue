@@ -389,6 +389,10 @@ export default {
                 <div v-for="(value, key) in columnasRelacionadas">
                       <li >{{ value }}</li> 
                       <button v-on:click="deletePair(key)"> borrame</button>
+                      <input type="checkbox" id="checboxTitle" v-model="checked">
+                      <label for="checkbox">Por el título</label>
+                      <input type="checkbox" id="checkboxContent" v-model="checkContent">
+                      <label for="checkbox2">Por el contenido</label>
                 </div>  
             </ul>
             
