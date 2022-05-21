@@ -392,15 +392,15 @@ export default {
                       <input type="checkbox" id="checboxTitle" v-model="checked">
                       <label for="checkbox">Por el título</label>
                       <input type="checkbox" id="checkboxContent" v-model="checkContent">
-                      <label for="checkbox2">Por el contenido</label>
+                      <label for="checkbox2">Por el contenido</label> 
+                      <input placeholder="Añade un comentario"/> 
                 </div>  
             </ul>
             
           
 
 
-            <h2 class="text-center" style="margin: 10% 0 10% 0;">¿Quieres añadir algún comentario?</h2>
-            <input/> 
+
 
             <button style="margin-top: 5%;" v-on:click="noRelationships()">No hay relaciones</button>
         </div>
