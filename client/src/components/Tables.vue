@@ -204,7 +204,6 @@ export default {
     mounted() {
         this.retrieveTables();
     }
-
 }
 
 </script>
@@ -212,7 +211,6 @@ export default {
 <template>
     <div class="container_center">
         <div class="left_side">
-            <!-- <button v-on:click="di('que')">Di que</button> -->
             <table>
                 <colgroup>
                     <col v-for="(value, key) in referenceTable.title" v-bind:id="'referenceTable' + key">
@@ -231,7 +229,6 @@ export default {
                     <td v-for="(value2, key) in value">{{ value2 }}</td>
                 </tr>
             </table>
-
 
             <table>
                 <colgroup>
@@ -252,8 +249,6 @@ export default {
             </table>
         </div>
 
-
-
         <div class="right_side">
             <h1>Columnas seleccionadas</h1>
 
@@ -269,14 +264,8 @@ export default {
                 </div>
             </ul>
 
-
-
-
-
-
             <button style="margin-top: 5%;" v-on:click="noRelationships()">No hay relaciones</button>
         </div>
-
     </div>
 </template>
 
