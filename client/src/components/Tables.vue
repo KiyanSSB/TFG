@@ -34,16 +34,6 @@ export default {
             alert(mensaje)
         },
 
-        paintColumn: function (key) {
-            this.referenceTable.forEach(function (valor, indice, array) {
-                console.log(Object.keys(valor));
-            });
-        },
-
-        GetKeys(Table) {
-            return this.colums = Object.keys(Table);
-        },
-
         retrieveTables() {
             TablesDataService.getTable()
                 .then((response) => {
@@ -60,82 +50,12 @@ export default {
                     }
                 })
         },
-        retrieveCandidateTable() {
-            TablesDataService.getTable()
-                .then((response) => {
-                    if (response.data._id == this.candidateTable._id) {
-                        this.retrieveCandidateTable();
-                    } else {
-                        this.candidateTable = response.data
-                    }
-                });
-        },
-
-        setCurrentIndex(key) {
-            this.currentIndex = key
-        },
-
-        selectColumn(table, key) {
-            var data = []
-            if (this.notAllowedKeys.indexOf(key) == -1) {
-                //1º Añadir a los arrays nuevos tantas entradas vacías como tenga la tabla columnas en el momento:
-                for (var i = 0; i < table.data.length; i++) {
-                    for (var j = 0; j < this.candidateTable.data[j].length; j++) {
-                        data.push("")
-                    }
-
-                    //Añadimos Data a la tabla candidata
-                    //Reiniciamos Data
-                    data = []
-                }
-
-                //Añadimos tantas entradas al resto como tamaño máximo tenga el array más grande de los datos
-                for (var i = 0; i < this.candidateTable.data.length; i++) {
-                    this.candidateTable.data[i].push("")
-                }
-
-                //Añadimos la columna a la lista de columnas no permitidas para no volver a añadirla
-                this.notAllowedKeys.push(key)
-
-                //Añadimos los títulos
-                this.candidateTable.title.push(table.title[key])
-            }
-            console.log(this.candidateTable.data)
-        },
-
-        unselectColumn(table,key){
-            this.currentIndex == -1
-
-            console.log(key+table)
-            document.getElementById(key + table).classList.remove("red")
-        },
 
         resetControl(){
             this.currentIndex = -1
             this.currentTable = null
         },
 
-        checkSameTable(table, key, whichTable) {
-            console.log(this.referenceClicked)
-            console.log(whichTable)
-            console.log("El current index es:" + this.currentIndex + " La key es : " + key)
-
-            if (whichTable == 'referenceTable') {
-                console.log('Estoy en referenceTable')
-                if (this.referenceClicked == true && whichTable == 'referenceTable' && this.currentIndex != key) {
-                    return false
-                }
-
-            }
-
-            if (whichTable == 'candidateTable') {
-                console.log('Estoy en CandidateTable')
-                if (this.candidateClicked == true && whichTable == 'candidateTable' && this.currentIndex != key) {
-                    return false
-                }
-            }
-
-        },
 
         juntarColumnas(table, key, whichTable) {
             //Tenía columna antes?
@@ -324,9 +244,6 @@ export default {
         noRelationships(){
             alert("No hay relaciones")
         }
-
-
-        
     },
 
     mounted() {
