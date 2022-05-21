@@ -1,6 +1,6 @@
 <script>
 import TablesDataService from '@/services/TablesDataService';
- import {useUserStore} from '../stores/user'
+import { useUserStore } from '../stores/user'
 export default {
     name: "Tables",
 
@@ -9,23 +9,19 @@ export default {
             candidateTable: [],
             referenceTable: [],
             tables: [],
-            columns: [],
             currentIndex: -1,
             currentTable: null,
-            notAllowedKeys: [],
             columnasRelacionadas: [],
-            currentSelection: [],
-            alreadySelected: false,
             Tabla: Object,
             referenceClicked: false,
             candidateClicked: false,
-            nextColor:[
+            nextColor: [
                 "red",
                 "green",
                 "blue",
-                "yellow"
+                "yellow",
+                "purple"
             ]
-
         };
     },
 
@@ -34,6 +30,7 @@ export default {
             alert(mensaje)
         },
 
+        //Función que recibe las tablas desde el servicio del servidor
         retrieveTables() {
             TablesDataService.getTable()
                 .then((response) => {
@@ -51,189 +48,147 @@ export default {
                 })
         },
 
-        resetControl(){
+
+        //Función que recibe un lote para gestionarlo
+        retrieveLote() {
+
+        },
+
+        resetControl() {
             this.currentIndex = -1
             this.currentTable = null
         },
 
-
         juntarColumnas(table, key, whichTable) {
             //Tenía columna antes?
-                //Si:
-                if(this.currentIndex != -1){
-                    console.log("Tengo una columna, es la misma EN LA MISMA TABLA?")
-                    //Es la misma columna?
-                    if(this.currentIndex == key && whichTable == this.currentTable){
-                        console.log("Has seleccionado la misma columna")
-                        this.removeColor(whichTable,this.currentIndex);
-                        this.currentIndex = -1
-                        this.currentTable = null
-                        return false;
-                    }else{
-                        console.log("Es otra columna, es de la misma tabla?")
-                        //Comprobamos cual de las tablas ha sido clickada y actuamos en función si ha sido clickada antes o no
-                        if(this.currentTable == whichTable){
-                            for(i=0; i<this.columnasRelacionadas.length; i++){
-                                if(whichTable == 'referenceTable'){
-                                    if(this.columnasRelacionadas[i].includes(this.referenceTable.title[key])){
-                                        alert("La columna ya está seleccionada, borral la relación")
-                                        return
-                                    }
-                                }else{
-                                    if(this.columnasRelacionadas[i].includes(this.candidateTable.title[key])){
-                                        alert("La columna ya está seleccionada, borra la relación")
-                                        return
-                                    }
+            //Si:
+            if (this.currentIndex != -1) {
+                console.log("Tengo una columna, es la misma EN LA MISMA TABLA?")
+                //Es la misma columna?
+                if (this.currentIndex == key && whichTable == this.currentTable) {
+                    console.log("Has seleccionado la misma columna")
+                    this.removeColor(whichTable, this.currentIndex);
+                    this.currentIndex = -1
+                    this.currentTable = null
+                    return false;
+                } else {
+                    console.log("Es otra columna, es de la misma tabla?")
+                    //Comprobamos cual de las tablas ha sido clickada y actuamos en función si ha sido clickada antes o no
+                    if (this.currentTable == whichTable) {
+                        for (i = 0; i < this.columnasRelacionadas.length; i++) {
+                            if (whichTable == 'referenceTable') {
+                                if (this.columnasRelacionadas[i].includes(this.referenceTable.title[key])) {
+                                    alert("La columna ya está seleccionada, borral la relación")
+                                    return
+                                }
+                            } else {
+                                if (this.columnasRelacionadas[i].includes(this.candidateTable.title[key])) {
+                                    alert("La columna ya está seleccionada, borra la relación")
+                                    return
                                 }
                             }
-                            this.removeColor(whichTable,this.currentIndex)
-                            this.cambiarColor(whichTable,key)
-                            this.currentIndex=key         
-                        }else{
-                            //Si hemos llegado aquí es que hemos seleccionado dos columnas de las tablas
-                                for(i=0; i<this.columnasRelacionadas.length; i++){
-                                    if(whichTable == 'referenceTable'){
-                                        if(this.columnasRelacionadas[i].includes(this.referenceTable.title[key])){
-                                            alert("La columna ya está seleccionada, borral la relación")
-                                            return
-                                        }
-                                    }else{
-                                        if(this.columnasRelacionadas[i].includes(this.candidateTable.title[key])){
-                                            alert("La columna ya está seleccionada, borra la relación")
-                                            return
-                                        }
-                                    }
-                                }
-                                //1º Guardamos la pareja creada:
-                                if(whichTable=='candidateTable'){
-                                    var pair = [this.referenceTable.title[this.currentIndex] ,table.title[key]]
-                                    console.log(pair)
-                                    for(var i = 0  ; i < this.columnasRelacionadas.length; i++){
-                                        console.log(JSON.stringify(this.columnasRelacionadas[i]));
-                                        console.log(JSON.stringify(pair))
-                                        if(JSON.stringify(this.columnasRelacionadas[i]) == JSON.stringify(pair) ){
-                                            alert("Ya has hecho esta selección")
-                                            this.removeColor(whichTable,key)
-                                            this.removeColor('referenceTable',key)
-                                            this.resetControl();
-                                            return;
-                                        }
-                                    }
-                                    this.cambiarColor("candidateTable",key)
-                                    this.columnasRelacionadas.push([  this.referenceTable.title[this.currentIndex] , table.title[key]     ])
-                                    this.resetControl(); 
+                        }
+                        this.removeColor(whichTable, this.currentIndex)
+                        this.cambiarColor(whichTable, key)
+                        this.currentIndex = key
+                    }
+                    else {
+                        //Si hemos llegado aquí es que hemos seleccionado dos columnas de las tablas
+                        for (i = 0; i < this.columnasRelacionadas.length; i++) {
+                            if (whichTable == 'referenceTable') {
+                                if (this.columnasRelacionadas[i].includes(this.referenceTable.title[key])) {
+                                    alert("La columna ya está seleccionada, borral la relación")
                                     return
-                                }else{
-                                    console.log("La última clickada es de referencia")
-                                    var pair = [table.title[key] , this.candidateTable.title[this.currentIndex]]
-                                      for(var i = 0  ; i < this.columnasRelacionadas.length; i++){
-                                        if(JSON.stringify(this.columnasRelacionadas[i]) == JSON.stringify(pair) ){
-                                            alert("Ya has hecho esta selección")
-                                            this.removeColor(whichTable,key)
-                                            this.removeColor('candidateTable',key)
-                                            this.resetControl();
-                                            return;
-                                        }
-                                    }
-                                    this.cambiarColor("referenceTable",key)
-                                    this.columnasRelacionadas.push([table.title[key] , this.candidateTable.title[this.currentIndex]])
+                                }
+                            } else {
+                                if (this.columnasRelacionadas[i].includes(this.candidateTable.title[key])) {
+                                    alert("La columna ya está seleccionada, borra la relación")
+                                    return
+                                }
+                            }
+                        }
+                        //1º Guardamos la pareja creada:
+                        if (whichTable == 'candidateTable') {
+                            var pair = [this.referenceTable.title[this.currentIndex], table.title[key]]
+                            console.log(pair)
+                            for (var i = 0; i < this.columnasRelacionadas.length; i++) {
+                                console.log(JSON.stringify(this.columnasRelacionadas[i]));
+                                console.log(JSON.stringify(pair))
+                                if (JSON.stringify(this.columnasRelacionadas[i]) == JSON.stringify(pair)) {
+                                    alert("Ya has hecho esta selección")
+                                    this.removeColor(whichTable, key)
+                                    this.removeColor('referenceTable', key)
                                     this.resetControl();
                                     return;
                                 }
-                                
-                        }
-                        // this.currentIndex = key //Guardamos la columna seleccionada
-                        // console.log(this.currentIndex)
-                        // //Si es la tabla de referencia 
-                        // if(this.referenceClicked == true && whichTable == 'referenceTable'){
-                        //     this.cambiarColor(whichTable,key)
-                        //     this.removeColor(whichTable,this.currentIndex)
-                        // }
-                    }
-                }
-
-                //No:
-                if(this.currentIndex == -1){
-                    //Esta columna ha sido seleccionada ya? si es así, borrarla
-                    for(i=0; i<this.columnasRelacionadas.length; i++){
-                        if(whichTable == 'referenceTable'){
-                            if(this.columnasRelacionadas[i].includes(this.referenceTable.title[key])){
-                                this.deletePair(i)
-                                return
                             }
-                        }else{
-                            if(this.columnasRelacionadas[i].includes(this.candidateTable.title[key])){
-                                this.deletePair(i)
-                                return
+                            this.cambiarColor("candidateTable", key)
+                            this.columnasRelacionadas.push([this.referenceTable.title[this.currentIndex], table.title[key]])
+                            this.resetControl();
+                            return
+                        } else {
+                            console.log("La última clickada es de referencia")
+                            var pair = [table.title[key], this.candidateTable.title[this.currentIndex]]
+                            for (var i = 0; i < this.columnasRelacionadas.length; i++) {
+                                if (JSON.stringify(this.columnasRelacionadas[i]) == JSON.stringify(pair)) {
+                                    alert("Ya has hecho esta selección")
+                                    this.removeColor(whichTable, key)
+                                    this.removeColor('candidateTable', key)
+                                    this.resetControl();
+                                    return;
+                                }
                             }
+                            this.cambiarColor("referenceTable", key)
+                            this.columnasRelacionadas.push([table.title[key], this.candidateTable.title[this.currentIndex]])
+                            this.resetControl();
+                            return;
                         }
                     }
-                   
-
-
-                    console.log("No tengo columna clickada, selecciono una")
-                    this.currentIndex = key //Guardamos la columna seleccionada
-                    this.currentTable = whichTable
-                    console.log(this.currentIndex)
-                    //Indicamos que tabla hemos clickado
-                    if(whichTable=='referenceTable'){
-                        this.referenceClicked = true
-                    }else{
-                        this.candidateClicked = true
-                    }
-       
-                    this.cambiarColor(whichTable, key);//Ponemos de color la columna en cuestión
                 }
+            }
 
-
-
-            // this.setCurrentIndex(key)
-   
-            // //Antes de nada, comprobar cual de las tablas ha sido clickada para bloquear su click
-            // if (whichTable == 'referenceTable') {
-            //     this.referenceClicked = true
-            // }
-
-            // if (whichTable == 'candidateTable') {
-            //     this.candidateClicked = true
-            // }
-
-
-            // this.cambiarColor('referenceTable',key)
-
-
-            // //1º , Crear un array donde juntar las columnas que se van a seleccionar
-            // //Es current Selection
-
-            // this.currentSelection.push(table.title[key]);
-
-            // //2º, Cuando se selecciona una columna, se debe bloquear de poder seleccionar otra columna de la tabla Origen
-            // //Por ejemplo con un booleano 
-            // //Lo colocamos a true cuando tengamos una columna seleccionada
-
-            // this.alreadySelected = true;
-
-            // //3ª Es necesario cambiar la función de selección de las columnas para comprobar que no se clicka 2 veces sobre la misma columna 
-
-
-
-            
-
+            //No:
+            if (this.currentIndex == -1) {
+                //Esta columna ha sido seleccionada ya? si es así, borrarla
+                for (i = 0; i < this.columnasRelacionadas.length; i++) {
+                    if (whichTable == 'referenceTable') {
+                        if (this.columnasRelacionadas[i].includes(this.referenceTable.title[key])) {
+                            this.deletePair(i)
+                            return
+                        }
+                    } else {
+                        if (this.columnasRelacionadas[i].includes(this.candidateTable.title[key])) {
+                            this.deletePair(i)
+                            return
+                        }
+                    }
+                }
+                console.log("No tengo columna clickada, selecciono una")
+                this.currentIndex = key //Guardamos la columna seleccionada
+                this.currentTable = whichTable
+                console.log(this.currentIndex)
+                //Indicamos que tabla hemos clickado
+                if (whichTable == 'referenceTable') {
+                    this.referenceClicked = true
+                } else {
+                    this.candidateClicked = true
+                }
+                this.cambiarColor(whichTable, key);//Ponemos de color la columna en cuestión
+            }
         },
 
         cambiarColor(whichTable, key) {
-            document.getElementById(whichTable+key).classList.add(this.nextColor[this.columnasRelacionadas.length])
+            document.getElementById(whichTable + key).classList.add(this.nextColor[this.columnasRelacionadas.length])
         },
 
-        removeColor(whichTable,currentIndex){
-            console.log("La columna tiene el Id: " + whichTable+currentIndex)
-            console.log("Vamos a borrar el color:" +  this.nextColor[this.columnasRelacionadas.length])
-            document.getElementById(whichTable+currentIndex).classList = ""
+        removeColor(whichTable, currentIndex) {
+            console.log("La columna tiene el Id: " + whichTable + currentIndex)
+            console.log("Vamos a borrar el color:" + this.nextColor[this.columnasRelacionadas.length])
+            document.getElementById(whichTable + currentIndex).classList = ""
         },
-        
 
-        deletePair(key){
-            var eliminados = this.columnasRelacionadas.splice(key,1)
+        deletePair(key) {
+            var eliminados = this.columnasRelacionadas.splice(key, 1)
             console.log(this.nextColor[this.columnasRelacionadas.length])
             //Borramos el color de la columna de referencia
             this.removeColor('referenceTable', this.referenceTable.title.indexOf(this.referenceTable.title.find(element => element == eliminados[0][0])))
@@ -241,7 +196,7 @@ export default {
             this.removeColor('candidateTable', this.candidateTable.title.indexOf(this.candidateTable.title.find(element => element == eliminados[0][1])))
         },
 
-        noRelationships(){
+        noRelationships() {
             alert("No hay relaciones")
         }
     },
@@ -266,7 +221,7 @@ export default {
                     <tr>
                         <th v-for="(value, key) in referenceTable.title"
                             v-on:click="juntarColumnas(referenceTable, key, 'referenceTable');">
-                            {{ value }} 
+                            {{ value }}
                         </th>
                     </tr>
                 </thead>
@@ -284,8 +239,8 @@ export default {
                 </colgroup>
                 <thead>
                     <tr>
-                        <th v-for="(value, key) in candidateTable.title" 
-                            v-on:click="juntarColumnas(candidateTable,key,'candidateTable');">
+                        <th v-for="(value, key) in candidateTable.title"
+                            v-on:click="juntarColumnas(candidateTable, key, 'candidateTable');">
                             {{ value }}
                         </th>
                     </tr>
@@ -304,17 +259,17 @@ export default {
 
             <ul>
                 <div v-for="(value, key) in columnasRelacionadas">
-                      <li >{{ value }}</li> 
-                      <button v-on:click="deletePair(key)"> borrame</button>
-                      <input type="checkbox" id="checboxTitle" v-model="checked">
-                      <label for="checkbox">Por el título</label>
-                      <input type="checkbox" id="checkboxContent" v-model="checkContent">
-                      <label for="checkbox2">Por el contenido</label> 
-                      <input placeholder="Añade un comentario"/> 
-                </div>  
+                    <li>{{ value }}</li>
+                    <button v-on:click="deletePair(key)"> borrame</button>
+                    <input type="checkbox" id="checboxTitle" v-model="checked">
+                    <label for="checkbox">Por el título</label>
+                    <input type="checkbox" id="checkboxContent" v-model="checkContent">
+                    <label for="checkbox2">Por el contenido</label>
+                    <input placeholder="Añade un comentario" />
+                </div>
             </ul>
-            
-          
+
+
 
 
 
@@ -384,15 +339,15 @@ td {
     background-color: rgba(255, 0, 0, .25);
 }
 
-.blue{
+.blue {
     background-color: blue;
 }
 
-.green{
+.green {
     background-color: green;
 }
 
-.yellow{
+.yellow {
     background-color: yellow;
 }
 </style>
