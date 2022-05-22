@@ -1,0 +1,28 @@
+{
+    "lote-1": {
+      "query": "table-1234-345",
+      "candidates": [
+        "table-3456-232",
+        "table-9583-343"
+      ],
+      "numCandidate": 2
+    },
+    "lote-2": {
+      "query": "table-3454-321",
+      "candidates": [
+        "table-3434-123",
+        "table-7767-897",
+        "table-6534-345"
+      ],
+      "numCandidates": 3
+    },
+    "lote-3": {
+      "query": "table-4235-267",
+      "candidates": [
+        "table-3452-742",
+        "table-8542-343"
+      ],
+      "numCandidates": 2
+    }
+}
+ 

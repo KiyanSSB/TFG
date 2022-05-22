@@ -1,11 +1,17 @@
 <script>
 import TablesDataService from '@/services/TablesDataService';
-import { useUserStore } from '../stores/user'
+import { OPEN_BLOCK } from '@vue/compiler-core';
+import * as fs from 'fs'
+
+const modules = import.meta.glob('../../public/tables/*.json')
+
 export default {
     name: "Tables",
 
     data() {
         return {
+            lote: [],
+            loteCandidatas: [],
             candidateTable: [],
             referenceTable: [],
             tables: [],
@@ -51,7 +57,32 @@ export default {
 
         //Función que recibe un lote para gestionarlo
         retrieveLote() {
+            //Recibimos el lote
+            TablesDataService.getLotefromServer()
+                .then((response)  => {
+                    var keys = Object.keys(response.data);
+                    this.lote = response.data[keys[0]];
+                    //Buscamos la tabla correspondiente en los ficheros
+                    for(const path in modules){
+                        modules[path]()
+                            .then((mod) => {
+                                var tablas = Object.keys(mod.default);
 
+                                for(var i = 0 ; i < tablas.length ; i ++) {
+                                    //Si encontramos la tabla de referencia , la cogemos
+                                    if(tablas[i] == this.lote.query){
+                                        this.referenceTable = mod.default[tablas[i]]
+                                    }
+                                }
+
+                                for(var j = 0 ; j< tablas.length ; j++){
+                                    if(this.lote.candidates.includes(tablas[j])){
+                                        this.loteCandidatas.push(mod.default[tablas[j]])
+                                    }
+                                }
+                            })
+                    }
+               }); 
         },
 
         resetControl() {
@@ -203,6 +234,7 @@ export default {
 
     mounted() {
         this.retrieveTables();
+        this.retrieveLote();
     }
 }
 

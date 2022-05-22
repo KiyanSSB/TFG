@@ -9,5 +9,5 @@ router.post("/newTableResult" , tableController.newTableResult);
 router.post("/newTableArray" , tableController.newTableArray);
 router.get("/random" , tableController.getRandomTable);
 router.get("/tablas"  , tableController.tablas );
-
+router.get("/lotes" , tableController.getRandomLote);
 module.exports = router;
