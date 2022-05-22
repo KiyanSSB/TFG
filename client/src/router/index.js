@@ -3,6 +3,7 @@ import Home from '../components/Home.vue'
 import Tables from '../components/Tables.vue'
 import Register from '../components/Register.vue'
 import Login from '../components/Login.vue'
+import Lotes from '../components/Lotes.vue'
 import { auth } from '../../config/firebaseConfig'
 import { getAuth } from 'firebase/auth'
 import { limitToLast } from 'firebase/firestore'
@@ -42,6 +43,12 @@ const router = createRouter({
 
 
     },
+    {
+      path: '/lotes',
+      name: 'lotes',
+      component: Lotes,
+    },
+
     {
       path : '/register',
       name: 'register',

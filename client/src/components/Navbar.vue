@@ -9,6 +9,7 @@
         <RouterLink class="navbar-brand" to="/"> Navbar</RouterLink>
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/tables">Tables</RouterLink>
+        <RouterLink to="/lotes">Lotes</RouterLink>
         <RouterLink to="/login" v-if="userStore.logged===false">Login</RouterLink>
         <RouterLink to="/register" v-if="userStore.logged===false">register</RouterLink>
         <button v-on:click="userStore.signOutUser()"
