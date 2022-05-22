@@ -11,6 +11,7 @@ export default {
     data() {
         return {
             lote: [],
+            currentCandidateIndex: 0,
             loteCandidatas: [],
             candidateTable: [],
             referenceTable: [],
@@ -59,35 +60,55 @@ export default {
         retrieveLote() {
             //Recibimos el lote
             TablesDataService.getLotefromServer()
-                .then((response)  => {
+                .then((response) => {
                     var keys = Object.keys(response.data);
                     this.lote = response.data[keys[0]];
                     //Buscamos la tabla correspondiente en los ficheros
-                    for(const path in modules){
+                    for (const path in modules) {
                         modules[path]()
                             .then((mod) => {
                                 var tablas = Object.keys(mod.default);
 
-                                for(var i = 0 ; i < tablas.length ; i ++) {
+                                for (var i = 0; i < tablas.length; i++) {
                                     //Si encontramos la tabla de referencia , la cogemos
-                                    if(tablas[i] == this.lote.query){
+                                    if (tablas[i] == this.lote.query) {
                                         this.referenceTable = mod.default[tablas[i]]
                                     }
                                 }
 
-                                for(var j = 0 ; j< tablas.length ; j++){
-                                    if(this.lote.candidates.includes(tablas[j])){
+                                for (var j = 0; j < tablas.length; j++) {
+                                    if (this.lote.candidates.includes(tablas[j])) {
                                         this.loteCandidatas.push(mod.default[tablas[j]])
                                     }
                                 }
+                                this.candidateTable = this.loteCandidatas[0];
                             })
                     }
-               }); 
+
+                    // this.candidateTable = this.loteCandidatas[0];
+                });
         },
 
         resetControl() {
             this.currentIndex = -1
             this.currentTable = null
+        },
+
+        nextCandidateTable() {
+            console.log(this.currentCandidateIndex);
+            console.log( this.loteCandidatas[this.currentCandidateIndex]);
+           
+            (this.currentCandidateIndex)++;
+
+            console.log(this.currentCandidateIndex);
+            console.log( this.loteCandidatas[this.currentCandidateIndex]);
+           
+
+            // console.log(this.candidateTable)
+            this.candidateTable = this.loteCandidatas[this.currentCandidateIndex];
+            // console.log( this.loteCandidatas[this.currentCandidateIndex])
+            // console.log(this.candidateTable)
+
         },
 
         juntarColumnas(table, key, whichTable) {
@@ -233,7 +254,6 @@ export default {
     },
 
     mounted() {
-        this.retrieveTables();
         this.retrieveLote();
     }
 }
@@ -279,6 +299,11 @@ export default {
                     <td v-for="(value2, key) in value">{{ value2 }}</td>
                 </tr>
             </table>
+            
+            <div>
+                <button style="margin-top: 5%;" v-on:click="noRelationships()">Tabla Anterior</button>
+                <button style="margin-top: 5%;" v-on:click="nextCandidateTable()">Siguiente Tabla</button>
+            </div>
         </div>
 
         <div class="right_side">
