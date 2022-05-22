@@ -95,20 +95,8 @@ export default {
         },
 
         nextCandidateTable() {
-            console.log(this.currentCandidateIndex);
-            console.log( this.loteCandidatas[this.currentCandidateIndex]);
-           
             (this.currentCandidateIndex)++;
-
-            console.log(this.currentCandidateIndex);
-            console.log( this.loteCandidatas[this.currentCandidateIndex]);
-           
-
-            // console.log(this.candidateTable)
             this.candidateTable = this.loteCandidatas[this.currentCandidateIndex];
-            // console.log( this.loteCandidatas[this.currentCandidateIndex])
-            // console.log(this.candidateTable)
-
         },
 
         juntarColumnas(table, key, whichTable) {
