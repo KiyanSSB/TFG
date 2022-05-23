@@ -1,5 +1,6 @@
-const API_URL = 'http://localhost:3000/tablas';
+const API_URL =       'http://localhost:3000/tablas';
 const API_URL_LOTES = 'http://localhost:3000/lotes';
+const API_URL_STORE = 'http://localhost:3000/store'
 
 const jsonPlaceHolderAlmbums = 'https://jsonplaceholder.typicode.com/albums'
 const jsonPlaceHolderUsers = 'https://jsonplaceholder.typicode.com/users'
@@ -22,6 +23,11 @@ class TableDataService{
 
     getLotefromServer(){
         return axios.get(API_URL_LOTES)
+    }
+
+    storeResult(patata){
+        console.log(patata)
+        return axios.post(API_URL_STORE,patata);
     }
 }
 

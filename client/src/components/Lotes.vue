@@ -28,7 +28,8 @@ export default {
                 "blue",
                 "yellow",
                 "purple"
-            ]
+            ],
+            result: {}
         };
     },
 
@@ -84,8 +85,6 @@ export default {
                                 this.candidateTable = this.loteCandidatas[0];
                             })
                     }
-
-                    // this.candidateTable = this.loteCandidatas[0];
                 });
         },
 
@@ -238,6 +237,50 @@ export default {
 
         noRelationships() {
             alert("No hay relaciones")
+        },
+
+        enviarResultado(){
+            //Tenemos que añadir los valores de los campos en cada uno de los arrays
+            for(var i = 0 ; i < this.columnasRelacionadas.length; i++){
+                //Comprobamos el valor de las checkboxes para ver si el título o el contenido han sido elegidos
+                var contenido = document.getElementById('contenido' + i);
+                var titulo = document.getElementById('titulo' + i);
+
+                if(contenido.checked == true){
+                    var contenido = {"contenido" : 1}
+                    this.columnasRelacionadas[i].push(contenido)
+                }
+
+                if(titulo.checked == true){
+                    var titulo = {"titulo" :  1}
+                    this.columnasRelacionadas[i].push(titulo)
+                }
+
+                if(titulo.checked == false && contenido.checked == false){
+                    console.log("Esto tiene que petar")
+                }
+
+                var comentario = document.getElementById('comentario' + i);
+                this.columnasRelacionadas[i].push(comentario.value)
+            }
+
+            //Añadimos las tablas que han sido seleccionadas al array
+            var tablas = {
+                "tablas":[
+                    {"query" : this.lote.query },
+                    {"candidate" : this.lote.candidates[this.currentCandidateIndex]}
+                ]
+            }
+
+            this.result["tablas"]       = tablas
+            this.result["completada"]   = true
+            this.result["relaciones"]   = this.columnasRelacionadas
+            this.result["motivo"]       = null
+
+            TablesDataService.storeResult(this.result)
+                .then((response) => {
+                    console.log(response);
+                })
         }
     },
 
@@ -291,6 +334,7 @@ export default {
             <div>
                 <button style="margin-top: 5%;" v-on:click="noRelationships()">Tabla Anterior</button>
                 <button style="margin-top: 5%;" v-on:click="nextCandidateTable()">Siguiente Tabla</button>
+                <button style="margin-top: 5%;" v-on:click="nextCandidateTable()">No conozco el campo de los datos</button>
             </div>
         </div>
 
@@ -301,15 +345,15 @@ export default {
                 <div v-for="(value, key) in columnasRelacionadas">
                     <li>{{ value }}</li>
                     <button v-on:click="deletePair(key)"> borrame</button>
-                    <input type="checkbox" id="checboxTitle" v-model="checked">
+                    <input v-bind:id="'titulo' +key" type="checkbox">
                     <label for="checkbox">Por el título</label>
-                    <input type="checkbox" id="checkboxContent" v-model="checkContent">
+                    <input v-bind:id="'contenido' +key" type="checkbox">
                     <label for="checkbox2">Por el contenido</label>
-                    <input placeholder="Añade un comentario" />
+                    <input v-bind:id="'comentario' + key" placeholder="Añade un comentario" />
                 </div>
             </ul>
 
-            <button style="margin-top: 5%;" v-on:click="noRelationships()">No hay relaciones</button>
+            <button style="margin-top: 5%;" v-on:click="enviarResultado()">Tabla completada</button>
         </div>
     </div>
 </template>
