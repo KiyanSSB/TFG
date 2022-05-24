@@ -1,7 +1,6 @@
 <script>
 import TablesDataService from '@/services/TablesDataService';
-import { OPEN_BLOCK } from '@vue/compiler-core';
-import * as fs from 'fs'
+
 
 const modules = import.meta.glob('../../public/tables/*.json')
 
@@ -95,6 +94,15 @@ export default {
         },
 
         nextCandidateTable() {
+             //Si estamos en la última tabla 
+            if((this.currentCandidateIndex -1) == this.loteCandidatas.length ){
+                this.retrieveLote();
+                this.currentCandidateIndex = 0 
+                for ( i = 0 ; i < this.selectedColors.length; i++){
+                    this.selectedColors[i] = 0
+                }
+                return
+            }
             (this.currentCandidateIndex)++;
             this.candidateTable = this.loteCandidatas[this.currentCandidateIndex];
         },
@@ -278,10 +286,11 @@ export default {
                         console.log(color)
                 }
 
-
-
                 //Limpiamos todas las columnas relacionadas
                 this.columnasRelacionadas.length = 0 
+                for ( i = 0 ; i < this.selectedColors.length; i++){
+                    this.selectedColors[i] = 0
+                }
                 console.log("He pasado paor aquí")
             }catch(error){
                 console.log(error)
@@ -334,6 +343,11 @@ export default {
                     this.nextCandidateTable();
                     this.cleanAll();
                 })
+            
+            console.log(this.currentCandidateIndex);
+            console.log(this.loteCandidatas.length);
+
+           
         }
     },
 
