@@ -1,6 +1,9 @@
 const Table = require("../model/Table");
 const fs = require('fs');
 const path = require('path');
+const Resultado = require("../model/Resultado");
+const { default: mongoose } = require("mongoose");
+const { schema } = require("../model/Table");
 
 
 exports.hello = (req, res) => {
@@ -226,7 +229,6 @@ exports.tablas = async (req, res) => {
     })
 }
 
-
 exports.getRandomLote = async (req, res) => {
     // function readFiles(dir, processFile) {
     //     // read directory
@@ -284,3 +286,35 @@ exports.getRandomLote = async (req, res) => {
             },
         })
 }
+
+
+exports.store = async (req,  res) => {
+
+    console.log(req.body);
+    console.log(req.body.tablas)
+    console.log(req.body.completada)
+    console.log(req.body.relaciones)
+    console.log(req.body.tablas)
+
+
+    const _newResult = new Resultado({
+        completada : req.body.completada,
+        motivo : req.body.motivo,
+        tablas : req.body.tablas,
+        relaciones: JSON.parse(JSON.stringify(req.body.relaciones)),
+    })  
+
+
+    _newResult.save(_newResult)
+    .then(data => {
+        res.send("Tabla creada correctamente")
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || "ERROR"
+        });
+    });
+}
+
+
+

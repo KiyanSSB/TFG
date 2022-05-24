@@ -10,4 +10,5 @@ router.post("/newTableArray" , tableController.newTableArray);
 router.get("/random" , tableController.getRandomTable);
 router.get("/tablas"  , tableController.tablas );
 router.get("/lotes" , tableController.getRandomLote);
+router.post("/store" , tableController.store);
 module.exports = router;
