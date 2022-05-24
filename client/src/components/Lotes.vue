@@ -240,16 +240,34 @@ export default {
         },
 
         cleanAll(){
-            //Cogemos todas las columna seleccionadas y las limpiamos 
-            this.currentIndex = -1
-            console.log(this.referenceTable.data)
-            for(var i = 0 ; i < this.referenceTable.data.length && i < this.candidateTable.data.length; i ++){
-                document.getElementById('referenceTable' + i).classList = ""
-                document.getElementById('candidateTable' + i).classList = ""
+            try{
+                //Cogemos todas las columna seleccionadas y las limpiamos 
+                this.currentIndex = -1
+                console.log(this.referenceTable.data)
+                for(var i = 0 ;i < this.referenceTable.numCols; i ++){
+                            var color = document.getElementById('referenceTable' + i).classList 
+                            if(color.length != 0){
+                                document.getElementById('referenceTable' + i).classList = ""
+                            }
+                            console.log(color)
+                }
+
+                for(var j = 0 ; j < this.candidateTable.numCols ; j++){
+                    var color = document.getElementById('candidateTable' + j).classList 
+                        if(color.length != 0){
+                            document.getElementById('candidateTable' + j).classList = ""
+                        }
+                        console.log(color)
+                }
+
+
+
+                //Limpiamos todas las columnas relacionadas
+                this.columnasRelacionadas.length = 0 
+                console.log("He pasado paor aquí")
+            }catch(error){
+                console.log(error)
             }
-            //Limpiamos todas las columnas relacionadas
-            this.columnasRelacionadas.length = 0 
-         
 
         },
 
