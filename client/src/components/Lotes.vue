@@ -239,6 +239,20 @@ export default {
             alert("No hay relaciones")
         },
 
+        cleanAll(){
+            //Cogemos todas las columna seleccionadas y las limpiamos 
+            this.currentIndex = -1
+            console.log(this.referenceTable.data)
+            for(var i = 0 ; i < this.referenceTable.data.length && i < this.candidateTable.data.length; i ++){
+                document.getElementById('referenceTable' + i).classList = ""
+                document.getElementById('candidateTable' + i).classList = ""
+            }
+            //Limpiamos todas las columnas relacionadas
+            this.columnasRelacionadas.length = 0 
+         
+
+        },
+
         enviarResultado(){
             //Tenemos que añadir los valores de los campos en cada uno de los arrays
             for(var i = 0 ; i < this.columnasRelacionadas.length; i++){
@@ -257,7 +271,8 @@ export default {
                 }
 
                 if(titulo.checked == false && contenido.checked == false){
-                    console.log("Esto tiene que petar")
+                    alert("Selecciona en la relación número: " + i + "el motivo por el consideras que hay una relación")
+                    return;
                 }
 
                 var comentario = document.getElementById('comentario' + i);
@@ -280,6 +295,8 @@ export default {
             TablesDataService.storeResult(this.result)
                 .then((response) => {
                     console.log(response);
+                    this.nextCandidateTable();
+                    this.cleanAll();
                 })
         }
     },
