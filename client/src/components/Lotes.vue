@@ -29,6 +29,7 @@ export default {
                 "yellow",
                 "purple"
             ],
+            selectedColors: [0 ,0 ,0 ,0 ,0],
             result: {}
         };
     },
@@ -217,13 +218,30 @@ export default {
         },
 
         cambiarColor(whichTable, key) {
-            document.getElementById(whichTable + key).classList.add(this.nextColor[this.columnasRelacionadas.length])
+            for(var i = 0 ; i  < this.selectedColors.length; i++){
+                console.log(this.selectedColors[i])
+                console.log(this.nextColor[i])
+                console.log(i)
+                if (this.selectedColors[i] == 0 || this.selectedColors[i] == 1 ){
+                    document.getElementById(whichTable + key).classList.add(this.nextColor[i])
+                    this.selectedColors[i]++
+                    console.log(this.selectedColors[i])
+                    break;
+                }
+            }
         },
 
         removeColor(whichTable, currentIndex) {
-            console.log("La columna tiene el Id: " + whichTable + currentIndex)
-            console.log("Vamos a borrar el color:" + this.nextColor[this.columnasRelacionadas.length])
+            // console.log("La columna tiene el Id: " + whichTable + currentIndex)
+            // console.log("Vamos a borrar el color:" + this.nextColor[this.columnasRelacionadas.length])
+            // document.getElementById(whichTable + currentIndex).classList = ""
+
+            var color = document.getElementById(whichTable + currentIndex).classList
+            console.log(color[0]);
+            console.log(this.nextColor.indexOf(color[0]))
+            this.selectedColors[this.nextColor.indexOf(color[0])] = 0
             document.getElementById(whichTable + currentIndex).classList = ""
+
         },
 
         deletePair(key) {
