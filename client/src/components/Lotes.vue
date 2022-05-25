@@ -352,6 +352,7 @@ export default {
 
                  TablesDataService.storeResult(this.result)
                 .then((response) => {
+                      document.getElementById("motivo").value = ""
                       console.log(response);
                       //Si es la última tabla, del lote, limpiamos el lote y cogemos uno nuevo 
                       if(this.currentCandidateIndex+1 == this.loteCandidatas.length){
