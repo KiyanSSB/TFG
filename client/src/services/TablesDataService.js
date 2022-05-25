@@ -1,6 +1,6 @@
-const API_URL =       'http://localhost:3000/tablas';
-const API_URL_LOTES = 'http://localhost:3000/lotes';
-const API_URL_STORE = 'http://localhost:3000/store'
+const API_URL =       'https://server-api-tfgtable.herokuapp.com//tablas';
+const API_URL_LOTES = 'https://server-api-tfgtable.herokuapp.com//lotes';
+const API_URL_STORE = 'https://server-api-tfgtable.herokuapp.com/store'
 
 const jsonPlaceHolderAlmbums = 'https://jsonplaceholder.typicode.com/albums'
 const jsonPlaceHolderUsers = 'https://jsonplaceholder.typicode.com/users'
@@ -14,19 +14,22 @@ import axios from 'axios'; //PARA EL XACCESSTOKEN
 
 class TableDataService{
     getTable(){
+        console.log(location.origin)
         return axios.get(API_URL);
     }
 
     getLote(){
+        console.log(location.origin)
         return fichero;
     }
 
     getLotefromServer(){
+        console.log(location.origin)
         return axios.get(API_URL_LOTES)
     }
 
-    storeResult(patata){
-        console.log(patata)
+    storeResult(patata){g
+        console.log(location.origin)
         return axios.post(API_URL_STORE,patata);
     }
 }
