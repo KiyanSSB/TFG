@@ -1,5 +1,5 @@
-const API_URL =       'https://server-api-tfgtable.herokuapp.com//tablas';
-const API_URL_LOTES = 'https://server-api-tfgtable.herokuapp.com//lotes';
+const API_URL =       'https://server-api-tfgtable.herokuapp.com/tablas';
+const API_URL_LOTES = 'https://server-api-tfgtable.herokuapp.com/lotes';
 const API_URL_STORE = 'https://server-api-tfgtable.herokuapp.com/store'
 
 const jsonPlaceHolderAlmbums = 'https://jsonplaceholder.typicode.com/albums'
