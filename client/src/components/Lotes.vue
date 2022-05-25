@@ -26,9 +26,14 @@ export default {
                 "green",
                 "blue",
                 "yellow",
-                "purple"
+                "purple",
+                "indigo",
+                "pink",
+                "beige",
+                "gold",
+                "silver"
             ],
-            selectedColors: [0 ,0 ,0 ,0 ,0],
+            selectedColors: [0 ,0 ,0 ,0 ,0 ,0 ,0, 0, 0, 0],
             result: {}
         };
     },
@@ -272,6 +277,8 @@ export default {
 
         },
 
+
+
         enviarResultado(){
             //Tenemos que añadir los valores de los campos en cada uno de los arrays
             for(var i = 0 ; i < this.columnasRelacionadas.length; i++){
@@ -508,14 +515,38 @@ td {
 }
 
 .blue {
-    background-color: blue;
+    background-color: aqua;
 }
 
 .green {
-    background-color: green;
+    background-color: greenyellow;
 }
 
 .yellow {
     background-color: yellow;
+}
+
+.pink{
+    background-color: pink;
+}
+
+.purple{
+    background-color: blueviolet;
+}
+
+.silver{
+    background-color: silver;
+} 
+
+.indigo{ 
+    background-color: lightcoral;
+}
+
+.beige{
+    background-color: beige;
+}
+
+.gold {
+    background-color: gold;
 }
 </style>
