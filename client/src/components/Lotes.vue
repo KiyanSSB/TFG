@@ -6,7 +6,6 @@ const modules = import.meta.glob('../../public/tables/*.json')
 
 export default {
     name: "Tables",
-
     data() {
         return {
             lote: [],

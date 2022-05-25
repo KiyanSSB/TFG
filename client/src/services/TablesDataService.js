@@ -15,20 +15,24 @@ import axios from 'axios'; //PARA EL XACCESSTOKEN
 class TableDataService{
     getTable(){
         console.log(location.origin)
+        console.log(API_URL_LOTES)
         return axios.get(API_URL);
     }
 
     getLote(){
+        console.log(API_URL_LOTES)
         console.log(location.origin)
         return fichero;
     }
 
     getLotefromServer(){
+        console.log(API_URL_LOTES)
         console.log(location.origin)
         return axios.get(API_URL_LOTES)
     }
 
-    storeResult(patata){g
+    storeResult(patata){
+        console.log(API_URL_LOTES)
         console.log(location.origin)
         return axios.post(API_URL_STORE,patata);
     }

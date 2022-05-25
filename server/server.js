@@ -3,11 +3,13 @@ const cors = require("cors");
 const express = require('express')
 const app = express()
 const routes = require('./routes/routes');
-const functions = require('firebase-functions')
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: '*'
+}));
 
 
 db.mongoose.connect(db.url,{})
@@ -19,5 +21,4 @@ db.mongoose.connect(db.url,{})
 });
 
 app.use(routes);
-
-app.listen(3000)
+app.listen(process.env.PORT || port , () => console.log('Example app listening at http://localhost:${port}'));
