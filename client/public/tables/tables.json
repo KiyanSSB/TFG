@@ -6,7 +6,7 @@
       "Silver",
       "Bronze"
     ],
-    "numCols": 4,
+    "numCols": 10,
     "numericColumns": [],
     "pgTitle": "FIS Freestyle World Ski Championships",
     "numDataRows": 5,
@@ -47,7 +47,7 @@
       "Chart (1986)5",
       "Peak position5"
     ],
-    "numCols": 2,
+    "numCols": 10,
     "numericColumns": [
       1
     ],
