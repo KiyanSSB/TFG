@@ -96,6 +96,7 @@ export default {
         nextCandidateTable() {
              //Si estamos en la última tabla 
             if((this.currentCandidateIndex -1) == this.loteCandidatas.length ){
+                console.logç("estoy en next candidate table")
                 this.retrieveLote();
                 this.currentCandidateIndex = 0 
                 for ( i = 0 ; i < this.selectedColors.length; i++){
@@ -340,8 +341,17 @@ export default {
             TablesDataService.storeResult(this.result)
                 .then((response) => {
                     console.log(response);
-                    this.nextCandidateTable();
-                    this.cleanAll();
+                      this.cleanAll();
+                      console.log("El current candidate index es:" +this.currentCandidateIndex)
+                      console.log("El tamaño del lote es:" + this.loteCandidatas.length)
+                      if(this.currentCandidateIndex +1 == this.loteCandidatas.length){
+                          console.log("Esto en la última tabla")
+                          this.retrieveLote();
+                      }else{
+                          this.nextCandidateTable();
+                      }
+                      
+                  
                 })
             
             console.log(this.currentCandidateIndex);
