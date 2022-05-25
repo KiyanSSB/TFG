@@ -322,6 +322,10 @@ export default {
                           this.currentCandidateIndex = 0
                           //Limpiamos los colores de la tabla
                           this.cleanAll();
+                          this.referenceTable = []
+                          this.candidateTable = []
+                          this.lote = []
+                          this.result = {}
                           this.retrieveLote();
                       }else{
                           this.cleanAll();
