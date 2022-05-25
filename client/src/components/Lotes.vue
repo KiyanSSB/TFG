@@ -69,7 +69,6 @@ export default {
                         modules[path]()
                             .then((mod) => {
                                 var tablas = Object.keys(mod.default);
-
                                 for (var i = 0; i < tablas.length; i++) {
                                     //Si encontramos la tabla de referencia , la cogemos
                                     if (tablas[i] == this.lote.query) {
@@ -318,18 +317,17 @@ export default {
                       //Si es la última tabla, del lote, limpiamos el lote y cogemos uno nuevo 
                       console.log(this.currentCandidateIndex)
                       if(this.currentCandidateIndex+1 == this.loteCandidatas.length){
-                          console.log(this.loteCandidatas.length)
+                          console.log("Era la última tabla del lote")
                           this.loteCandidatas.length = 0 
-                          console.log(this.loteCandidatas.length)
+                          this.currentCandidateIndex = 0
                           //Limpiamos los colores de la tabla
                           this.cleanAll();
                           this.retrieveLote();
                       }else{
+                          this.cleanAll();
                           this.nextCandidateTable();
                       }
                 })
-            
-
         },
 
         noCompletada(motivo){
