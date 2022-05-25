@@ -96,7 +96,6 @@ export default {
         nextCandidateTable() {
              //Si estamos en la última tabla 
             if((this.currentCandidateIndex -1) == this.loteCandidatas.length ){
-                console.logç("estoy en next candidate table")
                 this.retrieveLote();
                 this.currentCandidateIndex = 0 
                 for ( i = 0 ; i < this.selectedColors.length; i++){
@@ -112,16 +111,13 @@ export default {
             //Tenía columna antes?
             //Si:
             if (this.currentIndex != -1) {
-                console.log("Tengo una columna, es la misma EN LA MISMA TABLA?")
                 //Es la misma columna?
                 if (this.currentIndex == key && whichTable == this.currentTable) {
-                    console.log("Has seleccionado la misma columna")
                     this.removeColor(whichTable, this.currentIndex);
                     this.currentIndex = -1
                     this.currentTable = null
                     return false;
                 } else {
-                    console.log("Es otra columna, es de la misma tabla?")
                     //Comprobamos cual de las tablas ha sido clickada y actuamos en función si ha sido clickada antes o no
                     if (this.currentTable == whichTable) {
                         for (i = 0; i < this.columnasRelacionadas.length; i++) {
@@ -159,10 +155,7 @@ export default {
                         //1º Guardamos la pareja creada:
                         if (whichTable == 'candidateTable') {
                             var pair = [this.referenceTable.title[this.currentIndex], table.title[key]]
-                            console.log(pair)
                             for (var i = 0; i < this.columnasRelacionadas.length; i++) {
-                                console.log(JSON.stringify(this.columnasRelacionadas[i]));
-                                console.log(JSON.stringify(pair))
                                 if (JSON.stringify(this.columnasRelacionadas[i]) == JSON.stringify(pair)) {
                                     alert("Ya has hecho esta selección")
                                     this.removeColor(whichTable, key)
@@ -176,7 +169,6 @@ export default {
                             this.resetControl();
                             return
                         } else {
-                            console.log("La última clickada es de referencia")
                             var pair = [table.title[key], this.candidateTable.title[this.currentIndex]]
                             for (var i = 0; i < this.columnasRelacionadas.length; i++) {
                                 if (JSON.stringify(this.columnasRelacionadas[i]) == JSON.stringify(pair)) {
@@ -212,10 +204,8 @@ export default {
                         }
                     }
                 }
-                console.log("No tengo columna clickada, selecciono una")
                 this.currentIndex = key //Guardamos la columna seleccionada
                 this.currentTable = whichTable
-                console.log(this.currentIndex)
                 //Indicamos que tabla hemos clickado
                 if (whichTable == 'referenceTable') {
                     this.referenceClicked = true
@@ -228,34 +218,22 @@ export default {
 
         cambiarColor(whichTable, key) {
             for(var i = 0 ; i  < this.selectedColors.length; i++){
-                console.log(this.selectedColors[i])
-                console.log(this.nextColor[i])
-                console.log(i)
                 if (this.selectedColors[i] == 0 || this.selectedColors[i] == 1 ){
                     document.getElementById(whichTable + key).classList.add(this.nextColor[i])
                     this.selectedColors[i]++
-                    console.log(this.selectedColors[i])
                     break;
                 }
             }
         },
 
         removeColor(whichTable, currentIndex) {
-            // console.log("La columna tiene el Id: " + whichTable + currentIndex)
-            // console.log("Vamos a borrar el color:" + this.nextColor[this.columnasRelacionadas.length])
-            // document.getElementById(whichTable + currentIndex).classList = ""
-
             var color = document.getElementById(whichTable + currentIndex).classList
-            console.log(color[0]);
-            console.log(this.nextColor.indexOf(color[0]))
             this.selectedColors[this.nextColor.indexOf(color[0])] = 0
             document.getElementById(whichTable + currentIndex).classList = ""
-
         },
 
         deletePair(key) {
             var eliminados = this.columnasRelacionadas.splice(key, 1)
-            console.log(this.nextColor[this.columnasRelacionadas.length])
             //Borramos el color de la columna de referencia
             this.removeColor('referenceTable', this.referenceTable.title.indexOf(this.referenceTable.title.find(element => element == eliminados[0][0])))
             //Borramos el color de la columna de candidata
@@ -270,13 +248,11 @@ export default {
             try{
                 //Cogemos todas las columna seleccionadas y las limpiamos 
                 this.currentIndex = -1
-                console.log(this.referenceTable.data)
                 for(var i = 0 ;i < this.referenceTable.numCols; i ++){
                             var color = document.getElementById('referenceTable' + i).classList 
                             if(color.length != 0){
                                 document.getElementById('referenceTable' + i).classList = ""
                             }
-                            console.log(color)
                 }
 
                 for(var j = 0 ; j < this.candidateTable.numCols ; j++){
@@ -284,7 +260,6 @@ export default {
                         if(color.length != 0){
                             document.getElementById('candidateTable' + j).classList = ""
                         }
-                        console.log(color)
                 }
 
                 //Limpiamos todas las columnas relacionadas
@@ -292,7 +267,6 @@ export default {
                 for ( i = 0 ; i < this.selectedColors.length; i++){
                     this.selectedColors[i] = 0
                 }
-                console.log("He pasado paor aquí")
             }catch(error){
                 console.log(error)
             }
@@ -340,12 +314,10 @@ export default {
 
             TablesDataService.storeResult(this.result)
                 .then((response) => {
-                    console.log(response);
+
+                      //Limpiamos los colores de la tabla
                       this.cleanAll();
-                      console.log("El current candidate index es:" +this.currentCandidateIndex)
-                      console.log("El tamaño del lote es:" + this.loteCandidatas.length)
                       if(this.currentCandidateIndex +1 == this.loteCandidatas.length){
-                          console.log("Esto en la última tabla")
                           this.retrieveLote();
                       }else{
                           this.nextCandidateTable();
@@ -354,10 +326,7 @@ export default {
                   
                 })
             
-            console.log(this.currentCandidateIndex);
-            console.log(this.loteCandidatas.length);
 
-           
         }
     },
 
