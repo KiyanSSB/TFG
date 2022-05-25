@@ -26,9 +26,14 @@ export default {
                 "green",
                 "blue",
                 "yellow",
-                "purple"
+                "purple",
+                "indigo",
+                "pink",
+                "beige",
+                "gold",
+                "silver"
             ],
-            selectedColors: [0 ,0 ,0 ,0 ,0],
+            selectedColors: [0 ,0 ,0 ,0 ,0 ,0 ,0, 0, 0, 0],
             result: {}
         };
     },
@@ -69,7 +74,6 @@ export default {
                         modules[path]()
                             .then((mod) => {
                                 var tablas = Object.keys(mod.default);
-
                                 for (var i = 0; i < tablas.length; i++) {
                                     //Si encontramos la tabla de referencia , la cogemos
                                     if (tablas[i] == this.lote.query) {
@@ -98,7 +102,7 @@ export default {
             if((this.currentCandidateIndex -1) == this.loteCandidatas.length ){
                 this.retrieveLote();
                 this.currentCandidateIndex = 0 
-                for ( i = 0 ; i < this.selectedColors.length; i++){
+                for (var i = 0 ; i < this.selectedColors.length; i++){
                     this.selectedColors[i] = 0
                 }
                 return
@@ -273,6 +277,8 @@ export default {
 
         },
 
+
+
         enviarResultado(){
             //Tenemos que añadir los valores de los campos en cada uno de los arrays
             for(var i = 0 ; i < this.columnasRelacionadas.length; i++){
@@ -314,21 +320,64 @@ export default {
 
             TablesDataService.storeResult(this.result)
                 .then((response) => {
+                      console.log(response);
+                      //Si es la última tabla, del lote, limpiamos el lote y cogemos uno nuevo 
+                      console.log(this.currentCandidateIndex)
+                      if(this.currentCandidateIndex+1 == this.loteCandidatas.length){
+                          console.log("Era la última tabla del lote")
+                          this.loteCandidatas.length = 0 
+                          this.currentCandidateIndex = 0
+                          //Limpiamos los colores de la tabla
+                          this.cleanAll();
+                          this.referenceTable = []
+                          this.candidateTable = []
+                          this.lote = []
+                          this.result = {}
+                          this.retrieveLote();
+                      }else{
+                          this.cleanAll();
+                          this.nextCandidateTable();
+                      }
+                })
+        },
 
-                      //Limpiamos los colores de la tabla
-                      this.cleanAll();
-                      if(this.currentCandidateIndex +1 == this.loteCandidatas.length){
+        noCompletada(motivo){
+            console.log(motivo)
+            //Si no conozco el dominio, tenemos que enviar un resultado que indique el motivo:
+                var tablas = {
+                    "tablas":[
+                        {"query" : this.lote.query },
+                        {"candidate" : this.lote.candidates[this.currentCandidateIndex]}
+                    ]
+                }
+                this.result["tablas"]       = tablas
+                this.result["completada"]   = false
+                this.result["relaciones"]   = null
+                this.result["motivo"]       = motivo
+
+                if(motivo == "otro") {
+                    this.result["motivo"]  = document.getElementById("motivo").value
+                }
+
+                 TablesDataService.storeResult(this.result)
+                .then((response) => {
+                      document.getElementById("motivo").value = ""
+                      console.log(response);
+                      //Si es la última tabla, del lote, limpiamos el lote y cogemos uno nuevo 
+                      if(this.currentCandidateIndex+1 == this.loteCandidatas.length){
+                          this.loteCandidatas.length = 0 
+                          //Limpiamos los colores de la tabla
+                          this.cleanAll();
                           this.retrieveLote();
                       }else{
                           this.nextCandidateTable();
                       }
-                      
-                  
                 })
-            
 
         }
     },
+
+
 
     mounted() {
         this.retrieveLote();
@@ -378,9 +427,11 @@ export default {
             </table>
             
             <div>
-                <button style="margin-top: 5%;" v-on:click="noRelationships()">Tabla Anterior</button>
-                <button style="margin-top: 5%;" v-on:click="nextCandidateTable()">Siguiente Tabla</button>
-                <button style="margin-top: 5%;" v-on:click="nextCandidateTable()">No conozco el campo de los datos</button>
+                <button style="margin-top: 5%;" v-on:click="noCompletada('idioma')">No conozco el idioma</button>
+                <button style="margin-top: 5%;" v-on:click="noCompletada('dominio')">No conozco el dominio de las tablas</button>
+                <button style="margin-top: 5%;" v-on:click="noCompletada('otro')">Otro motivo</button>
+                <input v-bind:id="'motivo'" placeholder="Indica el motivo" />
+
             </div>
         </div>
 
@@ -464,14 +515,38 @@ td {
 }
 
 .blue {
-    background-color: blue;
+    background-color: aqua;
 }
 
 .green {
-    background-color: green;
+    background-color: greenyellow;
 }
 
 .yellow {
     background-color: yellow;
+}
+
+.pink{
+    background-color: pink;
+}
+
+.purple{
+    background-color: blueviolet;
+}
+
+.silver{
+    background-color: silver;
+} 
+
+.indigo{ 
+    background-color: lightcoral;
+}
+
+.beige{
+    background-color: beige;
+}
+
+.gold {
+    background-color: gold;
 }
 </style>
