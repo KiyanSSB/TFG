@@ -298,11 +298,14 @@ exports.store = async (req,  res) => {
 
 
     const _newResult = new Resultado({
+        email : req.body.email,
         completada : req.body.completada,
         motivo : req.body.motivo,
         tablas : req.body.tablas,
         relaciones: JSON.parse(JSON.stringify(req.body.relaciones)),
     })  
+
+    console.log(_newResult);
 
 
     _newResult.save(_newResult)

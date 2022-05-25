@@ -3,6 +3,7 @@ var moongoose = require('mongoose')
 
 
 var Result = new mongoose.Schema({
+    email: String,
     completada: Boolean,
     motivo: String,
     relaciones: {},
