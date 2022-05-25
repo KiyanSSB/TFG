@@ -31,14 +31,14 @@ const router = createRouter({
       path: '/tables',
       name: 'tables',
       component: Tables,
-      // beforeEnter: (to,from,next) => {
-      //   const main = useUserStore()
-      //   if(Object.keys(main.userData).length === 0){
-      //     next({path:'/login'})
-      //   }else{
-      //     next()
-      //   }
-      // }
+      beforeEnter: (to,from,next) => {
+        const main = useUserStore()
+        if(Object.keys(main.userData).length === 0){
+          next({path:'/login'})
+        }else{
+          next()
+        }
+      }
       
 
 
@@ -47,6 +47,15 @@ const router = createRouter({
       path: '/lotes',
       name: 'lotes',
       component: Lotes,
+      beforeEnter: (to,from,next) => {
+        const main = useUserStore()
+        if(Object.keys(main.userData).length === 0){
+          next({path:'/login'})
+        }else{
+          next()
+        }
+      }
+      
     },
 
     {

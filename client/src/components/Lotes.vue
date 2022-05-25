@@ -1,6 +1,7 @@
 <script>
 import TablesDataService from '@/services/TablesDataService';
 import { nextTick } from 'vue'
+import { useUserStore } from "../stores/user";
 
 const modules = import.meta.glob('../../public/tables/*.json')
 
@@ -368,6 +369,8 @@ export default {
                 ]
             }
 
+            const userStore = useUserStore();
+            this.result["email"] = userStore.userData.email
             this.result["tablas"] = tablas
             this.result["completada"] = true
             this.result["relaciones"] = this.columnasRelacionadas
