@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../components/Home.vue'
-import Tables from '../components/Tables.vue'
 import Register from '../components/Register.vue'
 import Login from '../components/Login.vue'
 import Lotes from '../components/Lotes.vue'
@@ -26,22 +25,6 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
-    },
-    {
-      path: '/tables',
-      name: 'tables',
-      component: Tables,
-      beforeEnter: (to,from,next) => {
-        const main = useUserStore()
-        if(Object.keys(main.userData).length === 0){
-          next({path:'/login'})
-        }else{
-          next()
-        }
-      }
-      
-
-
     },
     {
       path: '/lotes',

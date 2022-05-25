@@ -510,7 +510,7 @@ export default {
             <h1>Columnas seleccionadas</h1>
 
             <ul>
-                <div v-for="(value, key) in columnasRelacionadas">
+                <div v-for="(value, key) in columnasRelacionadas" class="cristal" >
                     <li>{{ value }}</li>
                     <button v-on:click="deletePair(key)"> borrame</button>
                     <input v-bind:id="'titulo' + key" type="checkbox">
@@ -571,14 +571,17 @@ table {
 
 tr {
     border: 1px solid black;
+    text-align: center;
 }
 
 th {
     border: 1px solid black !important;
+    text-align: center;
 }
 
 td {
     border: 1px solid black !important;
+    text-align: center;
 }
 
 .red {
@@ -620,4 +623,70 @@ td {
 .gold {
     background-color: gold;
 }
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	background: linear-gradient(45deg, #49a09d, #5f2c82);
+	font-family: sans-serif;
+	font-weight: 100;
+}
+
+.container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+table {
+	width: 800px;
+	border-collapse: collapse;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+th,
+td {
+	background-color: rgba(255,255,255,0.2);
+	color: #fff;
+}
+
+th {
+	text-align: left;
+    background-color: #55608f
+}
+
+
+
+
+td:hover{ 
+    position: relative;
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -9999px;
+    bottom: -9999px;
+    background-color: rgba(255,255,255,0.2);
+    z-index: -1;
+}
+
+
+.cristal{ 
+    background: rgba( 255, 255, 255, 0.6 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 10.5px );
+    -webkit-backdrop-filter: blur( 10.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+
+
+
 </style>
