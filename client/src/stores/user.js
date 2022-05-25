@@ -21,7 +21,7 @@ export const useUserStore = defineStore("user", {
                 );
                 this.userData = { email: user.email, uid: user.uid };
                 this.logged = true
-                router.push("/");
+                router.push("/login");
             } catch (error) {
                 console.log(error);
                 this.userData = {};
