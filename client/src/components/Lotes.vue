@@ -417,15 +417,22 @@ export default {
 
             TablesDataService.storeResult(this.result)
                 .then((response) => {
-                    document.getElementById("motivo").value = ""
-                    console.log(response);
+                     console.log(response);
                     //Si es la última tabla, del lote, limpiamos el lote y cogemos uno nuevo 
+                    console.log(this.currentCandidateIndex)
                     if (this.currentCandidateIndex + 1 == this.loteCandidatas.length) {
+                        console.log("Era la última tabla del lote")
                         this.loteCandidatas.length = 0
+                        this.currentCandidateIndex = 0
                         //Limpiamos los colores de la tabla
                         this.cleanAll();
+                        this.referenceTable = []
+                        this.candidateTable = []
+                        this.lote = []
+                        this.result = {}
                         this.retrieveLote();
                     } else {
+                        this.cleanAll();
                         this.nextCandidateTable();
                     }
                 })
