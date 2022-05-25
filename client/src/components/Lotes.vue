@@ -1,7 +1,6 @@
 <script>
 import TablesDataService from '@/services/TablesDataService';
-import { OPEN_BLOCK } from '@vue/compiler-core';
-import * as fs from 'fs'
+
 
 const modules = import.meta.glob('../../public/tables/*.json')
 
@@ -11,6 +10,7 @@ export default {
     data() {
         return {
             lote: [],
+            currentCandidateIndex: 0,
             loteCandidatas: [],
             candidateTable: [],
             referenceTable: [],
@@ -27,7 +27,9 @@ export default {
                 "blue",
                 "yellow",
                 "purple"
-            ]
+            ],
+            selectedColors: [0 ,0 ,0 ,0 ,0],
+            result: {}
         };
     },
 
@@ -59,30 +61,31 @@ export default {
         retrieveLote() {
             //Recibimos el lote
             TablesDataService.getLotefromServer()
-                .then((response)  => {
+                .then((response) => {
                     var keys = Object.keys(response.data);
                     this.lote = response.data[keys[0]];
                     //Buscamos la tabla correspondiente en los ficheros
-                    for(const path in modules){
+                    for (const path in modules) {
                         modules[path]()
                             .then((mod) => {
                                 var tablas = Object.keys(mod.default);
 
-                                for(var i = 0 ; i < tablas.length ; i ++) {
+                                for (var i = 0; i < tablas.length; i++) {
                                     //Si encontramos la tabla de referencia , la cogemos
-                                    if(tablas[i] == this.lote.query){
+                                    if (tablas[i] == this.lote.query) {
                                         this.referenceTable = mod.default[tablas[i]]
                                     }
                                 }
 
-                                for(var j = 0 ; j< tablas.length ; j++){
-                                    if(this.lote.candidates.includes(tablas[j])){
+                                for (var j = 0; j < tablas.length; j++) {
+                                    if (this.lote.candidates.includes(tablas[j])) {
                                         this.loteCandidatas.push(mod.default[tablas[j]])
                                     }
                                 }
+                                this.candidateTable = this.loteCandidatas[0];
                             })
                     }
-               }); 
+                });
         },
 
         resetControl() {
@@ -90,20 +93,31 @@ export default {
             this.currentTable = null
         },
 
+        nextCandidateTable() {
+             //Si estamos en la última tabla 
+            if((this.currentCandidateIndex -1) == this.loteCandidatas.length ){
+                this.retrieveLote();
+                this.currentCandidateIndex = 0 
+                for ( i = 0 ; i < this.selectedColors.length; i++){
+                    this.selectedColors[i] = 0
+                }
+                return
+            }
+            (this.currentCandidateIndex)++;
+            this.candidateTable = this.loteCandidatas[this.currentCandidateIndex];
+        },
+
         juntarColumnas(table, key, whichTable) {
             //Tenía columna antes?
             //Si:
             if (this.currentIndex != -1) {
-                console.log("Tengo una columna, es la misma EN LA MISMA TABLA?")
                 //Es la misma columna?
                 if (this.currentIndex == key && whichTable == this.currentTable) {
-                    console.log("Has seleccionado la misma columna")
                     this.removeColor(whichTable, this.currentIndex);
                     this.currentIndex = -1
                     this.currentTable = null
                     return false;
                 } else {
-                    console.log("Es otra columna, es de la misma tabla?")
                     //Comprobamos cual de las tablas ha sido clickada y actuamos en función si ha sido clickada antes o no
                     if (this.currentTable == whichTable) {
                         for (i = 0; i < this.columnasRelacionadas.length; i++) {
@@ -141,10 +155,7 @@ export default {
                         //1º Guardamos la pareja creada:
                         if (whichTable == 'candidateTable') {
                             var pair = [this.referenceTable.title[this.currentIndex], table.title[key]]
-                            console.log(pair)
                             for (var i = 0; i < this.columnasRelacionadas.length; i++) {
-                                console.log(JSON.stringify(this.columnasRelacionadas[i]));
-                                console.log(JSON.stringify(pair))
                                 if (JSON.stringify(this.columnasRelacionadas[i]) == JSON.stringify(pair)) {
                                     alert("Ya has hecho esta selección")
                                     this.removeColor(whichTable, key)
@@ -158,7 +169,6 @@ export default {
                             this.resetControl();
                             return
                         } else {
-                            console.log("La última clickada es de referencia")
                             var pair = [table.title[key], this.candidateTable.title[this.currentIndex]]
                             for (var i = 0; i < this.columnasRelacionadas.length; i++) {
                                 if (JSON.stringify(this.columnasRelacionadas[i]) == JSON.stringify(pair)) {
@@ -194,10 +204,8 @@ export default {
                         }
                     }
                 }
-                console.log("No tengo columna clickada, selecciono una")
                 this.currentIndex = key //Guardamos la columna seleccionada
                 this.currentTable = whichTable
-                console.log(this.currentIndex)
                 //Indicamos que tabla hemos clickado
                 if (whichTable == 'referenceTable') {
                     this.referenceClicked = true
@@ -209,18 +217,23 @@ export default {
         },
 
         cambiarColor(whichTable, key) {
-            document.getElementById(whichTable + key).classList.add(this.nextColor[this.columnasRelacionadas.length])
+            for(var i = 0 ; i  < this.selectedColors.length; i++){
+                if (this.selectedColors[i] == 0 || this.selectedColors[i] == 1 ){
+                    document.getElementById(whichTable + key).classList.add(this.nextColor[i])
+                    this.selectedColors[i]++
+                    break;
+                }
+            }
         },
 
         removeColor(whichTable, currentIndex) {
-            console.log("La columna tiene el Id: " + whichTable + currentIndex)
-            console.log("Vamos a borrar el color:" + this.nextColor[this.columnasRelacionadas.length])
+            var color = document.getElementById(whichTable + currentIndex).classList
+            this.selectedColors[this.nextColor.indexOf(color[0])] = 0
             document.getElementById(whichTable + currentIndex).classList = ""
         },
 
         deletePair(key) {
             var eliminados = this.columnasRelacionadas.splice(key, 1)
-            console.log(this.nextColor[this.columnasRelacionadas.length])
             //Borramos el color de la columna de referencia
             this.removeColor('referenceTable', this.referenceTable.title.indexOf(this.referenceTable.title.find(element => element == eliminados[0][0])))
             //Borramos el color de la columna de candidata
@@ -229,11 +242,95 @@ export default {
 
         noRelationships() {
             alert("No hay relaciones")
+        },
+
+        cleanAll(){
+            try{
+                //Cogemos todas las columna seleccionadas y las limpiamos 
+                this.currentIndex = -1
+                for(var i = 0 ;i < this.referenceTable.numCols; i ++){
+                            var color = document.getElementById('referenceTable' + i).classList 
+                            if(color.length != 0){
+                                document.getElementById('referenceTable' + i).classList = ""
+                            }
+                }
+
+                for(var j = 0 ; j < this.candidateTable.numCols ; j++){
+                    var color = document.getElementById('candidateTable' + j).classList 
+                        if(color.length != 0){
+                            document.getElementById('candidateTable' + j).classList = ""
+                        }
+                }
+
+                //Limpiamos todas las columnas relacionadas
+                this.columnasRelacionadas.length = 0 
+                for ( i = 0 ; i < this.selectedColors.length; i++){
+                    this.selectedColors[i] = 0
+                }
+            }catch(error){
+                console.log(error)
+            }
+
+        },
+
+        enviarResultado(){
+            //Tenemos que añadir los valores de los campos en cada uno de los arrays
+            for(var i = 0 ; i < this.columnasRelacionadas.length; i++){
+                //Comprobamos el valor de las checkboxes para ver si el título o el contenido han sido elegidos
+                var contenido = document.getElementById('contenido' + i);
+                var titulo = document.getElementById('titulo' + i);
+
+                if(contenido.checked == true){
+                    var contenido = {"contenido" : 1}
+                    this.columnasRelacionadas[i].push(contenido)
+                }
+
+                if(titulo.checked == true){
+                    var titulo = {"titulo" :  1}
+                    this.columnasRelacionadas[i].push(titulo)
+                }
+
+                if(titulo.checked == false && contenido.checked == false){
+                    alert("Selecciona en la relación número: " + i + "el motivo por el consideras que hay una relación")
+                    return;
+                }
+
+                var comentario = document.getElementById('comentario' + i);
+                this.columnasRelacionadas[i].push(comentario.value)
+            }
+
+            //Añadimos las tablas que han sido seleccionadas al array
+            var tablas = {
+                "tablas":[
+                    {"query" : this.lote.query },
+                    {"candidate" : this.lote.candidates[this.currentCandidateIndex]}
+                ]
+            }
+
+            this.result["tablas"]       = tablas
+            this.result["completada"]   = true
+            this.result["relaciones"]   = this.columnasRelacionadas
+            this.result["motivo"]       = null
+
+            TablesDataService.storeResult(this.result)
+                .then((response) => {
+
+                      //Limpiamos los colores de la tabla
+                      this.cleanAll();
+                      if(this.currentCandidateIndex +1 == this.loteCandidatas.length){
+                          this.retrieveLote();
+                      }else{
+                          this.nextCandidateTable();
+                      }
+                      
+                  
+                })
+            
+
         }
     },
 
     mounted() {
-        this.retrieveTables();
         this.retrieveLote();
     }
 }
@@ -279,6 +376,12 @@ export default {
                     <td v-for="(value2, key) in value">{{ value2 }}</td>
                 </tr>
             </table>
+            
+            <div>
+                <button style="margin-top: 5%;" v-on:click="noRelationships()">Tabla Anterior</button>
+                <button style="margin-top: 5%;" v-on:click="nextCandidateTable()">Siguiente Tabla</button>
+                <button style="margin-top: 5%;" v-on:click="nextCandidateTable()">No conozco el campo de los datos</button>
+            </div>
         </div>
 
         <div class="right_side">
@@ -288,15 +391,15 @@ export default {
                 <div v-for="(value, key) in columnasRelacionadas">
                     <li>{{ value }}</li>
                     <button v-on:click="deletePair(key)"> borrame</button>
-                    <input type="checkbox" id="checboxTitle" v-model="checked">
+                    <input v-bind:id="'titulo' +key" type="checkbox">
                     <label for="checkbox">Por el título</label>
-                    <input type="checkbox" id="checkboxContent" v-model="checkContent">
+                    <input v-bind:id="'contenido' +key" type="checkbox">
                     <label for="checkbox2">Por el contenido</label>
-                    <input placeholder="Añade un comentario" />
+                    <input v-bind:id="'comentario' + key" placeholder="Añade un comentario" />
                 </div>
             </ul>
 
-            <button style="margin-top: 5%;" v-on:click="noRelationships()">No hay relaciones</button>
+            <button style="margin-top: 5%;" v-on:click="enviarResultado()">Tabla completada</button>
         </div>
     </div>
 </template>
