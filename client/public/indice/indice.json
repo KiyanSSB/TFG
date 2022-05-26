@@ -1,4 +1,5 @@
 {
-    "tabla1" : "tables.json",
-    "tabla2" : "tables2.json"
+    "table-0000-000" : "tables2.json",
+    "table-1234-345" : "tables2.json",
+    "table-1652-200" : "tables.json"
 }

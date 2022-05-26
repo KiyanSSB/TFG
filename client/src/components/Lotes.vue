@@ -5,6 +5,7 @@ import { nextTick } from 'vue'
 import { useUserStore } from "../stores/user";
 
 const modules = import.meta.glob('../../public/tables/*.json')
+import indices from '../../public/indice/indice.json';
 
 export default {
     name: "Tables",
@@ -72,34 +73,76 @@ export default {
                 })
         },
 
-
         //Función que recibe un lote para gestionarlo
-        retrieveLote() {
+        async retrieveLote() {
             //Recibimos el lote
-            TablesDataService.getLotefromServer()
+            await TablesDataService.getLotefromServer()
                 .then((response) => {
-                    var keys = Object.keys(response.data);
-                    this.lote = response.data[keys[0]];
-                    //Buscamos la tabla correspondiente en los ficheros
-                    for (const path in modules) {
-                        modules[path]()
-                            .then((mod) => {
-                                var tablas = Object.keys(mod.default);
-                                for (var i = 0; i < tablas.length; i++) {
-                                    //Si encontramos la tabla de referencia , la cogemos
-                                    if (tablas[i] == this.lote.query) {
-                                        this.referenceTable = mod.default[tablas[i]]
-                                    }
-                                }
 
-                                for (var j = 0; j < tablas.length; j++) {
-                                    if (this.lote.candidates.includes(tablas[j])) {
-                                        this.loteCandidatas.push(mod.default[tablas[j]])
-                                    }
-                                }
-                                this.candidateTable = this.loteCandidatas[0];
+                    var keys = Object.keys(response.data);
+                    console.log(indices)
+                    this.lote = response.data[keys[0]];
+                    console.log(this.lote)
+
+                    
+                    var ficheroQuery = indices[this.lote.query]
+                    console.log(ficheroQuery)
+                    modules["../../public/tables/" + ficheroQuery]()
+                        .then((mod) => {
+                            console.log(mod)
+                            console.log(mod.default[this.lote.query])
+                            this.referenceTable = mod.default[this.lote.query]
+                        })
+                    console.log(this.lote.candidates)
+
+                    //Table ...
+                    for(var i=0 ; i < this.lote.candidates.length ; i++){
+                        this.indiceFor = i ; //Declaramos el índice de búsqueda en el contexto global para poder evitar hacer otro for
+                        console.log("--------ESTOY EN EL FOR -------------")
+                        console.log(this.lote.candidates.length);
+                        console.log(i)
+                        console.log(indices)
+                        console.log(this.lote.candidates[i])
+                        console.log(indices[this.lote.candidates[i]])
+                        modules["../../public/tables/" + indices[this.lote.candidates[0]]]()
+                            .then((mod) => {
+                                console.log("----------Estoy dentro del mod-----------")
+                                console.log(mod)
+                                // console.log(this.lote.candidates[])
+                                console.log(mod.default)
+                                console.log(this.indiceFor)
+                                console.log(mod.default[this.lote.candidates[this.indiceFor]])
+                                this.loteCandidatas.push(mod.default[this.lote.candidates[this.indiceFor]])
                             })
+                        // console.log("---------ESTAS SON LAS CANDIDATAS")
+                        // console.log(this.loteCandidatas)
+                        // console.log("--------------")
                     }
+
+
+
+                    // //Buscamos la tabla correspondiente en los ficheros
+                    // for (const path in modules) {
+                    //     console.log(path)
+                    //     modules[path]()
+                    //         .then((mod) => {
+                    //             var tablas = Object.keys(mod.default);
+                    //             console.log(tablas)
+                    //             for (var i = 0; i < tablas.length; i++) {
+                    //                 //Si encontramos la tabla de referencia , la cogemos
+                    //                 if (tablas[i] == this.lote.query) {
+                    //                     this.referenceTable = mod.default[tablas[i]]
+                    //                 }
+                    //             }
+
+                    //             for (var j = 0; j < tablas.length; j++) {
+                    //                 if (this.lote.candidates.includes(tablas[j])) {
+                    //                     this.loteCandidatas.push(mod.default[tablas[j]])
+                    //                 }
+                    //             }
+                    //             this.candidateTable = this.loteCandidatas[0];
+                    //         })
+                    // }
                 });
         },
 
