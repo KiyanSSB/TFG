@@ -1,5 +1,6 @@
 <script>
 import TablesDataService from '@/services/TablesDataService';
+import { enableMultiTabIndexedDbPersistence } from '@firebase/firestore';
 import { nextTick } from 'vue'
 import { useUserStore } from "../stores/user";
 
@@ -135,6 +136,7 @@ export default {
                 //Es la misma columna?
                 if (this.currentIndex == key && whichTable == this.currentTable) {
                     this.removeColor(whichTable, this.currentIndex);
+
                     this.currentIndex = -1
                     this.currentTable = null
                     if(this.byColumn != 0 ){
@@ -144,7 +146,7 @@ export default {
                     }
                     return false;
                 } else {
-                    //Comprobamos cual de las tablas ha sido clickada y actuamos en función si ha sido clickada antes o no
+                    //Si la columna ya ha sido aparejada, mostramos el error
                     if (this.currentTable == whichTable) {
                         for (i = 0; i < this.columnasRelacionadas.length; i++) {
                             if (whichTable == 'referenceTable') {
@@ -159,10 +161,12 @@ export default {
                                 }
                             }
                         }
+                        //Si la columna no ha sido aparejada, cambiamos la columna 
                         this.removeColor(whichTable, this.currentIndex)
                         this.cambiarColor(whichTable, key)
                         this.currentIndex = key
                     }
+                    //La columna ya está seleccionada en referencia o en candidata
                     else {
                         for (i = 0; i < this.columnasRelacionadas.length; i++) {
                             if (whichTable == 'referenceTable') {
@@ -190,11 +194,7 @@ export default {
                                 }
                             }
 
-                            console.log(this.byColumn)
-                            console.log(this.byTitle)  
                             this.increaseByOrigin(origen)
-                            console.log(this.byColumn)
-                            console.log(this.byTitle)
                             this.cambiarColor("candidateTable", key)
                             this.columnasRelacionadas.push([this.referenceTable.title[this.currentIndex], table.title[key]])
                             await nextTick()
@@ -246,7 +246,7 @@ export default {
                 for (i = 0; i < this.columnasRelacionadas.length; i++) {
                     if (whichTable == 'referenceTable') {
                         if (this.columnasRelacionadas[i].includes(this.referenceTable.title[key])) {
-                            this.deletePair(i)
+                            this.deletePair(i,whichTable)
                             return
                         }
                     } else {
@@ -288,16 +288,29 @@ export default {
 
         removeColor(whichTable, currentIndex) {
             var color = document.getElementById(whichTable + currentIndex).classList
-            this.selectedColors[this.nextColor.indexOf(color[0])] = 0
+            this.selectedColors[this.nextColor.indexOf(color[0])]-- 
             document.getElementById(whichTable + currentIndex).classList = ""
         },
 
-        deletePair(key) {
+        deletePair(key,whichTable) {
+            //Sacamos el array que contiene los nombres de las columnas
             var eliminados = this.columnasRelacionadas.splice(key, 1)
             //Borramos el color de la columna de referencia
-            this.removeColor('referenceTable', this.referenceTable.title.indexOf(this.referenceTable.title.find(element => element == eliminados[0][0])))
-            //Borramos el color de la columna de candidata
-            this.removeColor('candidateTable', this.candidateTable.title.indexOf(this.candidateTable.title.find(element => element == eliminados[0][1])))
+            if(whichTable == 'referenceTable'){
+                this.removeColor('referenceTable', this.referenceTable.title.indexOf(this.referenceTable.title.find(element => element == eliminados[0][0])))
+                this.currentIndex = this.candidateTable.title.indexOf(this.candidateTable.title.find(element => element == eliminados[0][1]))
+                this.currentTable = 'candidateTable'
+                //Cuando borramos una 
+            }else{
+                this.removeColor('candidateTable', this.candidateTable.title.indexOf(this.candidateTable.title.find(element => element == eliminados[0][1])))
+                this.currentIndex = this.referenceTable.title.indexOf(this.referenceTable.title.find(element => element == eliminados[0][0]))
+                this.currentTable = 'referenceTable'
+            }
+
+
+            // this.removeColor('referenceTable', this.referenceTable.title.indexOf(this.referenceTable.title.find(element => element == eliminados[0][0])))
+            // //Borramos el color de la columna de candidata
+            // this.removeColor('candidateTable', this.candidateTable.title.indexOf(this.candidateTable.title.find(element => element == eliminados[0][1])))
         },
 
         noRelationships() {
@@ -378,11 +391,10 @@ export default {
 
             TablesDataService.storeResult(this.result)
                 .then((response) => {
-                    console.log(response);
+                    // console.log(response);
                     //Si es la última tabla, del lote, limpiamos el lote y cogemos uno nuevo 
-                    console.log(this.currentCandidateIndex)
                     if (this.currentCandidateIndex + 1 == this.loteCandidatas.length) {
-                        console.log("Era la última tabla del lote")
+                        // console.log("Era la última tabla del lote")
                         this.loteCandidatas.length = 0
                         this.currentCandidateIndex = 0
                         //Limpiamos los colores de la tabla
@@ -400,7 +412,6 @@ export default {
         },
 
         noCompletada(motivo) {
-            console.log(motivo)
             //Si no conozco el dominio, tenemos que enviar un resultado que indique el motivo:
             var tablas = {
                 "tablas": [
@@ -419,7 +430,7 @@ export default {
 
             TablesDataService.storeResult(this.result)
                 .then((response) => {
-                     console.log(response);
+                    //  console.log(response);
                     //Si es la última tabla, del lote, limpiamos el lote y cogemos uno nuevo 
                     console.log(this.currentCandidateIndex)
                     if (this.currentCandidateIndex + 1 == this.loteCandidatas.length) {
