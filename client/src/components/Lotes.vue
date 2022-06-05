@@ -447,7 +447,7 @@ export default {
                 </colgroup>
                 <thead>
                     <tr>
-                        <th v-for="(value, key) in referenceTable.title"
+                        <th draggable="false" class="noselect" v-for="(value, key) in referenceTable.title"
                             v-on:click="juntarColumnas(referenceTable, key, 'referenceTable' , 'titulo');">
                             {{ value }}
                         </th>
@@ -455,9 +455,9 @@ export default {
                 </thead>
 
                 <!-- Resto de la tabla -->
-                <tr v-for="(value, key) in referenceTable.data">
-                    <td v-for="(value2, key) in value"
-                        v-on:click="juntarColumnas(referenceTable, key, 'referenceTable' , 'contenido');">
+                <tr  v-for="(value, key) in referenceTable.data">
+                    <td draggable="false" class="noselect" v-for="(value2, key) in value"
+                        v-on:click="juntarColumnas(referenceTable, key, 'referenceTable' , 'titulo');">
                         {{ value2 }}
                     </td>
                 </tr>
@@ -469,16 +469,16 @@ export default {
                 </colgroup>
                 <thead>
                     <tr>
-                        <th v-for="(value, key) in candidateTable.title"
-                            v-on:click="juntarColumnas(candidateTable, key, 'candidateTable','titulo');">
+                        <th draggable="false" class="noselect" v-for="(value, key) in candidateTable.title"
+                            v-on:click="juntarColumnas(referenceTable, key, 'candidateTable' , 'titulo');">
                             {{ value }}
                         </th>
                     </tr>
                 </thead>
 
                 <tr v-for="(value, key) in candidateTable.data">
-                    <td v-for="(value2, key) in value"
-                        v-on:click="juntarColumnas(candidateTable,key,'candidateTable','contenido')">
+                    <td draggable="false" class="noselect"  v-for="(value2, key) in value"
+                        v-on:click="juntarColumnas(referenceTable, key, 'candidateTable' , '');">
                         {{ value2 }}
                     </td>
                 </tr>
@@ -513,7 +513,8 @@ export default {
     </div>
 </template>
 
-<style>
+
+<style scoped>
 .container_center {
     height: 100%;
     height: 80vh;
@@ -554,21 +555,6 @@ export default {
 
 table {
     border: 1px solid black;
-}
-
-tr {
-    border: 1px solid black;
-    text-align: center;
-}
-
-th {
-    border: 1px solid black !important;
-    text-align: center;
-}
-
-td {
-    border: 1px solid black !important;
-    text-align: center;
 }
 
 .red {
@@ -631,19 +617,21 @@ body {
 }
 
 table {
-	width: 800px;
 	border-collapse: collapse;
 	overflow: hidden;
 	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    margin: 2%;
 }
 
 th,
 td {
 	background-color: rgba(255,255,255,0.2);
-	color: #fff;
+    border: 1px solid black !important;
+    text-align: center;
 }
 
 th {
+    color: white;
 	text-align: left;
     background-color: #55608f
 }
@@ -652,15 +640,7 @@ th {
 
 
 td:hover{ 
-    position: relative;
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: -9999px;
-    bottom: -9999px;
-    background-color: rgba(255,255,255,0.2);
-    z-index: -1;
+    background-color: red
 }
 
 
@@ -673,6 +653,15 @@ td:hover{
     border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
 
 
 

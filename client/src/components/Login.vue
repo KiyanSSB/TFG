@@ -1,36 +1,48 @@
 <template>
-    <div>
-        <h1>Login</h1>
+    <div class="d-flex justify-content-center">
         <form @submit.prevent="handleSubmit">
-            <input type="email" placeholder="email" v-model.trim="email" />
-            <input
-                type="password"
-                placeholder="password"
-                v-model.trim="password"
-            />
-            <button type="submit" :disabled="userStore.loadingUser">
-                Acceder
-            </button>
-        </form>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <input class="form-control" type="email" placeholder="email" v-model.trim="email" />
+            </div>
 
-        <div> 
-            <button v-on:click="googleSignIn">
-                Sign In With Google    
-            </button>
-        </div>
+            <div class="mb-3">
+               <label for="exampleFormControlInput1" class="form-label">Password</label>
+               <input
+                    class="form-control"
+                    type="password"
+                    placeholder="password"
+                    v-model.trim="password"
+                />
+            </div>
 
-        <div> 
-            <button v-on:click="twitterSignIn">
-                Sign In With Twitter
-            </button>
-        </div>
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-primary" type="submit" :disabled="userStore.loadingUser" style="margin:2%" >
+                    Acceder
+               </button>
+            </div>
 
-        <div> 
-            <button v-on:click="facebookSignIn">
-                Sign In With Facebook
-            </button>
+            <h5 class="text-center">Or login with: </h5>
+                
+            <div class="d-flex justify-content-evenly"> 
+                <button v-on:click="googleSignIn">
+                    Sign In With Google    
+                </button>
+    
+                <button v-on:click="twitterSignIn">
+                    Sign In With Twitter
+                </button>
+
+                <button v-on:click="facebookSignIn">
+                    Sign In With Facebook
+                </button>
+
+            </div>
+
+
+            </form>
+
         </div>
-    </div>
 </template>
 
 <script setup>
@@ -62,3 +74,35 @@ const facebookSignIn = () => {
     userStore.FacebookSignIn();
 };
 </script>
+
+
+<style scoped>
+    .login_section{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .crystal_container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        min-height: 80%;
+    }
+
+    form{
+        width: 33%;
+        /* From https://css.glass */
+        background: rgba(196, 158, 246, 0.21);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid rgba(196, 158, 246, 0.3);
+        padding: 3%;
+    }
+
+    
+
+
+</style>
