@@ -57,7 +57,6 @@ export default {
 
         //Función que recibe un lote para gestionarlo
         async retrieveLote() {
-            //Recibimos el lote
             await TablesDataService.getLotefromServer()
                 .then((response) => {
                     var keys = Object.keys(response.data);
