@@ -296,6 +296,14 @@ export default {
             // this.removeColor('candidateTable', this.candidateTable.title.indexOf(this.candidateTable.title.find(element => element == eliminados[0][1])))
         },
 
+        deleteByButton(key){
+            var eliminados = this.columnasRelacionadas.splice(key,1)
+            this.removeColor('referenceTable', this.referenceTable.title.indexOf(eliminados[0][0]) )
+            this.removeColor('candidateTable', this.candidateTable.title.indexOf(eliminados[0][1]) )
+
+
+        },
+
         noRelationships() {
             alert("No hay relaciones")
         },
@@ -538,7 +546,7 @@ export default {
                         </div>
                         <input v-bind:id="'comentario' + key" placeholder="Añade un comentario" />
                         <div class="d-flex justify-content-center" style="width: 100%">
-                            <button class="btn btn-danger" v-on:click="deletePair(key)" style="margin-top: 5%;">
+                            <button class="btn btn-danger" v-on:click="deleteByButton(key)" style="margin-top: 5%;">
                                 borrame</button>
                         </div>
                     </div>
