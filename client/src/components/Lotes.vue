@@ -47,11 +47,11 @@ export default {
             alert(mensaje)
         },
 
-        increaseByOrigin(origen){
-            if(origen == 'titulo'){
-                this.byTitle ++
-            }else{
-                this.byColumn ++ 
+        increaseByOrigin(origen) {
+            if (origen == 'titulo') {
+                this.byTitle++
+            } else {
+                this.byColumn++
             }
         },
 
@@ -69,12 +69,12 @@ export default {
                         })
 
                     var that = this //Guradamos el contexto de vue base para pasarlo dentro del foreach
-                    this.lote.candidates.forEach(function(item , i ){
+                    this.lote.candidates.forEach(function (item, i) {
                         modules["../../public/tables/" + indices[item]]()
-                        .then((mod)  => {
-                            that.loteCandidatas.push(mod.default[item])
-                            that.candidateTable = that.loteCandidatas[0] //Esto tiene que ir aquí, si no los contextos no coinciden y no se pueden sacar los datos 
-                        })  
+                            .then((mod) => {
+                                that.loteCandidatas.push(mod.default[item])
+                                that.candidateTable = that.loteCandidatas[0] //Esto tiene que ir aquí, si no los contextos no coinciden y no se pueden sacar los datos 
+                            })
                     })
                 });
         },
@@ -82,7 +82,7 @@ export default {
         resetControl() {
             this.currentIndex = -1
             this.currentTable = null
-            this.byColumn = 0 
+            this.byColumn = 0
             this.byTitle = 0
         },
 
@@ -100,12 +100,12 @@ export default {
             this.candidateTable = this.loteCandidatas[this.currentCandidateIndex];
         },
 
-        async autoCheck(contexto){
+        async autoCheck(contexto) {
             //Esperamos que el DOM se actualice 
 
         },
 
-        async juntarColumnas(table, key, whichTable,origen) {
+        async juntarColumnas(table, key, whichTable, origen) {
             //Tenía columna antes?
             //Si:
             if (this.currentIndex != -1) {
@@ -115,10 +115,10 @@ export default {
 
                     this.currentIndex = -1
                     this.currentTable = null
-                    if(this.byColumn != 0 ){
+                    if (this.byColumn != 0) {
                         this.byColumn = 0
-                    }else{
-                       this.byTitle = 0 
+                    } else {
+                        this.byTitle = 0
                     }
                     return false;
                 } else {
@@ -174,17 +174,17 @@ export default {
                             this.cambiarColor("candidateTable", key)
                             this.columnasRelacionadas.push([this.referenceTable.title[this.currentIndex], table.title[key]])
                             await nextTick()
-                            
-                            if(this.byTitle == 2){
-                                document.getElementById('titulo' + ((this.columnasRelacionadas.length)-1) ).checked = true
+
+                            if (this.byTitle == 2) {
+                                document.getElementById('titulo' + ((this.columnasRelacionadas.length) - 1)).checked = true
                             }
 
-                            if(this.byColumn == 2){
-                                document.getElementById('contenido' + ((this.columnasRelacionadas.length)-1) ).checked = true
+                            if (this.byColumn == 2) {
+                                document.getElementById('contenido' + ((this.columnasRelacionadas.length) - 1)).checked = true
                             }
                             this.resetControl();
                             return
-                        
+
                         } else {
                             var pair = [table.title[key], this.candidateTable.title[this.currentIndex]]
                             for (var i = 0; i < this.columnasRelacionadas.length; i++) {
@@ -196,20 +196,20 @@ export default {
                                     return;
                                 }
                             }
-                            
+
                             //Guardamos que parte de la tabla ha sido seleccionada para poder automatizar
                             this.increaseByOrigin(origen)
                             this.cambiarColor("referenceTable", key)
                             this.columnasRelacionadas.push([table.title[key], this.candidateTable.title[this.currentIndex]])
                             await nextTick()
-                            
-                            if(this.byTitle == 2){
-                                document.getElementById('titulo' + ((this.columnasRelacionadas.length)-1) ).checked = true
+
+                            if (this.byTitle == 2) {
+                                document.getElementById('titulo' + ((this.columnasRelacionadas.length) - 1)).checked = true
                             }
 
-                            if(this.byColumn == 2){
-                                document.getElementById('contenido' + ((this.columnasRelacionadas.length)-1) ).checked = true
-                            }                            this.resetControl();
+                            if (this.byColumn == 2) {
+                                document.getElementById('contenido' + ((this.columnasRelacionadas.length) - 1)).checked = true
+                            } this.resetControl();
                             return;
                         }
                     }
@@ -222,7 +222,7 @@ export default {
                 for (i = 0; i < this.columnasRelacionadas.length; i++) {
                     if (whichTable == 'referenceTable') {
                         if (this.columnasRelacionadas[i].includes(this.referenceTable.title[key])) {
-                            this.deletePair(i,whichTable)
+                            this.deletePair(i, whichTable)
                             return
                         }
                     } else {
@@ -234,12 +234,12 @@ export default {
                 }
                 this.currentIndex = key //Guardamos la columna seleccionada
                 this.currentTable = whichTable
-                
+
                 //Guardamos que parte de la tabla ha sido seleccionada para poder automatizar
-                if(origen == 'titulo'){
-                    this.byTitle ++
-                }else{
-                    this.byColumn ++ 
+                if (origen == 'titulo') {
+                    this.byTitle++
+                } else {
+                    this.byColumn++
                 }
 
                 //Indicamos que tabla hemos clickado
@@ -264,20 +264,20 @@ export default {
 
         removeColor(whichTable, currentIndex) {
             var color = document.getElementById(whichTable + currentIndex).classList
-            this.selectedColors[this.nextColor.indexOf(color[0])]-- 
+            this.selectedColors[this.nextColor.indexOf(color[0])]--
             document.getElementById(whichTable + currentIndex).classList = ""
         },
 
-        deletePair(key,whichTable) {
+        deletePair(key, whichTable) {
             //Sacamos el array que contiene los nombres de las columnas
             var eliminados = this.columnasRelacionadas.splice(key, 1)
             //Borramos el color de la columna de referencia
-            if(whichTable == 'referenceTable'){
+            if (whichTable == 'referenceTable') {
                 this.removeColor('referenceTable', this.referenceTable.title.indexOf(this.referenceTable.title.find(element => element == eliminados[0][0])))
                 this.currentIndex = this.candidateTable.title.indexOf(this.candidateTable.title.find(element => element == eliminados[0][1]))
                 this.currentTable = 'candidateTable'
                 //Cuando borramos una 
-            }else{
+            } else {
                 this.removeColor('candidateTable', this.candidateTable.title.indexOf(this.candidateTable.title.find(element => element == eliminados[0][1])))
                 this.currentIndex = this.referenceTable.title.indexOf(this.referenceTable.title.find(element => element == eliminados[0][0]))
                 this.currentTable = 'referenceTable'
@@ -432,7 +432,7 @@ export default {
 
 
     async mounted() {
-        await this.retrieveLote();       
+        await this.retrieveLote();
     }
 }
 
@@ -448,16 +448,16 @@ export default {
                 <thead>
                     <tr>
                         <th draggable="false" class="noselect" v-for="(value, key) in referenceTable.title"
-                            v-on:click="juntarColumnas(referenceTable, key, 'referenceTable' , 'titulo');">
+                            v-on:click="juntarColumnas(referenceTable, key, 'referenceTable', 'titulo');">
                             {{ value }}
                         </th>
                     </tr>
                 </thead>
 
                 <!-- Resto de la tabla -->
-                <tr  v-for="(value, key) in referenceTable.data">
+                <tr v-for="(value, key) in referenceTable.data">
                     <td draggable="false" class="noselect" v-for="(value2, key) in value"
-                        v-on:click="juntarColumnas(referenceTable, key, 'referenceTable' , 'titulo');">
+                        v-on:click="juntarColumnas(referenceTable, key, 'referenceTable', 'titulo');">
                         {{ value2 }}
                     </td>
                 </tr>
@@ -470,52 +470,77 @@ export default {
                 <thead>
                     <tr>
                         <th draggable="false" class="noselect" v-for="(value, key) in candidateTable.title"
-                            v-on:click="juntarColumnas(referenceTable, key, 'candidateTable' , 'titulo');">
+                            v-on:click="juntarColumnas(referenceTable, key, 'candidateTable', 'titulo');">
                             {{ value }}
                         </th>
                     </tr>
                 </thead>
 
                 <tr v-for="(value, key) in candidateTable.data">
-                    <td draggable="false" class="noselect"  v-for="(value2, key) in value"
-                        v-on:click="juntarColumnas(referenceTable, key, 'candidateTable' , '');">
+                    <td draggable="false" class="noselect" v-for="(value2, key) in value"
+                        v-on:click="juntarColumnas(referenceTable, key, 'candidateTable', '');">
                         {{ value2 }}
                     </td>
                 </tr>
             </table>
 
-            <div class="d-flex justify-content-around">
+            <div class="d-flex" style="width: 100%; justify-content: space-evenly;">
                 <div class="d-flex justify-content-center">
-                    <button style="margin-top: 5%;" v-on:click="noCompletada('idioma')">No conozco el idioma</button>
+                    <button class="btn btn-danger" style="margin-top: 5%;" v-on:click="noCompletada('idioma')">No
+                        conozco el idioma</button>
                 </div>
 
                 <div class="d-flex justify-content-center">
-                    <button style="margin-top: 5%;" v-on:click="noCompletada('dominio')">No conozco el dominio de las tablas</button>
+                    <button class="btn btn-danger" style="margin-top: 5%;" v-on:click="noCompletada('dominio')">No
+                        conozco el dominio de las tablas</button>
                 </div>
+
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-warning " style="margin-top: 5%;" v-on:click="noCompletada('otro')">Otro
+                        motivo</button>
+                    <input v-bind:id="'motivo'" placeholder="Indica el motivo" />
+                </div>
+
             </div>
 
-            <div class="d-flex flex-column">
-                <button style="margin-top: 5%;" v-on:click="noCompletada('otro')">Otro motivo</button>
-                <input v-bind:id="'motivo'" placeholder="Indica el motivo" />
-            </div>
         </div>
 
         <div class="right_side">
             <h1>Columnas seleccionadas</h1>
+            <ul class="listaColumnas">
+                    <div v-for="(value, key) in columnasRelacionadas" class="d-flex flex-column flex-wrap cristal">
+                        <div class="d-flex justify-content-center" style="width: 100%">
+                            <span class="lista_columnas">Columnas:</span>
+                        </div>
+                        <div class="d-flex justify-content-center" style="width: 100%">
+                            <span>
+                                {{ value[0] }} y &nbsp
+                            </span>
+                            <span>
+                                {{ value[1] }}
+                            </span>
+                        </div>
 
-            <ul>
-                <div v-for="(value, key) in columnasRelacionadas" class="cristal" >
-                    <li>{{ value }}</li>
-                    <button v-on:click="deletePair(key)"> borrame</button>
-                    <input v-bind:id="'titulo' + key" type="checkbox">
-                    <label for="checkbox">Por el título</label>
-                    <input v-bind:id="'contenido' + key" type="checkbox">
-                    <label for="checkbox2">Por el contenido</label>
-                    <input v-bind:id="'comentario' + key" placeholder="Añade un comentario" />
-                </div>
+                        <div class="d-flex justify-content-center" style="width: 100%">
+                            <span class="lista_columnas">Coinciden por:</span>
+                        </div>
+
+                        <div>
+                            <input v-bind:id="'titulo' + key" type="checkbox">
+                            <label for="checkbox">Por el título</label>
+                            <input v-bind:id="'contenido' + key" type="checkbox">
+                            <label for="checkbox2">Por el contenido</label>
+                        </div>
+                        <input v-bind:id="'comentario' + key" placeholder="Añade un comentario" />
+                        <div class="d-flex justify-content-center" style="width: 100%">
+                            <button class="btn btn-danger" v-on:click="deletePair(key)" style="margin-top: 5%;">
+                                borrame</button>
+                        </div>
+                    </div>
+
+                <button class="btn btn-success" style="margin-top: 5%;" v-on:click="enviarResultado()">Tabla
+                    completada</button>
             </ul>
-
-            <button style="margin-top: 5%;" v-on:click="enviarResultado()">Tabla completada</button>
         </div>
     </div>
 </template>
@@ -550,7 +575,7 @@ export default {
     justify-content: space-around;
     align-items: center;
     width: 40%;
-    height: 100%;
+    height: 100% !important;
     height: auto;
     border-left: 1px solid black;
 }
@@ -562,6 +587,7 @@ export default {
 
 table {
     border: 1px solid black;
+    font-size: small;
 }
 
 .red {
@@ -606,67 +632,96 @@ table {
 
 html,
 body {
-	height: 100%;
+    height: 100%;
 }
 
 body {
-	margin: 0;
-	background: linear-gradient(45deg, #49a09d, #5f2c82);
-	font-family: sans-serif;
-	font-weight: 100;
+    margin: 0;
+    background: linear-gradient(45deg, #49a09d, #5f2c82);
+    font-family: sans-serif;
+    font-weight: 100;
 }
 
 .container {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 table {
-	border-collapse: collapse;
-	overflow: hidden;
-	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    border-collapse: collapse;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     margin: 2%;
 }
 
 th,
 td {
-	background-color: rgba(255,255,255,0.2);
+    background-color: rgba(255, 255, 255, 0.2);
     border: 1px solid black !important;
     text-align: center;
 }
 
 th {
     color: white;
-	text-align: left;
+    text-align: left;
     background-color: #55608f
 }
 
-td:hover{ 
-    background-color: red
+td:hover {
+    background-color: #ddd;
+    opacity: 0.9;
 }
 
 
-.cristal{ 
-    background: rgba( 255, 255, 255, 0.6 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 10.5px );
-    -webkit-backdrop-filter: blur( 10.5px );
+.cristal {
+    margin: 2%;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10.5px);
+    -webkit-backdrop-filter: blur(10.5px);
     border-radius: 10px;
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+}
+
+.listaColumnas {
+    height: 80%;
+    width: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 
 
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1224px) {
+    table {}
+}
+
+/* Large screens ----------- */
+@media only screen and (min-width: 1824px) {}
 </style>
