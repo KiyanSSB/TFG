@@ -484,12 +484,19 @@ export default {
                 </tr>
             </table>
 
-            <div>
-                <button style="margin-top: 5%;" v-on:click="noCompletada('idioma')">No conozco el idioma</button>
-                <button style="margin-top: 5%;" v-on:click="noCompletada('dominio')">No conozco el dominio de las tablas</button>
+            <div class="d-flex justify-content-around">
+                <div class="d-flex justify-content-center">
+                    <button style="margin-top: 5%;" v-on:click="noCompletada('idioma')">No conozco el idioma</button>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <button style="margin-top: 5%;" v-on:click="noCompletada('dominio')">No conozco el dominio de las tablas</button>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column">
                 <button style="margin-top: 5%;" v-on:click="noCompletada('otro')">Otro motivo</button>
                 <input v-bind:id="'motivo'" placeholder="Indica el motivo" />
-
             </div>
         </div>
 
@@ -635,9 +642,6 @@ th {
 	text-align: left;
     background-color: #55608f
 }
-
-
-
 
 td:hover{ 
     background-color: red
