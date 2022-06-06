@@ -106,6 +106,10 @@ export default {
         },
 
         async juntarColumnas(table, key, whichTable, origen) {
+            console.log(table)
+            console.log(key)
+            console.log(whichTable)
+            console.log(origen)
             //Tenía columna antes?
             //Si:
             if (this.currentIndex != -1) {
@@ -159,7 +163,10 @@ export default {
                         }
                         //1º Guardamos la pareja creada:
                         if (whichTable == 'candidateTable') {
+                            console.log("Estoy aquí")
+                            console.log(table)
                             var pair = [this.referenceTable.title[this.currentIndex], table.title[key]]
+                            console.log(pair)
                             for (var i = 0; i < this.columnasRelacionadas.length; i++) {
                                 if (JSON.stringify(this.columnasRelacionadas[i]) == JSON.stringify(pair)) {
                                     alert("Ya has hecho esta selección")
@@ -322,8 +329,6 @@ export default {
 
         },
 
-
-
         enviarResultado() {
             //Tenemos que añadir los valores de los campos en cada uno de los arrays
             for (var i = 0; i < this.columnasRelacionadas.length; i++) {
@@ -470,7 +475,7 @@ export default {
                 <thead>
                     <tr>
                         <th draggable="false" class="noselect" v-for="(value, key) in candidateTable.title"
-                            v-on:click="juntarColumnas(referenceTable, key, 'candidateTable', 'titulo');">
+                            v-on:click="juntarColumnas(candidateTable, key, 'candidateTable', 'titulo');">
                             {{ value }}
                         </th>
                     </tr>
@@ -478,7 +483,7 @@ export default {
 
                 <tr v-for="(value, key) in candidateTable.data">
                     <td draggable="false" class="noselect" v-for="(value2, key) in value"
-                        v-on:click="juntarColumnas(referenceTable, key, 'candidateTable', '');">
+                        v-on:click="juntarColumnas(candidateTable, key, 'candidateTable', '');">
                         {{ value2 }}
                     </td>
                 </tr>
