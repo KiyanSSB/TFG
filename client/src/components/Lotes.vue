@@ -300,8 +300,23 @@ export default {
             var eliminados = this.columnasRelacionadas.splice(key,1)
             this.removeColor('referenceTable', this.referenceTable.title.indexOf(eliminados[0][0]) )
             this.removeColor('candidateTable', this.candidateTable.title.indexOf(eliminados[0][1]) )
+            this.removeColor(this.currentTable,this.currentIndex);
 
+            if(this.currentIndex != -1){
+                this.currentIndex = 0
+                this.byTitle = 0 
+                this.byColumn = 0
+                this.referenceClicked = false;
+                this.candidateClicked = false;
+                this.currentCandidateIndex = 0;
+                this.currentTable = null;
 
+                for(var i = 0 ; i < this.selectedColors.length; i++){
+                    if(this.selectedColors[i] == 1){
+                        this.selectedColors[1] == 0;
+                    }
+                }
+            }
         },
 
         noRelationships() {
