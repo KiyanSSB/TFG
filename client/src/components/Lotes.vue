@@ -38,6 +38,7 @@ export default {
                 "silver"
             ],
             selectedColors: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            rememberColor: -1,
             result: {}
         };
     },
@@ -100,11 +101,6 @@ export default {
             this.candidateTable = this.loteCandidatas[this.currentCandidateIndex];
         },
 
-        async autoCheck(contexto) {
-            //Esperamos que el DOM se actualice 
-
-        },
-
         async juntarColumnas(table, key, whichTable, origen) {
             console.log(table)
             console.log(key)
@@ -113,7 +109,7 @@ export default {
             //Tenía columna antes?
             //Si:
             if (this.currentIndex != -1) {
-                //Es la misma columna?
+                //Es la misma columna que he seleccionado al principio??
                 if (this.currentIndex == key && whichTable == this.currentTable) {
                     this.removeColor(whichTable, this.currentIndex);
 
@@ -126,7 +122,7 @@ export default {
                     }
                     return false;
                 } else {
-                    //Si la columna ya ha sido aparejada, mostramos el error
+                    //Si la columna ya ha sido aparejada, mostramos el error de que ya ha sido seleccionada
                     if (this.currentTable == whichTable) {
                         for (i = 0; i < this.columnasRelacionadas.length; i++) {
                             if (whichTable == 'referenceTable') {
@@ -163,9 +159,7 @@ export default {
                         }
                         //1º Guardamos la pareja creada:
                         if (whichTable == 'candidateTable') {
-                            console.log("Estoy aquí")
-                            console.log(table)
-                            var pair = [this.referenceTable.title[this.currentIndex], table.title[key]]
+                            var pair = [this.referenceTable.title[this.currentIndex], table.title[key]] //Creamos la pareja, con las dos columnas [col,]
                             console.log(pair)
                             for (var i = 0; i < this.columnasRelacionadas.length; i++) {
                                 if (JSON.stringify(this.columnasRelacionadas[i]) == JSON.stringify(pair)) {
@@ -179,8 +173,11 @@ export default {
 
                             this.increaseByOrigin(origen)
                             this.cambiarColor("candidateTable", key)
-                            this.columnasRelacionadas.push([this.referenceTable.title[this.currentIndex], table.title[key]])
+                            this.columnasRelacionadas.push([this.referenceTable.title[this.currentIndex], table.title[key],this.rememberColor    ]  )
                             await nextTick()
+   
+                            document.getElementById("conjunto" + (this.columnasRelacionadas.length-1).toString()).classList.add(this.nextColor[this.rememberColor])
+
 
                             if (this.byTitle == 2) {
                                 document.getElementById('titulo' + ((this.columnasRelacionadas.length) - 1)).checked = true
@@ -207,16 +204,22 @@ export default {
                             //Guardamos que parte de la tabla ha sido seleccionada para poder automatizar
                             this.increaseByOrigin(origen)
                             this.cambiarColor("referenceTable", key)
-                            this.columnasRelacionadas.push([table.title[key], this.candidateTable.title[this.currentIndex]])
+
+                            console.log("Estoy aquí")
+                            this.columnasRelacionadas.push([table.title[key], this.candidateTable.title[this.currentIndex],this.rememberColor ])
                             await nextTick()
 
+                            document.getElementById('conjunto' + (this.columnasRelacionadas.length-1).toString()).classList.add(this.nextColor[this.rememberColor])
+
                             if (this.byTitle == 2) {
+                                console.log("Estoy aquí dentro")
                                 document.getElementById('titulo' + ((this.columnasRelacionadas.length) - 1)).checked = true
                             }
 
                             if (this.byColumn == 2) {
                                 document.getElementById('contenido' + ((this.columnasRelacionadas.length) - 1)).checked = true
-                            } this.resetControl();
+                            } 
+                            this.resetControl();
                             return;
                         }
                     }
@@ -225,7 +228,7 @@ export default {
 
             //No:
             if (this.currentIndex == -1) {
-                //Esta columna ha sido seleccionada ya? si es así, borrarla
+                //Esta columna ha sido seleccionada ya? si es así, borrar la selección
                 for (i = 0; i < this.columnasRelacionadas.length; i++) {
                     if (whichTable == 'referenceTable') {
                         if (this.columnasRelacionadas[i].includes(this.referenceTable.title[key])) {
@@ -239,6 +242,7 @@ export default {
                         }
                     }
                 }
+
                 this.currentIndex = key //Guardamos la columna seleccionada
                 this.currentTable = whichTable
 
@@ -260,10 +264,12 @@ export default {
         },
 
         cambiarColor(whichTable, key) {
+            var remember; 
             for (var i = 0; i < this.selectedColors.length; i++) {
                 if (this.selectedColors[i] == 0 || this.selectedColors[i] == 1) {
                     document.getElementById(whichTable + key).classList.add(this.nextColor[i])
                     this.selectedColors[i]++
+                    this.rememberColor = i ;
                     break;
                 }
             }
@@ -536,7 +542,7 @@ export default {
         <div class="right_side">
             <h1>Columnas seleccionadas</h1>
             <ul class="listaColumnas">
-                    <div v-for="(value, key) in columnasRelacionadas" class="d-flex flex-column flex-wrap cristal">
+                    <div v-for="(value, key) in columnasRelacionadas" class="d-flex flex-column flex-wrap cristal" v-bind:id="'conjunto' + key" >
                         <div class="d-flex justify-content-center" style="width: 100%">
                             <span class="lista_columnas">Columnas:</span>
                         </div>
@@ -705,7 +711,6 @@ td:hover {
 
 .cristal {
     margin: 2%;
-    background: rgba(255, 255, 255, 0.6);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     backdrop-filter: blur(10.5px);
     -webkit-backdrop-filter: blur(10.5px);
