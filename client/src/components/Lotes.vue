@@ -101,6 +101,7 @@ export default {
             this.candidateTable = this.loteCandidatas[this.currentCandidateIndex];
         },
 
+
         async juntarColumnas(table, key, whichTable, origen) {
             console.log(table)
             console.log(key)
@@ -173,10 +174,11 @@ export default {
 
                             this.increaseByOrigin(origen)
                             this.cambiarColor("candidateTable", key)
-                            this.columnasRelacionadas.push([this.referenceTable.title[this.currentIndex], table.title[key],this.rememberColor    ]  )
+                            this.columnasRelacionadas.push([this.referenceTable.title[this.currentIndex], table.title[key], this.rememberColor])
                             await nextTick()
-   
-                            document.getElementById("conjunto" + (this.columnasRelacionadas.length-1).toString()).classList.add(this.nextColor[this.rememberColor])
+
+                                                       document.getElementById('conjunto' + this.columnasRelacionadas[this.columnasRelacionadas.length-1][2])
+                                    .classList.add(this.nextColor[this.columnasRelacionadas[this.columnasRelacionadas.length-1][2]])
 
 
                             if (this.byTitle == 2) {
@@ -206,10 +208,16 @@ export default {
                             this.cambiarColor("referenceTable", key)
 
                             console.log("Estoy aquí")
-                            this.columnasRelacionadas.push([table.title[key], this.candidateTable.title[this.currentIndex],this.rememberColor ])
+                            this.columnasRelacionadas.push([table.title[key], this.candidateTable.title[this.currentIndex], this.rememberColor])
                             await nextTick()
 
-                            document.getElementById('conjunto' + (this.columnasRelacionadas.length-1).toString()).classList.add(this.nextColor[this.rememberColor])
+                            // document.getElementById('conjunto' + (this.columnasRelacionadas.length - 1).toString()).classList.add(this.nextColor[this.rememberColor])
+
+                            console.log(this.nextColor[this.columnasRelacionadas[this.columnasRelacionadas.length-1][2]])
+                            
+                            document.getElementById('conjunto' + this.columnasRelacionadas[this.columnasRelacionadas.length-1][2])
+                                    .classList.add(this.nextColor[this.columnasRelacionadas[this.columnasRelacionadas.length-1][2]])
+
 
                             if (this.byTitle == 2) {
                                 console.log("Estoy aquí dentro")
@@ -218,7 +226,7 @@ export default {
 
                             if (this.byColumn == 2) {
                                 document.getElementById('contenido' + ((this.columnasRelacionadas.length) - 1)).checked = true
-                            } 
+                            }
                             this.resetControl();
                             return;
                         }
@@ -233,11 +241,17 @@ export default {
                     if (whichTable == 'referenceTable') {
                         if (this.columnasRelacionadas[i].includes(this.referenceTable.title[key])) {
                             this.deletePair(i, whichTable)
+                            this.limpiarColoresRelaciones()
+                            await nextTick()
+                            this.recolorearRelaciones()
                             return
                         }
                     } else {
                         if (this.columnasRelacionadas[i].includes(this.candidateTable.title[key])) {
                             this.deletePair(i)
+                            this.limpiarColoresRelaciones()
+                            await nextTick()
+                            this.recolorearRelaciones()
                             return
                         }
                     }
@@ -263,13 +277,53 @@ export default {
             }
         },
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        limpiarColoresRelaciones() {
+            for (var i = 0; i < this.columnasRelacionadas.length; i++) {
+                if (document.getElementById("conjunto" + i) != null) {
+                    for(var j = 0; j <this.nextColor.length; j++){
+                        if(document.getElementById("conjunto" + i).classList.contains(this.nextColor[j])){
+                            console.log("Tengo el color: " + this.nextColor[j])
+                            document.getElementById("conjunto" + i).classList.remove(this.nextColor[j])
+                        }
+                    }
+                }
+            }
+
+        },
+
+        recolorearRelaciones(){
+            for(var i = 0 ; i < this.columnasRelacionadas.length; i++){
+                console.log("------------------------")
+                console.log("conjunto" + this.columnasRelacionadas[i][2])
+                console.log(this.nextColor[this.columnasRelacionadas[i][2]])
+                console.log(document.getElementById("conjunto" + this.columnasRelacionadas[i][2]))
+                document.getElementById("conjunto" + this.columnasRelacionadas[i][2]).classList.add(this.nextColor[this.columnasRelacionadas[i][2]])
+            }
+        },
+
         cambiarColor(whichTable, key) {
-            var remember; 
+            var remember;
             for (var i = 0; i < this.selectedColors.length; i++) {
                 if (this.selectedColors[i] == 0 || this.selectedColors[i] == 1) {
                     document.getElementById(whichTable + key).classList.add(this.nextColor[i])
                     this.selectedColors[i]++
-                    this.rememberColor = i ;
+                    this.rememberColor = i;
                     break;
                 }
             }
@@ -302,23 +356,23 @@ export default {
             // this.removeColor('candidateTable', this.candidateTable.title.indexOf(this.candidateTable.title.find(element => element == eliminados[0][1])))
         },
 
-        deleteByButton(key){
-            var eliminados = this.columnasRelacionadas.splice(key,1)
-            this.removeColor('referenceTable', this.referenceTable.title.indexOf(eliminados[0][0]) )
-            this.removeColor('candidateTable', this.candidateTable.title.indexOf(eliminados[0][1]) )
-            this.removeColor(this.currentTable,this.currentIndex);
+        deleteByButton(key) {
+            var eliminados = this.columnasRelacionadas.splice(key, 1)
+            this.removeColor('referenceTable', this.referenceTable.title.indexOf(eliminados[0][0]))
+            this.removeColor('candidateTable', this.candidateTable.title.indexOf(eliminados[0][1]))
+            this.removeColor(this.currentTable, this.currentIndex);
 
-            if(this.currentIndex != -1){
+            if (this.currentIndex != -1) {
                 this.currentIndex = 0
-                this.byTitle = 0 
+                this.byTitle = 0
                 this.byColumn = 0
                 this.referenceClicked = false;
                 this.candidateClicked = false;
                 this.currentCandidateIndex = 0;
                 this.currentTable = null;
 
-                for(var i = 0 ; i < this.selectedColors.length; i++){
-                    if(this.selectedColors[i] == 1){
+                for (var i = 0; i < this.selectedColors.length; i++) {
+                    if (this.selectedColors[i] == 1) {
                         this.selectedColors[1] == 0;
                     }
                 }
@@ -542,35 +596,36 @@ export default {
         <div class="right_side">
             <h1>Columnas seleccionadas</h1>
             <ul class="listaColumnas">
-                    <div v-for="(value, key) in columnasRelacionadas" class="d-flex flex-column flex-wrap cristal" v-bind:id="'conjunto' + key" >
-                        <div class="d-flex justify-content-center" style="width: 100%">
-                            <span class="lista_columnas">Columnas:</span>
-                        </div>
-                        <div class="d-flex justify-content-center" style="width: 100%">
-                            <span>
-                                {{ value[0] }} y &nbsp
-                            </span>
-                            <span>
-                                {{ value[1] }}
-                            </span>
-                        </div>
-
-                        <div class="d-flex justify-content-center" style="width: 100%">
-                            <span class="lista_columnas">Coinciden por:</span>
-                        </div>
-
-                        <div>
-                            <input v-bind:id="'titulo' + key" type="checkbox">
-                            <label for="checkbox">Por el título</label>
-                            <input v-bind:id="'contenido' + key" type="checkbox">
-                            <label for="checkbox2">Por el contenido</label>
-                        </div>
-                        <input v-bind:id="'comentario' + key" placeholder="Añade un comentario" />
-                        <div class="d-flex justify-content-center" style="width: 100%">
-                            <button class="btn btn-danger" v-on:click="deleteByButton(key)" style="margin-top: 5%;">
-                                borrame</button>
-                        </div>
+                <div v-for="(value, key) in columnasRelacionadas" class="d-flex flex-column flex-wrap cristal"
+                    v-bind:id="'conjunto' + value[2]">
+                    <div class="d-flex justify-content-center" style="width: 100%">
+                        <span class="lista_columnas">Columnas:</span>
                     </div>
+                    <div class="d-flex justify-content-center" style="width: 100%">
+                        <span>
+                            {{ value[0] }} y &nbsp
+                        </span>
+                        <span>
+                            {{ value[1] }}
+                        </span>
+                    </div>
+
+                    <div class="d-flex justify-content-center" style="width: 100%">
+                        <span class="lista_columnas">Coinciden por:</span>
+                    </div>
+
+                    <div>
+                        <input v-bind:id="'titulo' + key" type="checkbox">
+                        <label for="checkbox">Por el título</label>
+                        <input v-bind:id="'contenido' + key" type="checkbox">
+                        <label for="checkbox2">Por el contenido</label>
+                    </div>
+                    <input v-bind:id="'comentario' + key" placeholder="Añade un comentario" />
+                    <div class="d-flex justify-content-center" style="width: 100%">
+                        <button class="btn btn-danger" v-on:click="deleteByButton(key)" style="margin-top: 5%;">
+                            borrame</button>
+                    </div>
+                </div>
 
                 <button class="btn btn-success" style="margin-top: 5%;" v-on:click="enviarResultado()">Tabla
                     completada</button>
