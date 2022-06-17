@@ -177,8 +177,8 @@ export default {
                             this.columnasRelacionadas.push([this.referenceTable.title[this.currentIndex], table.title[key], this.rememberColor])
                             await nextTick()
 
-                                                       document.getElementById('conjunto' + this.columnasRelacionadas[this.columnasRelacionadas.length-1][2])
-                                    .classList.add(this.nextColor[this.columnasRelacionadas[this.columnasRelacionadas.length-1][2]])
+                            document.getElementById('conjunto' + this.columnasRelacionadas[this.columnasRelacionadas.length - 1][2])
+                                .classList.add(this.nextColor[this.columnasRelacionadas[this.columnasRelacionadas.length - 1][2]])
 
 
                             if (this.byTitle == 2) {
@@ -211,12 +211,10 @@ export default {
                             this.columnasRelacionadas.push([table.title[key], this.candidateTable.title[this.currentIndex], this.rememberColor])
                             await nextTick()
 
-                            // document.getElementById('conjunto' + (this.columnasRelacionadas.length - 1).toString()).classList.add(this.nextColor[this.rememberColor])
+                            console.log(this.nextColor[this.columnasRelacionadas[this.columnasRelacionadas.length - 1][2]])
 
-                            console.log(this.nextColor[this.columnasRelacionadas[this.columnasRelacionadas.length-1][2]])
-                            
-                            document.getElementById('conjunto' + this.columnasRelacionadas[this.columnasRelacionadas.length-1][2])
-                                    .classList.add(this.nextColor[this.columnasRelacionadas[this.columnasRelacionadas.length-1][2]])
+                            document.getElementById('conjunto' + this.columnasRelacionadas[this.columnasRelacionadas.length - 1][2])
+                                .classList.add(this.nextColor[this.columnasRelacionadas[this.columnasRelacionadas.length - 1][2]])
 
 
                             if (this.byTitle == 2) {
@@ -240,18 +238,16 @@ export default {
                 for (i = 0; i < this.columnasRelacionadas.length; i++) {
                     if (whichTable == 'referenceTable') {
                         if (this.columnasRelacionadas[i].includes(this.referenceTable.title[key])) {
-                            this.deletePair(i, whichTable)
                             this.limpiarColoresRelaciones()
-                            await nextTick()
-                            this.recolorearRelaciones()
+                            this.deletePair(i, whichTable)
+                            await this.recolorearRelaciones()
                             return
                         }
                     } else {
                         if (this.columnasRelacionadas[i].includes(this.candidateTable.title[key])) {
-                            this.deletePair(i)
                             this.limpiarColoresRelaciones()
-                            await nextTick()
-                            this.recolorearRelaciones()
+                            this.deletePair(i)
+                            await this.recolorearRelaciones()
                             return
                         }
                     }
@@ -277,38 +273,18 @@ export default {
             }
         },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         limpiarColoresRelaciones() {
             for (var i = 0; i < this.columnasRelacionadas.length; i++) {
-                if (document.getElementById("conjunto" + i) != null) {
-                    for(var j = 0; j <this.nextColor.length; j++){
-                        if(document.getElementById("conjunto" + i).classList.contains(this.nextColor[j])){
-                            console.log("Tengo el color: " + this.nextColor[j])
-                            document.getElementById("conjunto" + i).classList.remove(this.nextColor[j])
-                        }
-                    }
-                }
+                console.log("conjunto" + this.columnasRelacionadas[i][2])
+                console.log(this.nextColor[this.columnasRelacionadas[i][2]])
+                console.log(document.getElementById("conjunto" + this.columnasRelacionadas[i][2]))
+                document.getElementById("conjunto" + this.columnasRelacionadas[i][2]).classList.remove(this.nextColor[this.columnasRelacionadas[i][2]])
             }
-
         },
 
-        recolorearRelaciones(){
-            for(var i = 0 ; i < this.columnasRelacionadas.length; i++){
+        async recolorearRelaciones() {
+            await nextTick()
+            for (var i = 0; i < this.columnasRelacionadas.length; i++) {
                 console.log("------------------------")
                 console.log("conjunto" + this.columnasRelacionadas[i][2])
                 console.log(this.nextColor[this.columnasRelacionadas[i][2]])
@@ -349,18 +325,13 @@ export default {
                 this.currentIndex = this.referenceTable.title.indexOf(this.referenceTable.title.find(element => element == eliminados[0][0]))
                 this.currentTable = 'referenceTable'
             }
-
-
-            // this.removeColor('referenceTable', this.referenceTable.title.indexOf(this.referenceTable.title.find(element => element == eliminados[0][0])))
-            // //Borramos el color de la columna de candidata
-            // this.removeColor('candidateTable', this.candidateTable.title.indexOf(this.candidateTable.title.find(element => element == eliminados[0][1])))
         },
 
-        deleteByButton(key) {
+        async deleteByButton(key) {
+            this.limpiarColoresRelaciones()
             var eliminados = this.columnasRelacionadas.splice(key, 1)
             this.removeColor('referenceTable', this.referenceTable.title.indexOf(eliminados[0][0]))
             this.removeColor('candidateTable', this.candidateTable.title.indexOf(eliminados[0][1]))
-            this.removeColor(this.currentTable, this.currentIndex);
 
             if (this.currentIndex != -1) {
                 this.currentIndex = 0
@@ -377,6 +348,7 @@ export default {
                     }
                 }
             }
+            await this.recolorearRelaciones()
         },
 
         noRelationships() {
