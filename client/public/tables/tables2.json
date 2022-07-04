@@ -1,16 +1,10 @@
 {
     "table-1234-345": {
         "title": [
-            "MIRA",
-            "MI",
-            "TABLA",
-            "JAJA1",
-            "JAJA2",
-            "JAJA3",
-            "JAJA4",
-            "JAJA5",
-            "JAJA6",
-            "JAJA7"
+            "Id",
+            "Nombre",
+            "Apellido",
+            "Localidad"
         ],
         "numCols": 10,
         "numericColumns": [],
@@ -21,131 +15,23 @@
         "caption": "Ski cross",
         "data": [
             [
-                "no",
-                "fun",
-                "cio",
-                "na",
-                "no",
-                "fun",
-                "cio",
-                "na",
-                "no",
-                "fun"
-            ],
-            [
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus",
-                "Stanley Hayer",
-                "Enak Gavaggio",
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus",
-                "Stanley Hayer",
-                "Enak Gavaggio",
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus"
-            ],
-            [
-                "2009 Inawashiro",
-                "Andreas Matt",
-                "Thomas Zangerl",
-                "Davey Barr",
-                "2009 Inawashiro",
-                "Andreas Matt",
-                "Thomas Zangerl",
-                "Davey Barr",
-                "2009 Inawashiro",
-                "Andreas Matt"
-            ],
-            [
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus",
-                "Stanley Hayer",
-                "Enak Gavaggio",
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus",
-                "Stanley Hayer",
-                "Enak Gavaggio",
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus"
-            ]
-            ,
-            [
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus",
-                "Stanley Hayer",
-                "Enak Gavaggio",
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus",
-                "Stanley Hayer",
-                "Enak Gavaggio",
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus"
-            ]
-            ,
-            [
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus",
-                "Stanley Hayer",
-                "Enak Gavaggio",
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus",
-                "Stanley Hayer",
-                "Enak Gavaggio",
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus"
-            ]
-            ,
-            [
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus",
-                "Stanley Hayer",
-                "Enak Gavaggio",
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus",
-                "Stanley Hayer",
-                "Enak Gavaggio",
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus"
-            ]
-            ,
-            [
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus",
-                "Stanley Hayer",
-                "Enak Gavaggio",
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus",
-                "Stanley Hayer",
-                "Enak Gavaggio",
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus"
-            ]
-            ,
-            [
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus",
-                "Stanley Hayer",
-                "Enak Gavaggio",
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus",
-                "Stanley Hayer",
-                "Enak Gavaggio",
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus"
-            ]
-            ,
-            [
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus",
-                "Stanley Hayer",
-                "Enak Gavaggio",
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus",
-                "Stanley Hayer",
-                "Enak Gavaggio",
-                "2007 Madonna di Campiglio",
-                "Tomas Kraus"
-            ]
+                "1",
+                "Gabriel",
+                "De Lamo",
+                "Elda"
+              ],
+              [
+                "2",
+                "David",
+                "Brotons Civera",
+                "Alicante"
+              ],
+              [
+                "3",
+                "Pablo",
+                "Brotons Civera",
+                "Novelda"
+              ]
         ]
     },
     "table-0000-000": {
