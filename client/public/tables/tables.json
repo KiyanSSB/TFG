@@ -4,7 +4,7 @@
       "Id",
       "Nombre",
       "Apellido",
-      "Localidad"
+      "Ciudad"
     ],
     "numCols": 10,
     "numericColumns": [],
