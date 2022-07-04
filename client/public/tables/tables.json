@@ -1,10 +1,10 @@
 {
   "table-1652-79": {
     "title": [
-      "Year",
-      "Gold",
-      "Silver",
-      "Bronze"
+      "Id",
+      "Nombre",
+      "Apellido",
+      "Localidad"
     ],
     "numCols": 10,
     "numericColumns": [],
@@ -15,37 +15,29 @@
     "caption": "Ski cross",
     "data": [
       [
-        "2005 Ruka",
-        "Tomas Kraus",
-        "Jesper Brugge",
-        "Audun Groenvold"
+        "1",
+        "Gabriel",
+        "De Lamo",
+        "Elda"
       ],
       [
-        "2007 Madonna di Campiglio",
-        "Tomas Kraus",
-        "Stanley Hayer",
-        "Enak Gavaggio"
+        "2",
+        "David",
+        "Brotons Civera",
+        "Alicante"
       ],
       [
-        "2009 Inawashiro",
-        "Andreas Matt",
-        "Thomas Zangerl",
-        "Davey Barr"
+        "3",
+        "Pablo",
+        "Brotons Civera",
+        "Novelda"
       ]
     ]
   },
   "table-1652-200": {
     "title": [
-      "Chart (1986)1",
-      "Peak position1",
-      "Chart (1986)2",
-      "Peak position2",
-      "Chart (1986)3",
-      "Peak position3",
-      "Chart (1986)4",
-      "Peak position4",
-      "Chart (1986)5",
-      "Peak position5"
+      "Id",
+      "Localidad"
     ],
     "numCols": 10,
     "numericColumns": [
@@ -58,114 +50,12 @@
     "caption": "Peak positions",
     "data": [
       [
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2"
-      ],
-      [
-        "Canadian Singles Chart",
-        "9",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2"
-      ],
-      [
-        "Dutch Top 40",
         "1",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2"
+        "Alicante"
       ],
       [
-        "French SNEP Singles Chart",
-        "1",
-        "Austrian Singles Chart",
         "2",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2"
-      ],
-      [
-        "German Singles Chart",
-        "1",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2"
-
-      ],
-      [
-        "Norwegian Singles Chart",
-        "3",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2"
-      ],
-      [
-        "Swedish Singles Chart",
-        "7",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2"
-      ],
-      [
-        "Swiss Singles Chart",
-        "1",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2"
-      ],
-      [
-        "UK Singles Chart",
-        "6",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2",
-        "Austrian Singles Chart",
-        "2"
-        
+        "Barcelona"
       ]
     ]
   }
