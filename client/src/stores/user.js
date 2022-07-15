@@ -61,10 +61,10 @@ export const useUserStore = defineStore("user", {
                 this.userData = { email: user.email, uid: user.uid };
                 this.logged = true
                 console.log(this.userData)
-                router.push("/lotes");
+                router.push("/");
             } catch (error) {
-                console.log(error);
                 this.userData = {};
+                return error;
             } finally {
                 this.loadingUser = false;
             }
