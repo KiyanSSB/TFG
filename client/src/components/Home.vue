@@ -9,7 +9,7 @@ const userStore = useUserStore()
 <template>
     <div class="main_container">
         <div class="logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Zara_Logo.svg/800px-Zara_Logo.svg.png"/>
+            <img src="../assets/logo.png"/>
         </div>
         <div className="description">
             <div className="titles">
@@ -87,7 +87,7 @@ body {
 }
 
 .logo img {
-    width: 50%;
+    width: 80%;
     height: auto;
 }
 
