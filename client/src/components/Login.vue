@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex justify-content-center">
+    <div className="login-div">
         <form @submit.prevent="handleSubmit">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Email address</label>
@@ -25,25 +25,15 @@
             <h5 class="text-center">Or login with: </h5>
                 
             <div class="d-flex justify-content-evenly"> 
-                <button v-on:click="googleSignIn">
-                    Sign In With Google    
+                <button className="google-login" v-on:click="googleSignIn">   
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/36px-Google_%22G%22_Logo.svg.png" alt="google logo" />
                 </button>
-    
-                <button v-on:click="twitterSignIn">
-                    Sign In With Twitter
-                </button>
-
-                <button v-on:click="facebookSignIn">
-                    Sign In With Facebook
-                </button>
-
             </div>
-
-
+            
             </form>
-
         </div>
 </template>
+
 
 <script setup>
 import { ref } from "vue";
@@ -102,7 +92,24 @@ const facebookSignIn = () => {
         padding: 3%;
     }
 
-    
+    .google-login{
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid rgba(196, 158, 246, 0.3);
+        padding: 3%;
+    }
+
+    .login-div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        padding-top: 5%;
+    }
 
 
 </style>
