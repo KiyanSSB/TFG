@@ -503,6 +503,7 @@ export default {
 
 </script>
 
+
 <template>
     <div class="container_center">
         <div class="left_side">
@@ -560,8 +561,8 @@ export default {
                         conozco el dominio de las tablas</button>
                 </div>
 
-                <div class="d-flex justify-content-center">
-                    <button class="btn btn-warning " style="margin-top: 5%;" v-on:click="noCompletada('otro')">Otro
+                <div className="motivo-button">
+                    <button class="btn btn-warning" style="margin-top: 5%;" v-on:click="noCompletada('otro')">Otro
                         motivo</button>
                     <input v-bind:id="'motivo'" placeholder="Indica el motivo" />
                 </div>
@@ -575,61 +576,124 @@ export default {
             <ul class="listaColumnas">
                 <div v-for="(value, key) in columnasRelacionadas" class="d-flex flex-column flex-wrap cristal"
                     v-bind:id="'conjunto' + value[2]">
-                    <div class="d-flex justify-content-center" style="width: 100%">
-                        <span class="lista_columnas">Columnas:</span>
-                    </div>
-                    <div class="d-flex justify-content-center" style="width: 100%">
+
+                    
+
+                    <div className="table-titles" style="width: 100%">
                         <span>
-                            {{ value[0] }} y &nbsp
+                           L - {{ value[0] }}
                         </span>
+                        <hr class="solid"/>
                         <span>
-                            {{ value[1] }}
+                           R - {{ value[1] }}
                         </span>
                     </div>
 
-                    <div class="d-flex justify-content-center" style="width: 100%">
-                        <span class="lista_columnas">Coinciden por:</span>
+                    <div className="card-checkboxes">
+                        <div className="checkbox">
+                            <input v-bind:id="'titulo' + key" type="checkbox">
+                            <label for="checkbox">Por el título</label>
+                        </div>
+                        <div className="checkbox">
+                            <input v-bind:id="'contenido' + key" type="checkbox">
+                            <label for="checkbox2">Por el contenido</label>
+                        </div>
                     </div>
 
-                    <div>
-                        <input v-bind:id="'titulo' + key" type="checkbox">
-                        <label for="checkbox">Por el título</label>
-                        <input v-bind:id="'contenido' + key" type="checkbox">
-                        <label for="checkbox2">Por el contenido</label>
+                    <div className="card-comment" >
+                        <input v-bind:id="'comentario' + key" placeholder="Añade un comentario" />
+                        <div class="d-flex justify-content-center" style="width: 100%">
+                            <button class="btn btn-danger" v-on:click="deleteByButton(key)" style="margin-top: 5%;">
+                                    Borrame</button>
+                        </div>
                     </div>
-                    <input v-bind:id="'comentario' + key" placeholder="Añade un comentario" />
-                    <div class="d-flex justify-content-center" style="width: 100%">
-                        <button class="btn btn-danger" v-on:click="deleteByButton(key)" style="margin-top: 5%;">
-                            borrame</button>
-                    </div>
+
                 </div>
-
-                <button class="btn btn-success" style="margin-top: 5%;" v-on:click="enviarResultado()">Tabla
-                    completada</button>
             </ul>
+             <button class="btn btn-success" style="margin-top: 5%;" v-on:click="enviarResultado()">Tabla
+                    completada</button>
         </div>
     </div>
 </template>
 
-
 <style scoped>
+.card-title{
+    background-image: linear-gradient(to bottom right, #ffffff00, #00000025);
+    border-radius: 8px;
+    padding: 0.4em;
+}
+
+.card-checkboxes {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0.3em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.listaColumnas hr {
+    margin: 0.1em ;
+}
+
+.card-comment {
+    justify-content: center;
+    align-items: center; 
+    flex-direction: column;
+    display: flex;
+    padding: 0.3em;
+}
+
+.left_side th {
+    padding: 8px;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.motivo-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.motivo-button button{
+    margin-bottom: 0.2em;
+}
+
+.card-comment input {
+    width: 100%;
+}
+
+.table-titles {
+    justify-content: center;
+    align-items: center;
+    padding: 0.3em;
+    margin-top: 0.5em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.checkbox input {
+    margin: 0.5em;
+}
+
 .container_center {
     height: 100%;
     height: 80vh;
     width: 100%;
     min-height: 100%;
-
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-
     align-items: center;
+    padding-top: 5em;
 }
 
 .left_side {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     width: 60%;
     height: 100%;
@@ -638,11 +702,10 @@ export default {
 .right_side {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space;
     align-items: center;
     width: 40%;
     height: 100% !important;
-    height: auto;
     border-left: 1px solid black;
 }
 
@@ -650,10 +713,15 @@ export default {
     color: brown;
 }
 
+.left_side table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    border: 1px solid #ddd;
+}
 
 table {
+    table-layout: fixed;
     border: 1px solid black;
-    font-size: small;
 }
 
 .red {
@@ -740,10 +808,14 @@ td:hover {
     opacity: 0.9;
 }
 
+.left_side table td {
+    word-wrap: break-word;
+}
+
 
 .cristal {
     margin: 2%;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    box-shadow: 0 8px 16px 0 rgba(31, 38, 135, 0.25);
     backdrop-filter: blur(10.5px);
     -webkit-backdrop-filter: blur(10.5px);
     border-radius: 10px;
@@ -774,18 +846,27 @@ td:hover {
     flex-direction: row;
     flex-wrap: wrap;
     align-content: flex-start;
+    justify-content: center;
     list-style: none;
     margin: 0;
     padding: 0;
+    overflow: auto;
 }
-
-
 
 
 /* Desktops and laptops ----------- */
-@media only screen and (min-width: 1224px) {
-    table {}
+
+@media only screen and (min-width: 1280px) {   
+    table {
+        font-size: 50%;
+    }
 }
+@media only screen and (min-width: 1920px ) {   
+    table {
+        font-size: 70%;
+    }
+}
+
 
 /* Large screens ----------- */
 @media only screen and (min-width: 1824px) {}

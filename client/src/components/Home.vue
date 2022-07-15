@@ -7,26 +7,125 @@ const userStore = useUserStore()
 
 
 <template>
-    <div class="main_container ">
-        <div class="main_left glass">
-            <h1>Tablas místicas del TFG</h1>
+    <div class="main_container">
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Zara_Logo.svg/800px-Zara_Logo.svg.png"/>
         </div>
-        <div class="main_right glass"></div>
-    </div>  
+        <div className="description">
+            <div className="titles">
+                <h2>A website for joining tables</h2>    
+            </div>    
+            <div className="features">
+                <div className="feature">
+                    <h3>⚡️ Join tables</h3>
+                    <p>Join tables and link similar information</p>
+                </div>
+                <div className="feature">
+                    <h3>📦 Share food</h3>
+                    <p>Share food with your friends and enjoy the meal</p>
+                </div>
+                <div className="feature">
+                    <h3>💡 Pay</h3>
+                    <p>Pay for your food with your credit card</p>
+                </div>
+            </div>     
+        </div>
+    </div> 
+    <footer class="sticky-footer">
+        <div className="powered">
+            <h4>Powered by</h4>
+            <div className="logos">
+                <img src="https://vitejs.dev/logo.svg"/>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1184px-Vue.js_Logo_2.svg.png"/>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/MongoDB_Logo.svg/2560px-MongoDB_Logo.svg.png"/>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Firebase_Logo.svg/1280px-Firebase_Logo.svg.png"/>
+            </div>
+        </div>     
+    </footer>
 </template>
 
 
-<style>
+<style scoped>
+
+body {
+    min-height: 100vh;
+}
+
+.sticky-footer {
+    position: sticky;
+    top: 75%;
+}
 
 .main_container{
+    padding-top: 10%;
     display:flex;
+    flex-direction: row;
     align-content:center;
     align-items:center;
     justify-content:space-evenly;
     height:100%;
     width:100%;
-
 }
+
+.features {
+    display: flex;
+    flex-direction: row;
+}
+
+.feature {
+    padding: 0.5em;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+    width: 50%;
+    height: 100%;
+}
+
+.logo img {
+    width: 50%;
+    height: auto;
+}
+
+.powered {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    padding: 5em;
+}
+
+.logos img {
+    height: 120px;
+    padding: 2em;
+}
+
+.titles{
+    display:flex;
+    flex-direction: column;
+    align-content:center;
+    align-items:center;
+    justify-content:center;
+    height:100%;
+    width:100%;
+    padding:20px;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    width: 50%;
+    height: auto;
+    border-right: 1px solid rgba(0, 0, 0, 0.253);
+}
+
 
 .glass{
     background: rgba( 255, 255, 255, 0.45 );
