@@ -48,6 +48,11 @@ export default {
             alert(mensaje)
         },
 
+
+        
+
+
+
         increaseByOrigin(origen) {
             if (origen == 'titulo') {
                 this.byTitle++
