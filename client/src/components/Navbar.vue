@@ -19,25 +19,19 @@ const userStore = useUserStore()
 
                     <li class="nav-item">
                         <RouterLink to="/lotes" class="nav-link active">Lotes</RouterLink>
-
                     </li>
 
                     <li class="nav-item">
                         <RouterLink to="/login" class="nav-link active" v-if="userStore.logged === false">Login
                         </RouterLink>
-
                     </li>
 
                     <li class="nav-item">
-                        <RouterLink to="/register" class="nav-link active" v-if="userStore.logged === false">register
+                        <RouterLink to="/register" class="nav-link active" v-if="userStore.logged === false">Register
                         </RouterLink>
-
                     </li>
                 </ul>
             </div>
-
-
-
         </div>
 
         <button v-on:click="userStore.signOutUser()" v-if="userStore.logged != false">
@@ -49,4 +43,22 @@ const userStore = useUserStore()
 .navabar {
     background: linear-gradient(107.56deg, #C2E9FB 0%, rgba(161, 196, 253, 0) 100%) !important;
 }
+
+a:hover,
+a.router-link-active {
+    border-bottom: green solid 2px;
+}
+
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .5s ease-out;
+}
+
+
 </style>
