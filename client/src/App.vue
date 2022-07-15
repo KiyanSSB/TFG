@@ -26,6 +26,10 @@ const UserStore = useUserStore()
 #app {
   min-height: 100vh;
   background: linear-gradient(107.56deg, #C2E9FB 0%, rgba(161, 196, 253, 0) 100%);
+
+
+  /* background: rgb(255,255,255);
+background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(192,255,255,0.8659664549413515) 25%, rgba(168,248,231,1) 50%, rgba(105,251,218,1) 75%, rgba(0,255,196,1) 100%); */
 }
 
 .center{

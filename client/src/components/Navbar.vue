@@ -7,7 +7,9 @@ const userStore = useUserStore()
 <template>
     <nav class="navbar navbar-expand-lg navbar-light ">
         <div class="container-fluid">
-            <RouterLink to="/" class="navbar-brand">TableFG </RouterLink>
+            <RouterLink to="/" class="navbar-brand">
+                <img src="../assets/logo-extra-small.png"/>
+            </RouterLink>
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
