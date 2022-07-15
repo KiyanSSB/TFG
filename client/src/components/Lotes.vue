@@ -48,11 +48,6 @@ export default {
             alert(mensaje)
         },
 
-
-        
-
-
-
         increaseByOrigin(origen) {
             if (origen == 'titulo') {
                 this.byTitle++
@@ -106,6 +101,39 @@ export default {
             this.candidateTable = this.loteCandidatas[this.currentCandidateIndex];
         },
 
+        remove_selectedFirstColumn(whichTable) {
+            this.removeColor(whichTable, this.currentIndex);
+            this.currentIndex = -1
+            this.currentTable = null
+            if (this.byColumn != 0) {
+                this.byColumn = 0
+            } else {
+                this.byTitle = 0
+            }
+            return false;
+        },
+
+        swapSelectedColumn(whichTable,key){
+            this.removeColor(whichTable, this.currentIndex)
+            this.cambiarColor(whichTable, key)
+            this.currentIndex = key
+        },
+
+        error_SelectedColumnSameTable(whichTable,key){
+             for (var i = 0; i < this.columnasRelacionadas.length; i++) {
+                if (whichTable == 'referenceTable') {
+                    if (this.columnasRelacionadas[i].includes(this.referenceTable.title[key])) {
+                        alert("La columna ya está seleccionada, borra la relación")
+                        return true;
+                    }
+                } else {
+                    if (this.columnasRelacionadas[i].includes(this.candidateTable.title[key])) {
+                        alert("La columna ya está seleccionada, borra la relación")
+                        return true;
+                    }
+                }
+            }
+        },
 
         async juntarColumnas(table, key, whichTable, origen) {
             console.log(table)
@@ -117,51 +145,20 @@ export default {
             if (this.currentIndex != -1) {
                 //Es la misma columna que he seleccionado al principio??
                 if (this.currentIndex == key && whichTable == this.currentTable) {
-                    this.removeColor(whichTable, this.currentIndex);
-
-                    this.currentIndex = -1
-                    this.currentTable = null
-                    if (this.byColumn != 0) {
-                        this.byColumn = 0
-                    } else {
-                        this.byTitle = 0
-                    }
-                    return false;
+                    return this.remove_selectedFirstColumn(whichTable);
                 } else {
                     //Si la columna ya ha sido aparejada, mostramos el error de que ya ha sido seleccionada
                     if (this.currentTable == whichTable) {
-                        for (i = 0; i < this.columnasRelacionadas.length; i++) {
-                            if (whichTable == 'referenceTable') {
-                                if (this.columnasRelacionadas[i].includes(this.referenceTable.title[key])) {
-                                    alert("La columna ya está seleccionada, borra la relación")
-                                    return
-                                }
-                            } else {
-                                if (this.columnasRelacionadas[i].includes(this.candidateTable.title[key])) {
-                                    alert("La columna ya está seleccionada, borra la relación")
-                                    return
-                                }
-                            }
+                        if(this.error_SelectedColumnSameTable(whichTable,key)){
+                            return
                         }
                         //Si la columna no ha sido aparejada, cambiamos la columna 
-                        this.removeColor(whichTable, this.currentIndex)
-                        this.cambiarColor(whichTable, key)
-                        this.currentIndex = key
+                        this.swapSelectedColumn(whichTable, key)
                     }
                     //La columna ya está seleccionada en referencia o en candidata
                     else {
-                        for (i = 0; i < this.columnasRelacionadas.length; i++) {
-                            if (whichTable == 'referenceTable') {
-                                if (this.columnasRelacionadas[i].includes(this.referenceTable.title[key])) {
-                                    alert("La columna ya está seleccionada, borra la relación")
-                                    return
-                                }
-                            } else {
-                                if (this.columnasRelacionadas[i].includes(this.candidateTable.title[key])) {
-                                    alert("La columna ya está seleccionada, borra la relación")
-                                    return
-                                }
-                            }
+                        if(this.error_SelectedColumnSameTable(whichTable,key)){
+                            return
                         }
                         //1º Guardamos la pareja creada:
                         if (whichTable == 'candidateTable') {
@@ -577,15 +574,15 @@ export default {
                 <div v-for="(value, key) in columnasRelacionadas" class="d-flex flex-column flex-wrap cristal"
                     v-bind:id="'conjunto' + value[2]">
 
-                    
+
 
                     <div className="table-titles" style="width: 100%">
                         <span>
-                           L - {{ value[0] }}
+                            L - {{ value[0] }}
                         </span>
-                        <hr class="solid"/>
+                        <hr class="solid" />
                         <span>
-                           R - {{ value[1] }}
+                            R - {{ value[1] }}
                         </span>
                     </div>
 
@@ -600,24 +597,24 @@ export default {
                         </div>
                     </div>
 
-                    <div className="card-comment" >
+                    <div className="card-comment">
                         <input v-bind:id="'comentario' + key" placeholder="Añade un comentario" />
                         <div class="d-flex justify-content-center" style="width: 100%">
                             <button class="btn btn-danger" v-on:click="deleteByButton(key)" style="margin-top: 5%;">
-                                    Borrame</button>
+                                Borrame</button>
                         </div>
                     </div>
 
                 </div>
             </ul>
-             <button class="btn btn-success" style="margin-top: 5%;" v-on:click="enviarResultado()">Tabla
-                    completada</button>
+            <button class="btn btn-success" style="margin-top: 5%;" v-on:click="enviarResultado()">Tabla
+                completada</button>
         </div>
     </div>
 </template>
 
 <style scoped>
-.card-title{
+.card-title {
     background-image: linear-gradient(to bottom right, #ffffff00, #00000025);
     border-radius: 8px;
     padding: 0.4em;
@@ -632,12 +629,12 @@ export default {
 }
 
 .listaColumnas hr {
-    margin: 0.1em ;
+    margin: 0.1em;
 }
 
 .card-comment {
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     flex-direction: column;
     display: flex;
     padding: 0.3em;
@@ -658,7 +655,7 @@ export default {
     align-items: center;
 }
 
-.motivo-button button{
+.motivo-button button {
     margin-bottom: 0.2em;
 }
 
@@ -856,12 +853,13 @@ td:hover {
 
 /* Desktops and laptops ----------- */
 
-@media only screen and (min-width: 1280px) {   
+@media only screen and (min-width: 1280px) {
     table {
         font-size: 50%;
     }
 }
-@media only screen and (min-width: 1920px ) {   
+
+@media only screen and (min-width: 1920px) {
     table {
         font-size: 70%;
     }
