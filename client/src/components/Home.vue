@@ -1,5 +1,5 @@
 <script setup>
-import {useUserStore}  from '../stores/user'
+import { useUserStore } from '../stores/user'
 const userStore = useUserStore()
 
 
@@ -7,46 +7,50 @@ const userStore = useUserStore()
 
 
 <template>
-    <div class="main_container">
-        <div class="logo">
-            <img src="../assets/logo.png"/>
-        </div>
-        <div className="description">
-            <div className="titles">
-                <h2>A website for joining tables</h2>    
-            </div>    
-            <div className="features">
-                <div className="feature">
-                    <h3>⚡️ Join tables</h3>
-                    <p>Join tables and link similar information</p>
-                </div>
-                <div className="feature">
-                    <h3>📦 Share food</h3>
-                    <p>Share food with your friends and enjoy the meal</p>
-                </div>
-                <div className="feature">
-                    <h3>💡 Pay</h3>
-                    <p>Pay for your food with your credit card</p>
-                </div>
-            </div>     
-        </div>
-    </div> 
-    <footer class="sticky-footer">
-        <div className="powered">
-            <h4>Powered by</h4>
-            <div className="logos">
-                <img src="https://vitejs.dev/logo.svg"/>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1184px-Vue.js_Logo_2.svg.png"/>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/MongoDB_Logo.svg/2560px-MongoDB_Logo.svg.png"/>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Firebase_Logo.svg/1280px-Firebase_Logo.svg.png"/>
+    <div>
+        <div class="main_container">
+            <div class="logo">
+                <img src="../assets/logo.png" />
             </div>
-        </div>     
-    </footer>
+            <div className="description">
+                <div className="titles">
+                    <h2>A website for joining tables</h2>
+                </div>
+                <div className="features">
+                    <div className="feature">
+                        <h3>⚡️ Join tables</h3>
+                        <p>Join tables and link similar information</p>
+                    </div>
+                    <div className="feature">
+                        <h3>📦 Share food</h3>
+                        <p>Share food with your friends and enjoy the meal</p>
+                    </div>
+                    <div className="feature">
+                        <h3>💡 Pay</h3>
+                        <p>Pay for your food with your credit card</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="sticky-footer">
+            <div className="powered">
+                <h4>Powered by</h4>
+                <div className="logos">
+                    <img src="https://vitejs.dev/logo.svg" />
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1184px-Vue.js_Logo_2.svg.png" />
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/MongoDB_Logo.svg/2560px-MongoDB_Logo.svg.png" />
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Firebase_Logo.svg/1280px-Firebase_Logo.svg.png" />
+                </div>
+            </div>
+        </footer>
+    </div>
 </template>
 
 
 <style scoped>
-
 body {
     min-height: 100vh;
 }
@@ -56,15 +60,15 @@ body {
     top: 75%;
 }
 
-.main_container{
+.main_container {
     padding-top: 10%;
-    display:flex;
+    display: flex;
     flex-direction: row;
-    align-content:center;
-    align-items:center;
-    justify-content:space-evenly;
-    height:100%;
-    width:100%;
+    align-content: center;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100%;
+    width: 100%;
 }
 
 .features {
@@ -105,15 +109,15 @@ body {
     padding: 2em;
 }
 
-.titles{
-    display:flex;
+.titles {
+    display: flex;
     flex-direction: column;
-    align-content:center;
-    align-items:center;
-    justify-content:center;
-    height:100%;
-    width:100%;
-    padding:20px;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
 }
 
 .logo {
@@ -127,28 +131,26 @@ body {
 }
 
 
-.glass{
-    background: rgba( 255, 255, 255, 0.45 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 3.5px );
-    -webkit-backdrop-filter: blur( 3.5px );
+.glass {
+    background: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(3.5px);
+    -webkit-backdrop-filter: blur(3.5px);
     border-radius: 10px;
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 
-.main_left{
-    display:flex;
-    justify-content:center;
-    height:50%;
-    width:50%;
+.main_left {
+    display: flex;
+    justify-content: center;
+    height: 50%;
+    width: 50%;
 }
 
-.main_right{
-    display:flex;
-    width:30%;
-    height:50%;
+.main_right {
+    display: flex;
+    width: 30%;
+    height: 50%;
 }
-
-
 </style>
