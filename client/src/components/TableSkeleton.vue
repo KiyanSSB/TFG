@@ -1,0 +1,3 @@
+<template>
+    <span class="sr-only">Loading...</span>
+</template>
