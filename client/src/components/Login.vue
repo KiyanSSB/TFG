@@ -41,8 +41,8 @@ import { useUserStore } from "../stores/user";
 const userStore = useUserStore();
 
 
-const email = ref("bluuweb1@test.com");
-const password = ref("123123");
+// const email = ref("bluuweb1@test.com");
+// const password = ref("123123");
 
 const handleSubmit = () => {
     if (!email.value || password.value.length < 6) {
@@ -56,13 +56,6 @@ const googleSignIn = () => {
     userStore.googleSignIn();   
 };
 
-const twitterSignIn = () => {
-    userStore.TwitterSignIn();
-};
-
-const facebookSignIn = () => {
-    userStore.FacebookSignIn();
-};
 </script>
 
 
