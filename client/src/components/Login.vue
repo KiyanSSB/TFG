@@ -41,10 +41,12 @@ import { useUserStore } from "../stores/user";
 const userStore = useUserStore();
 
 
-// const email = ref("bluuweb1@test.com");
-// const password = ref("123123");
+const email = ref();
+const password = ref();
 
 const handleSubmit = () => {
+    console.log(email.value)
+    console.log(password.value)
     if (!email.value || password.value.length < 6) {
         alert("ingresa los campos");
     }
