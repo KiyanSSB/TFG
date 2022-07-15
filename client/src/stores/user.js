@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { auth } from "../../config/firebaseConfig";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, getAuth, signInWithPopup, signInWithRedirect, getRedirectResult } from "firebase/auth";
+import { createUserWithEmailAndPassword,onAuthStateChanged ,  signInWithEmailAndPassword, signOut, getAuth, signInWithPopup, signInWithRedirect, getRedirectResult } from "firebase/auth";
 import router from "../router";
 import { GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth'
 import { FirebaseError } from "firebase/app";
@@ -36,17 +36,44 @@ export const useUserStore = defineStore("user", {
         },
 
         async signOutUser() {
-            this.loading = true;
-            try {
-                await signOut(auth);
-            } catch (error) {
-                console.log(error);
-            } finally {
+
+            const auth = getAuth();
+            signOut(auth).then(() => {
                 this.userData = {};
-                this.loading = false;
                 this.logged = false;
+                localStorage.clear();
+                (function () {
+                    var cookies = document.cookie.split("; ");
+                    for (var c = 0; c < cookies.length; c++) {
+                        var d = window.location.hostname.split(".");
+                        while (d.length > 0) {
+                            var cookieBase = encodeURIComponent(cookies[c].split(";")[0].split("=")[0]) + '=; expires=Thu, 01-Jan-1970 00:00:01 GMT; domain=' + d.join('.') + ' ;path=';
+                            var p = location.pathname.split('/');
+                            document.cookie = cookieBase + '/';
+                            while (p.length > 0) {
+                                document.cookie = cookieBase + p.join('/');
+                                p.pop();
+                            };
+                            d.shift();
+                        }
+                    }
+                })();
+                
                 router.push("/login");
-            }
+            });
+
+            // this.loading = true;
+            // try {
+            //     await signOut(auth);
+            // } catch (error) {
+            //     console.log(error);
+            // } finally {
+            //     this.userData = {};
+            //     this.loading = false;
+            //     this.logged = false;
+            //     this.$cookie.remove("");
+            //     router.push("/login");
+            // }
         },
 
         async login(email, password) {
@@ -60,7 +87,6 @@ export const useUserStore = defineStore("user", {
                 );
                 this.userData = { email: user.email, uid: user.uid };
                 this.logged = true
-                console.log(this.userData)
                 router.push("/");
             } catch (error) {
                 this.userData = {};
@@ -76,7 +102,8 @@ export const useUserStore = defineStore("user", {
             const auth = getAuth()
             signInWithPopup(auth, provider)
                 .then((result) => {
-                    this.userData = result.user
+                    this.userData = { email: result.user.email, uid: result.user.uid };
+                    this.logged = true
                     this.credential = GoogleAuthProvider.credentialFromResult(result)
                     this.token = this.credential.accessToken
                 }).catch((error) => {
@@ -86,6 +113,12 @@ export const useUserStore = defineStore("user", {
                     const credential = GoogleAuthProvider.credentialFromError(error)
                     console.log(errorCode, errorMessage, email, credential)
                 })
+            
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                      router.push("/");
+                    }
+                });
         },
     }
 });

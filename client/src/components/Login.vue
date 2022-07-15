@@ -1,6 +1,6 @@
 <template>
     <div className="login-div">
-        <form @submit.prevent="handleSubmit">
+        <form @submit.prevent>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Email address</label>
                 <input class="form-control" type="email" placeholder="email" v-model.trim="email" />
@@ -11,12 +11,8 @@
                 <input class="form-control" type="password" placeholder="password" v-model.trim="password" />
             </div>
 
-            <div class="form-group">
-                <div v-if="message" class="alert alert-danger" role="alert">{{ message }}</div>
-            </div>
-
             <div class="d-flex justify-content-center">
-                <button class="btn btn-primary" type="submit" :disabled="userStore.loadingUser" style="margin:2%">
+                <button class="btn btn-primary" type="submit" :disabled="userStore.loadingUser" v-on:click="handleSubmit" style="margin:2%">
                     Acceder
                 </button>
             </div>
@@ -39,6 +35,10 @@
 import { async } from "@firebase/util";
 import { ref } from "vue";
 import { useUserStore } from "../stores/user";
+import router from "../router";
+import { auth } from "../../config/firebaseConfig";
+import { a } from "../../dist/assets/index.67afa436";
+
 const userStore = useUserStore();
 
 
@@ -71,8 +71,8 @@ async function handleSubmit() {
 
 };
 
-const googleSignIn = () => {
-    userStore.googleSignIn();
+async function googleSignIn(){
+    await userStore.googleSignIn();
 };
 
 </script>
