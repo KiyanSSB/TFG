@@ -8,10 +8,10 @@ const userStore = useUserStore()
     <nav class="navbar navbar-expand-lg navbar-light ">
         <div class="container-fluid">
             <RouterLink to="/" class="navbar-brand">
-                <img src="../assets/logo-extra-small.png"/>
+                <img src="../assets/logo-extra-small.png" />
             </RouterLink>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <RouterLink to="/about" class="nav-link active">About</RouterLink>
@@ -34,19 +34,22 @@ const userStore = useUserStore()
             </div>
         </div>
 
+
         <button v-on:click="userStore.signOutUser()" v-if="userStore.logged != false">
-            Logout
+            {{userStore.userData.email}}
         </button>
+
+
+
+
+
     </nav>
 </template>
 <style>
-.navabar {
-    background: linear-gradient(107.56deg, #C2E9FB 0%, rgba(161, 196, 253, 0) 100%) !important;
-}
 
 a:hover,
 a.router-link-active {
-    border-bottom: green solid 2px;
+    border-bottom: red solid 2px;
 }
 
 
@@ -59,6 +62,47 @@ a.router-link-active {
 .fade-leave-active {
     transition: opacity .5s ease-out;
 }
+
+@property --myColor1 {
+  syntax: '<color>';
+  initial-value: transparent;
+  inherits: false;
+}
+
+@property --myColor2 {
+  syntax: '<color>';
+  initial-value: transparent;
+  inherits: false;
+}
+
+@property --myColor3 {
+  syntax: '<color>';
+  initial-value: transparent;
+  inherits: false;
+}
+
+@property --myColor4 {
+  syntax: '<color>';
+  initial-value: transparent;
+  inherits: false;
+}
+
+
+
+.navbar{
+  background: rgb(245,245,249);
+  background: linear-gradient(127deg, var(--myColor2) , var(--myColor1) , var(--myColor3) , var(--myColor4) );
+    /* background: linear-gradient(127deg, var(--myColor1), var(--myColor2)); */
+  transition: --myColor1 2s ease-in , myColor2 3s ease-in , myColor3 15s ease-in-out , myColor4 5s ease-in-out;
+}
+
+.navbar:hover{
+  --myColor1: rgba(245,245,249,1) ;
+  --myColor2: rgb(234, 238, 249);
+  --myColor3: #89CADD;
+  --myColor4: #9face6;
+}
+
 
 
 </style>

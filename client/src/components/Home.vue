@@ -14,20 +14,20 @@ const userStore = useUserStore()
             </div>
             <div className="description">
                 <div className="titles">
-                    <h2>A website for joining tables</h2>
+                    <h1>Tabular annotation, made easy</h1>
                 </div>
                 <div className="features">
                     <div className="feature">
                         <h3>⚡️ Join tables</h3>
-                        <p>Join tables and link similar information</p>
+                        <p>Join tables and link similar information for your ML projects</p>
                     </div>
                     <div className="feature">
-                        <h3>📦 Share food</h3>
-                        <p>Share food with your friends and enjoy the meal</p>
+                        <h3>💁🏻‍♂️ Community based</h3>
+                        <p>Get the maximum result out of real people connecting with your work</p>
                     </div>
                     <div className="feature">
-                        <h3>💡 Pay</h3>
-                        <p>Pay for your food with your credit card</p>
+                        <h3>💡 Simple And Powerful </h3>
+                        <p>Our user oriented mindset allows for an easy, yet really valuable tool</p>
                     </div>
                 </div>
             </div>
@@ -78,8 +78,28 @@ body {
 
 .feature {
     padding: 0.5em;
+	
 }
 
+h1{
+	background-image: linear-gradient(260deg, red, blue, red) !important;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+	white-space: pre-wrap;
+}
+
+h2{
+    background-image: linear-gradient(260deg, red, blue, red) !important;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: pre-wrap;
+}
+
+p{
+    color: black;
+}
 .description {
     display: flex;
     flex-direction: column;
