@@ -35,16 +35,30 @@ const UserStore = useUserStore()
 
 #app {
     min-height: 100vh;
-    /* background: linear-gradient(107.56deg, #C2E9FB 0%, rgba(161, 196, 253, 0) 100%); */
+/* 
+    background: rgb(240,255,250);
+    background: linear-gradient(108deg, rgba(240,255,250,1) 13%, rgba(199,255,236,1) 36%, rgba(161,243,251,1) 63%, rgba(223,249,255,1) 82%); */
+/* 
+background: #FEAC5E;  
+background: -webkit-linear-gradient(to right, #4BC0C8, #C779D0, #FEAC5E);  
+background: linear-gradient(to right, #4BC0C8, #C779D0, #FEAC5E); 
 
-    background: rgb(240, 255, 250);
-    background: linear-gradient(284deg, rgba(240, 255, 250, 1) 13%, rgba(199, 255, 236, 1) 36%, rgba(161, 243, 251, 1) 63%, rgba(223, 249, 255, 1) 82%);
+background: #005AA7;  
+background: -webkit-linear-gradient(to right, #FFFDE4, #005AA7);  
+background: linear-gradient(to right, #FFFDE4, #005AA7); 
 
-    background: linear-gradient(107.56deg, #C2E9FB 0%, rgba(161, 196, 253, 0) 100%);
+background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
 
+background-image: linear-gradient(to right, #74ebd5 0%, #9face6 100%); */
 
-    /* background: rgb(255,255,255);
-background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(192,255,255,0.8659664549413515) 25%, rgba(168,248,231,1) 50%, rgba(105,251,218,1) 75%, rgba(0,255,196,1) 100%); */
+/* background-image: url('assets/19007.jpg');
+background-size: cover; */
+
+/* background-image: url('assets/cuadrado-blanco.jpg');
+background-size: cover; */
+
+/* background-image: url('assets/low-poly.jpg');
+background-size: cover; */
 }
 
 .center {
