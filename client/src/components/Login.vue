@@ -32,12 +32,8 @@
 
 
 <script setup>
-import { async } from "@firebase/util";
 import { ref } from "vue";
 import { useUserStore } from "../stores/user";
-import router from "../router";
-import { auth } from "../../config/firebaseConfig";
-import { a } from "../../dist/assets/index.67afa436";
 
 const userStore = useUserStore();
 
