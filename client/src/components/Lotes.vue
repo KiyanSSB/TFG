@@ -305,10 +305,14 @@ export default {
         },
 
         removeColor(whichTable, currentIndex) {
-            var color = document.getElementById(whichTable + currentIndex).classList
-            console.log(color)
-            this.selectedColors[this.nextColor.indexOf(color[0])]--
-            document.getElementById(whichTable + currentIndex).classList = ""
+            var columna = document.getElementById(whichTable + currentIndex)
+            console.log(columna)
+
+            if(document.getElementById(whichTable + currentIndex) != null){
+                var color = document.getElementById(whichTable + currentIndex).classList
+                this.selectedColors[this.nextColor.indexOf(color[0])]--
+                document.getElementById(whichTable + currentIndex).classList = ""
+            }
         },
 
         
@@ -371,24 +375,21 @@ export default {
                 //Cogemos todas las columna seleccionadas y las limpiamos 
                 this.currentIndex = -1
                 for (var i = 0; i < this.referenceTable.numCols; i++) {
-                    var color = document.getElementById('referenceTable' + i).classList
-                    if (color.length != 0) {
-                        document.getElementById('referenceTable' + i).classList = ""
-                    }
+                    this.removeColor('referenceTable', i);
                 }
 
-                for (var j = 0; j < this.candidateTable.numCols; j++) {
-                    var color = document.getElementById('candidateTable' + j).classList
-                    if (color.length != 0) {
-                        document.getElementById('candidateTable' + j).classList = ""
-                    }
+                for (var j = 0; j < this.columnasRelacionadas.numCols; j++) {
+                    this.removeColor('candidateTable', j);
                 }
 
                 //Limpiamos todas las columnas relacionadas
-                this.columnasRelacionadas.length = 0
-                for (i = 0; i < this.selectedColors.length; i++) {
+                this.columnasRelacionadas.length = 0 
+
+                for (var i = 0; i < this.selectedColors.length; i++) {
                     this.selectedColors[i] = 0
                 }
+
+                
             } catch (error) {
                 console.log(error)
             }
@@ -458,7 +459,7 @@ export default {
                 })
         },
 
-        noCompletada(motivo) {
+        async noCompletada(motivo) {
             //Si no conozco el dominio, tenemos que enviar un resultado que indique el motivo:
             var tablas = {
                 "tablas": [
@@ -476,10 +477,8 @@ export default {
             }
 
             TablesDataService.storeResult(this.result)
-                .then((response) => {
-                    //  console.log(response);
+                .then(() => {
                     //Si es la última tabla, del lote, limpiamos el lote y cogemos uno nuevo 
-                    console.log(this.currentCandidateIndex)
                     if (this.currentCandidateIndex + 1 == this.loteCandidatas.length) {
                         console.log("Era la última tabla del lote")
                         this.loteCandidatas.length = 0
@@ -493,6 +492,7 @@ export default {
                         this.retrieveLote();
                     } else {
                         this.cleanAll();
+                        nextTick()
                         this.nextCandidateTable();
                     }
                 })
