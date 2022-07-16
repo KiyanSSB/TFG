@@ -49,6 +49,7 @@ export default {
         },
 
         increaseByOrigin(origen) {
+            console.log("El origen", origen)
             if (origen == 'titulo') {
                 this.byTitle++
             } else {
@@ -188,6 +189,7 @@ export default {
                             }
 
                             if (this.byColumn == 2) {
+                                console.log("entra")
                                 document.getElementById('contenido' + ((this.columnasRelacionadas.length) - 1)).checked = true
                             }
                             this.resetControl();
@@ -205,26 +207,25 @@ export default {
                                 }
                             }
 
-                            //Guardamos que parte de la tabla ha sido seleccionada para poder automatizar
                             this.increaseByOrigin(origen)
                             this.cambiarColor("referenceTable", key)
-
-                            console.log("Estoy aquí")
                             this.columnasRelacionadas.push([table.title[key], this.candidateTable.title[this.currentIndex], this.rememberColor])
                             await nextTick()
-
-                            console.log(this.nextColor[this.columnasRelacionadas[this.columnasRelacionadas.length - 1][2]])
 
                             document.getElementById('conjunto' + this.columnasRelacionadas[this.columnasRelacionadas.length - 1][2])
                                 .classList.add(this.nextColor[this.columnasRelacionadas[this.columnasRelacionadas.length - 1][2]])
 
+                            console.log(this.byColumn )
+                            console.log(this.byTitle)
+
 
                             if (this.byTitle == 2) {
-                                console.log("Estoy aquí dentro")
+                                console.log("Ajustado por titulo")
                                 document.getElementById('titulo' + ((this.columnasRelacionadas.length) - 1)).checked = true
                             }
 
                             if (this.byColumn == 2) {
+                                console.log("Ajustado por contenido")
                                 document.getElementById('contenido' + ((this.columnasRelacionadas.length) - 1)).checked = true
                             }
                             this.resetControl();
@@ -259,11 +260,7 @@ export default {
                 this.currentTable = whichTable
 
                 //Guardamos que parte de la tabla ha sido seleccionada para poder automatizar
-                if (origen == 'titulo') {
-                    this.byTitle++
-                } else {
-                    this.byColumn++
-                }
+                this.increaseByOrigin(origen)
 
                 //Indicamos que tabla hemos clickado
                 if (whichTable == 'referenceTable') {
@@ -532,7 +529,7 @@ export default {
                 <!-- Resto de la tabla -->
                 <tr v-for="(value, key) in referenceTable.data">
                     <td draggable="false" class="noselect" v-for="(value2, key) in value"
-                        v-on:click="juntarColumnas(referenceTable, key, 'referenceTable', 'titulo');">
+                        v-on:click="juntarColumnas(referenceTable, key, 'referenceTable', 'contenido');">
                         {{ value2 }}
                     </td>
                 </tr>
@@ -553,7 +550,7 @@ export default {
 
                 <tr v-for="(value, key) in candidateTable.data">
                     <td draggable="false" class="noselect" v-for="(value2, key) in value"
-                        v-on:click="juntarColumnas(candidateTable, key, 'candidateTable', '');">
+                        v-on:click="juntarColumnas(candidateTable, key, 'candidateTable', 'contenido');">
                         {{ value2 }}
                     </td>
                 </tr>
