@@ -40,23 +40,21 @@ const userStore = useUserStore()
                 {{ userStore.userData.email }}
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" v-on:click="userStore.signOutUser()" >Sign Out</a></li>
+                <li><a class="dropdown-item" v-on:click="userStore.signOutUser()">Sign Out</a></li>
             </ul>
         </div>
 
-
-
-
-
     </nav>
 </template>
+
 <style>
 a:hover,
 a.router-link-active {
     border-bottom: red solid 2px;
+    animation-direction: alternate;
 }
 
-.dropy{
+.dropy {
     border: 1px solid black;
 }
 
@@ -98,9 +96,9 @@ a.router-link-active {
 
 .navbar {
     background: rgb(245, 245, 249);
-    background: linear-gradient(127deg, var(--myColor2), var(--myColor1), var(--myColor3), var(--myColor4));
+    background: linear-gradient(127deg, var(--myColor1), var(--myColor1), var(--myColor3), var(--myColor4));
     /* background: linear-gradient(127deg, var(--myColor1), var(--myColor2)); */
-    transition: --myColor1 2s ease-in, myColor2 3s ease-in, myColor3 15s ease-in-out, myColor4 5s ease-in-out;
+    transition: --myColor1 1s ease-in, myColor2 5s ease-in, myColor3 2s ease-in-out, myColor4 2s ease-in-out;
 }
 
 .navbar:hover {
