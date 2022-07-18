@@ -123,12 +123,17 @@ export default {
         error_SelectedColumnSameTable(whichTable,key){
              for (var i = 0; i < this.columnasRelacionadas.length; i++) {
                 if (whichTable == 'referenceTable') {
-                    if (this.columnasRelacionadas[i].includes(this.referenceTable.title[key])) {
+                    if(document.getElementById("referenceTable"+key).classList != "" ){
                         alert("La columna ya está seleccionada, borra la relación")
-                        return true;
+                        return true
                     }
+
+                    // if (this.columnasRelacionadas[i].includes(this.referenceTable.title[key])) {
+                    //     alert("La columna ya está seleccionada, borra la relación")
+                    //     return true;
+                    // }
                 } else {
-                    if (this.columnasRelacionadas[i].includes(this.candidateTable.title[key])) {
+                    if (document.getElementById("candidateTable"+key).classList != "") {
                         alert("La columna ya está seleccionada, borra la relación")
                         return true;
                     }
@@ -728,10 +733,11 @@ export default {
 table {
     table-layout: fixed;
     border: 1px solid black;
+    color: black;
 }
 
 .red {
-    background-color: rgba(255, 0, 0, .25);
+    background-color: rgba(255, 0, 0, 10);
 }
 
 .blue {
@@ -823,7 +829,8 @@ td:hover {
     margin: 2%;
     box-shadow: 0 8px 16px 0 rgba(31, 38, 135, 0.25);
     backdrop-filter: blur(10.5px);
-    -webkit-backdrop-filter: blur(10.5px);
+    
+    color: black;
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
@@ -864,7 +871,7 @@ td:hover {
 
 @media only screen and (min-width: 1280px) {
     table {
-        font-size: 50%;
+        font-size: smaller;
     }
 }
 
