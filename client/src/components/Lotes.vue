@@ -427,7 +427,16 @@ export default {
         },
 
         enviarResultado() {
-            //Tenemos que añadir los valores de los campos en cada uno de los arrays
+            //Comprobamos el error
+            for(var i = 0; i < this.columnasRelacionadas.length; i++){
+                var contenido = document.getElementById('contenido' + i);
+                var titulo = document.getElementById('titulo' + i);
+                if (titulo.checked == false && contenido.checked == false) {
+                    alert("Selecciona en la relación número: " + i + "el motivo por el consideras que hay una relación")
+                    return;
+                }
+            }
+
             for (var i = 0; i < this.columnasRelacionadas.length; i++) {
                 //Comprobamos el valor de las checkboxes para ver si el título o el contenido han sido elegidos
                 var contenido = document.getElementById('contenido' + i);
@@ -441,11 +450,6 @@ export default {
                 if (titulo.checked == true) {
                     var titulo = { "titulo": 1 }
                     this.columnasRelacionadas[i].push(titulo)
-                }
-
-                if (titulo.checked == false && contenido.checked == false) {
-                    alert("Selecciona en la relación número: " + i + "el motivo por el consideras que hay una relación")
-                    return;
                 }
 
                 var comentario = document.getElementById('comentario' + i);
