@@ -30,12 +30,12 @@ export default {
                 "green",
                 "blue",
                 "yellow",
-                "purple",
-                "indigo",
+                "orange",
                 "pink",
-                "beige",
-                "gold",
-                "silver"
+                "cyan",
+                "magenta",
+                "purple",
+                "maroon"
             ],
             selectedColors: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             rememberColor: -1,
@@ -777,43 +777,45 @@ table {
 }
 
 .red {
-    background-color: rgba(255, 0, 0, 10);
+    background-color: #e6194B;
 }
 
 .blue {
-    background-color: aqua;
+    background-color: #4363d8;
 }
 
 .green {
-    background-color: greenyellow;
+    background-color: #3cb44b;
 }
 
 .yellow {
-    background-color: yellow;
+    background-color: #ffe119;
 }
 
 .pink {
-    background-color: pink;
+    background-color: #fabed4;
 }
 
 .purple {
-    background-color: blueviolet;
+    background-color: #911eb4;
+    color: white !important;
 }
 
-.silver {
-    background-color: silver;
+.orange {
+    background-color: #f58231;
 }
 
-.indigo {
-    background-color: lightcoral;
+.cyan {
+    background-color: #42d4f4 ;
 }
 
-.beige {
-    background-color: beige;
+.magenta {
+    background-color: #f032e6;
 }
 
-.gold {
-    background-color: gold;
+.maroon {
+    background-color: #800000;
+    color: white !important;
 }
 
 html,
