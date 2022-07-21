@@ -290,10 +290,6 @@ export default {
         async recolorearRelaciones() {
             await nextTick()
             for (var i = 0; i < this.columnasRelacionadas.length; i++) {
-                // console.log("------------------------")
-                // console.log("conjunto" + this.columnasRelacionadas[i][2])
-                // console.log(this.nextColor[this.columnasRelacionadas[i][2]])
-                // console.log(document.getElementById("conjunto" + this.columnasRelacionadas[i][2]))
                 document.getElementById("conjunto" + this.columnasRelacionadas[i][2]).classList.add(this.nextColor[this.columnasRelacionadas[i][2]])
             }
         },
@@ -624,12 +620,10 @@ export default {
         </div>
 
         <div class="right_side">
-            <h1>Columnas seleccionadas</h1>
+            <h1 style="color: white;">Columnas seleccionadas</h1>
             <ul class="listaColumnas">
-                <div v-for="(value, key) in columnasRelacionadas" class="d-flex flex-column flex-wrap cristal"
+                <!-- <div v-for="(value, key) in columnasRelacionadas" class="d-flex flex-column flex-wrap cristal"
                     v-bind:id="'conjunto' + value[2]">
-
-
                     <div className="table-titles" style="width: 100%">
                         <span>
                             L - {{ value[0] }}
@@ -658,14 +652,48 @@ export default {
                                 Borrame</button>
                         </div>
                     </div>
+                </div> -->
 
+                <div v-for="(value, key) in columnasRelacionadas" class="card d-flex flex-column flex-wrap cristal" style="width: 15rem;">
+         
+                    <div class="card-body">
+                        <h5 class="card-title text-center"  v-bind:id="'conjunto' + value[2]">Relación {{key}}</h5>
+
+                        <div className="table-titles" style="width: 100%">
+                            <span>
+                                Referencia: {{ value[0] }}
+                            </span>
+                            <hr class="solid" />
+                            <span>
+                                Candidata: {{ value[1] }}
+                            </span>
+                        </div>
+
+                    </div>
+                    <ul class="list-group list-group-flush d-flex">
+                        <div className="checkbox">
+                            <input v-bind:id="'titulo' + key" type="checkbox">
+                            <label for="checkbox">Por el título</label>
+                        </div>
+                        <div className="checkbox">
+                            <input v-bind:id="'contenido' + key" type="checkbox">
+                            <label for="checkbox2">Por el contenido</label>
+                        </div>
+                          <input v-bind:id="'comentario' + key" placeholder="Añade un comentario" />
+                    </ul>
+                    <div class="card-body d-flex justify-content-center align-items-center">
+                        <button  class="btn btn-danger" v-on:click="deleteByButton(key)">Borrame</button>
+                    </div>
                 </div>
+
+
             </ul>
             <button class="btn btn-success" style="margin-top: 5%;" v-on:click="enviarResultado()">Tabla
                 completada</button>
 
             <div style="width: 75%; margin-top: 2%;">
-                <b-progress :value="currentCandidateIndex" :max="loteCandidatas.length" variant="success" striped :animated="animate" ></b-progress>
+                <b-progress :value="currentCandidateIndex" :max="loteCandidatas.length" variant="success" striped
+                    :animated="animate"></b-progress>
             </div>
 
         </div>
@@ -776,10 +804,13 @@ table {
 }
 
 .red {
+        color: white !important;
+
     background-color: #e6194B;
 }
 
 .blue {
+    color: white !important;
     background-color: #4363d8;
 }
 
@@ -788,6 +819,7 @@ table {
 }
 
 .yellow {
+    
     background-color: #ffe119;
 }
 
@@ -805,7 +837,7 @@ table {
 }
 
 .cyan {
-    background-color: #42d4f4 ;
+    background-color: #42d4f4;
 }
 
 .magenta {
@@ -913,6 +945,7 @@ td:hover {
 
 /* Desktops and laptops ----------- */
 
+
 @media only screen and (max-width: 1280px) {
     table {
         font-size: 65%;
@@ -926,6 +959,8 @@ td:hover {
         font-size: smaller;
     }
 }
+
+
 
 @media only screen and (max-width: 1550px) {
     table {
