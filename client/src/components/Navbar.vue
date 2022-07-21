@@ -150,9 +150,7 @@ function color(column){
             <button class="btn btn-warning" type="button" id="infoUser">
                 {{ userStore.userData.email }}
             </button>
-
                 <a class="btn btn-danger" v-on:click="userStore.signOutUser()">Sign Out</a>
-
         </div>
 
     </nav>
@@ -274,6 +272,11 @@ a.router-link-active {
 
 .red{
     background-color: red;
+}
+
+.red .btn{
+    background-color: yellow;
+    color: black;
 }
 
 th{
