@@ -70,6 +70,6 @@ background-size: cover; */
 
 .fade-enter-active,
 .fade-leave-active {
-    transition: opacity .5s ease-out;
+    transition: opacity .3s ease-out;
 }
 </style>

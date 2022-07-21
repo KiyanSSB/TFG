@@ -311,6 +311,8 @@ export default {
             }
         },
 
+
+
         removeColor(whichTable, currentIndex) {
             var columna = document.getElementById(whichTable + currentIndex)
             console.log(columna)
@@ -615,7 +617,6 @@ export default {
                     v-bind:id="'conjunto' + value[2]">
 
 
-
                     <div className="table-titles" style="width: 100%">
                         <span>
                             L - {{ value[0] }}
@@ -681,11 +682,7 @@ export default {
 }
 
 .left_side th {
-    padding: 8px;
-    text-align: center;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #ffffff;
+ 
 }
 
 .motivo-button {
@@ -826,19 +823,23 @@ table {
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     margin: 2%;
+    background-color: white;
 }
 
-th,
+
 td {
     background-color: rgba(255, 255, 255, 0.2);
     border: 1px solid black !important;
     text-align: center;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 }
 
 th {
     color: white;
-    text-align: left;
+    text-align: center;
     background-color: #55608f
+
 }
 
 td:hover {
