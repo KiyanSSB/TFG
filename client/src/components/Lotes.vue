@@ -664,6 +664,11 @@ export default {
             </ul>
             <button class="btn btn-success" style="margin-top: 5%;" v-on:click="enviarResultado()">Tabla
                 completada</button>
+
+            <div style="width: 75%; margin-top: 2%;">
+                <b-progress :value="currentCandidateIndex" :max="loteCandidatas.length" variant="success" striped :animated="animate" ></b-progress>
+            </div>
+
         </div>
     </div>
 </template>
