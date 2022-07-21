@@ -116,16 +116,16 @@ export default {
             return false;
         },
 
-        swapSelectedColumn(whichTable,key){
+        swapSelectedColumn(whichTable, key) {
             this.removeColor(whichTable, this.currentIndex)
             this.cambiarColor(whichTable, key)
             this.currentIndex = key
         },
 
-        error_SelectedColumnSameTable(whichTable,key){
-             for (var i = 0; i < this.columnasRelacionadas.length; i++) {
+        error_SelectedColumnSameTable(whichTable, key) {
+            for (var i = 0; i < this.columnasRelacionadas.length; i++) {
                 if (whichTable == 'referenceTable') {
-                    if(document.getElementById("referenceTable"+key).classList != "" ){
+                    if (document.getElementById("referenceTable" + key).classList != "") {
                         alert("La columna ya está seleccionada, borra la relación")
                         return true
                     }
@@ -135,7 +135,7 @@ export default {
                     //     return true;
                     // }
                 } else {
-                    if (document.getElementById("candidateTable"+key).classList != "") {
+                    if (document.getElementById("candidateTable" + key).classList != "") {
                         alert("La columna ya está seleccionada, borra la relación")
                         return true;
                     }
@@ -159,7 +159,7 @@ export default {
                 } else {
                     //Si la columna ya ha sido aparejada, mostramos el error de que ya ha sido seleccionada
                     if (this.currentTable == whichTable) {
-                        if(this.error_SelectedColumnSameTable(whichTable,key)){
+                        if (this.error_SelectedColumnSameTable(whichTable, key)) {
                             return
                         }
                         //Si la columna no ha sido aparejada, cambiamos la columna 
@@ -167,7 +167,7 @@ export default {
                     }
                     //La columna ya está seleccionada en referencia o en candidata
                     else {
-                        if(this.error_SelectedColumnSameTable(whichTable,key)){
+                        if (this.error_SelectedColumnSameTable(whichTable, key)) {
                             return
                         }
                         //1º Guardamos la pareja creada:
@@ -223,7 +223,7 @@ export default {
                             document.getElementById('conjunto' + this.columnasRelacionadas[this.columnasRelacionadas.length - 1][2])
                                 .classList.add(this.nextColor[this.columnasRelacionadas[this.columnasRelacionadas.length - 1][2]])
 
-                            console.log(this.byColumn )
+                            console.log(this.byColumn)
                             console.log(this.byTitle)
 
 
@@ -248,14 +248,14 @@ export default {
                 console.log("En teoría estoy aquí")
                 //Esta columna ha sido seleccionada ya? si es así, borrar la selección
                 if (whichTable == 'referenceTable') {
-                    if (document.getElementById("referenceTable"+key).classList != "") {
+                    if (document.getElementById("referenceTable" + key).classList != "") {
                         this.limpiarColoresRelaciones()
                         this.deletePair(key, whichTable)
                         await this.recolorearRelaciones()
                         return
                     }
                 } else {
-                    if (document.getElementById("candidateTable"+key).classList != "") {
+                    if (document.getElementById("candidateTable" + key).classList != "") {
                         this.limpiarColoresRelaciones()
                         this.deletePair(key, whichTable)
                         await this.recolorearRelaciones()
@@ -317,14 +317,14 @@ export default {
             var columna = document.getElementById(whichTable + currentIndex)
             console.log(columna)
 
-            if(document.getElementById(whichTable + currentIndex) != null){
+            if (document.getElementById(whichTable + currentIndex) != null) {
                 var color = document.getElementById(whichTable + currentIndex).classList
                 this.selectedColors[this.nextColor.indexOf(color[0])]--
                 document.getElementById(whichTable + currentIndex).classList = ""
             }
         },
 
-        
+
 
         //Borra la pareja cuando se clicka en una de las relaciones creadas en la tabla
         deletePair(key, whichTable) {
@@ -340,27 +340,27 @@ export default {
 
             //Borramos la relación que tenga dicha columna
 
-            
 
-                for(var i = 0 ; i < this.columnasRelacionadas.length ; i++){
-                    console.log(this.columnasRelacionadas[i])
-                    if(this.columnasRelacionadas[i][0] == this.referenceTable.title[key] && whichTable == 'referenceTable'){
-                        var eliminados = this.columnasRelacionadas.splice(i,1);
-                        this.currentTable = 'candidateTable'
-                        this.currentIndex = this.candidateTable.title.indexOf(this.candidateTable.title.find(element => element == eliminados[0][1]))
-                        this.candidateClicked = true;
-                        break;
-                    }
 
-                    if(this.columnasRelacionadas[i][1] == this.candidateTable.title[key] && whichTable == 'candidateTable'){
-                        var eliminados = this.columnasRelacionadas.splice(i,1);
-                        this.currentTable = 'referenceTable'
-                        this.currentIndex = this.referenceTable.title.indexOf(this.referenceTable.title.find(element => element == eliminados[0][0]))
-                        this.referenceClicked = true;
-                        break;
-                    }
+            for (var i = 0; i < this.columnasRelacionadas.length; i++) {
+                console.log(this.columnasRelacionadas[i])
+                if (this.columnasRelacionadas[i][0] == this.referenceTable.title[key] && whichTable == 'referenceTable') {
+                    var eliminados = this.columnasRelacionadas.splice(i, 1);
+                    this.currentTable = 'candidateTable'
+                    this.currentIndex = this.candidateTable.title.indexOf(this.candidateTable.title.find(element => element == eliminados[0][1]))
+                    this.candidateClicked = true;
+                    break;
                 }
-            
+
+                if (this.columnasRelacionadas[i][1] == this.candidateTable.title[key] && whichTable == 'candidateTable') {
+                    var eliminados = this.columnasRelacionadas.splice(i, 1);
+                    this.currentTable = 'referenceTable'
+                    this.currentIndex = this.referenceTable.title.indexOf(this.referenceTable.title.find(element => element == eliminados[0][0]))
+                    this.referenceClicked = true;
+                    break;
+                }
+            }
+
 
             // //Borramos el color de la columna de referencia
             // if (whichTable == 'referenceTable') {
@@ -404,9 +404,9 @@ export default {
             this.removeColor('referenceTable', this.referenceTable.title.indexOf(eliminados[0][0]))
             this.removeColor('candidateTable', this.candidateTable.title.indexOf(eliminados[0][1]))
 
-             await this.recolorearRelaciones()
+            await this.recolorearRelaciones()
         },
-  
+
         //Eliminamos todos los colores y todas las relaciones de la parte derecha
         cleanAll() {
             try {
@@ -421,7 +421,7 @@ export default {
                 }
 
                 //Limpiamos todas las columnas relacionadas
-                this.columnasRelacionadas.length = 0 
+                this.columnasRelacionadas.length = 0
 
                 for (var i = 0; i < this.selectedColors.length; i++) {
                     this.selectedColors[i] = 0
@@ -537,13 +537,15 @@ export default {
 
     async mounted() {
         await this.retrieveLote();
-    }
+    },
+
 }
 
 </script>
 
 
 <template>
+
     <div class="container_center">
         <div class="left_side">
             <table>
@@ -568,6 +570,12 @@ export default {
                 </tr>
             </table>
 
+            <b-skeleton-table style="width: 75%;" :rows="5" :columns="3"
+                :table-props="{ bordered: true, striped: true }" v-if="lote.length == 0">
+            </b-skeleton-table>
+
+
+
             <table>
                 <colgroup>
                     <col v-for="(value, key) in candidateTable.title" v-bind:id="'candidateTable' + key">
@@ -588,6 +596,12 @@ export default {
                     </td>
                 </tr>
             </table>
+
+
+            <b-skeleton-table style="width: 75%;" :rows="5" :columns="3"
+                :table-props="{ bordered: true, striped: true }" v-if="lote.length == 0">
+            </b-skeleton-table>
+
 
             <div class="d-flex" style="width: 100%; justify-content: space-evenly;">
                 <div class="d-flex justify-content-center">
@@ -681,9 +695,7 @@ export default {
     padding: 0.3em;
 }
 
-.left_side th {
- 
-}
+.left_side th {}
 
 .motivo-button {
     display: flex;
@@ -839,7 +851,6 @@ th {
     color: white;
     text-align: center;
     background-color: #55608f
-
 }
 
 td:hover {
@@ -856,7 +867,7 @@ td:hover {
     margin: 2%;
     box-shadow: 0 8px 16px 0 rgba(31, 38, 135, 0.25);
     backdrop-filter: blur(10.5px);
-    
+
     color: black;
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
@@ -901,11 +912,11 @@ td:hover {
         font-size: 65%;
     }
 
-    .cristal{
+    .cristal {
         font-size: smaller;
     }
 
-    button{
+    button {
         font-size: smaller;
     }
 }
