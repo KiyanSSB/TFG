@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
 import { useUserStore } from '../stores/user'
-import MyModal from './MyModal.vue';
 import { onClickOutside } from '@vueuse/core';
 const userStore = useUserStore()
 
@@ -147,14 +146,13 @@ function color(column){
             </div>
         </div>
 
-        <div class="dropdown" style="margin-right: 2%;" v-if="userStore.logged != false">
-            <button class="btn btn-secondary dropdown-toggle btn-info dropy" type="button" id="dropdownMenuButton1"
-                data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="d-flex justify-content-around"  style="margin-right: 2%; width: 20%;" v-if="userStore.logged != false" >
+            <button class="btn btn-warning" type="button" id="infoUser">
                 {{ userStore.userData.email }}
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" v-on:click="userStore.signOutUser()">Sign Out</a></li>
-            </ul>
+
+                <a class="btn btn-danger" v-on:click="userStore.signOutUser()">Sign Out</a>
+
         </div>
 
     </nav>
