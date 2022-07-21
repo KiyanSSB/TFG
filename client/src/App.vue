@@ -12,6 +12,7 @@ const UserStore = useUserStore()
 
 
 <template>
+    <div id="app">
         <Navbar></Navbar>
         <router-view v-slot="{ Component }">
             <transition 
@@ -19,6 +20,7 @@ const UserStore = useUserStore()
                 <component :is="Component" />
             </transition>
         </router-view>
+    </div>
 </template>
 
 <style>
