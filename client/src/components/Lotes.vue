@@ -355,19 +355,6 @@ export default {
                     break;
                 }
             }
-
-
-            // //Borramos el color de la columna de referencia
-            // if (whichTable == 'referenceTable') {
-            //     this.removeColor('referenceTable', this.referenceTable.title.indexOf(this.referenceTable.title.find(element => element == eliminados[0][0])))
-            //     this.currentIndex = this.candidateTable.title.indexOf(this.candidateTable.title.find(element => element == eliminados[0][1]))
-            //     this.currentTable = 'candidateTable'
-            //     this.candidateClicked = true;
-            // } else {
-            //     this.removeColor('candidateTable', this.candidateTable.title.indexOf(this.candidateTable.title.find(element => element == eliminados[0][1])))
-            //     this.currentIndex = this.referenceTable.title.indexOf(this.referenceTable.title.find(element => element == eliminados[0][0]))
-            //     this.currentTable = 'referenceTable'
-            // }
         },
 
 
@@ -428,7 +415,7 @@ export default {
 
         enviarResultado() {
             //Comprobamos el error
-            for(var i = 0; i < this.columnasRelacionadas.length; i++){
+            for (var i = 0; i < this.columnasRelacionadas.length; i++) {
                 var contenido = document.getElementById('contenido' + i);
                 var titulo = document.getElementById('titulo' + i);
                 if (titulo.checked == false && contenido.checked == false) {
@@ -547,59 +534,71 @@ export default {
 
     <div class="container_center">
         <div class="left_side">
-            <table>
-                <colgroup>
-                    <col v-for="(value, key) in referenceTable.title" v-bind:id="'referenceTable' + key">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th draggable="false" class="noselect" v-for="(value, key) in referenceTable.title"
-                            v-on:click="juntarColumnas(referenceTable, key, 'referenceTable', 'titulo');">
-                            {{ value }}
-                        </th>
+            <div  class="d-flex justify-content-center"  style="height: 50%;   width: 100%;">
+                <div class="d-flex justify-content-center" style=" overflow-y: auto; overflow-y: auto; padding: 2%; " >
+                <table>
+                    <colgroup>
+                        <col v-for="(value, key) in referenceTable.title" v-bind:id="'referenceTable' + key">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th draggable="false" class="noselect" v-for="(value, key) in referenceTable.title"
+                                v-on:click="juntarColumnas(referenceTable, key, 'referenceTable', 'titulo');">
+                                {{ value }}
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <!-- Resto de la tabla -->
+                    <tr v-for="(value, key) in referenceTable.data">
+                        <td draggable="false" class="noselect" v-for="(value2, key) in value"
+                            v-on:click="juntarColumnas(referenceTable, key, 'referenceTable', 'contenido');">
+                            {{ value2 }}
+                        </td>
                     </tr>
-                </thead>
+                </table>
 
-                <!-- Resto de la tabla -->
-                <tr v-for="(value, key) in referenceTable.data">
-                    <td draggable="false" class="noselect" v-for="(value2, key) in value"
-                        v-on:click="juntarColumnas(referenceTable, key, 'referenceTable', 'contenido');">
-                        {{ value2 }}
-                    </td>
-                </tr>
-            </table>
+                <b-skeleton-table style="width: 75%;" :rows="5" :columns="3"
+                    :table-props="{ bordered: true, striped: true }" v-if="lote.length == 0">
+                </b-skeleton-table>
 
-            <b-skeleton-table style="width: 75%;" :rows="5" :columns="3"
-                :table-props="{ bordered: true, striped: true }" v-if="lote.length == 0">
-            </b-skeleton-table>
+                </div>
+            </div>
 
+        
+            <div class="d-flex justify-content-center" style="height: 50%;  overflow-y: auto; width: 100%; margin-top: 2%;">
 
+                <table>
+                    <colgroup>
+                        <col v-for="(value, key) in candidateTable.title" v-bind:id="'candidateTable' + key">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th draggable="false" class="noselect" v-for="(value, key) in candidateTable.title"
+                                v-on:click="juntarColumnas(candidateTable, key, 'candidateTable', 'titulo');">
+                                {{ value }}
+                            </th>
+                        </tr>
+                    </thead>
 
-            <table>
-                <colgroup>
-                    <col v-for="(value, key) in candidateTable.title" v-bind:id="'candidateTable' + key">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th draggable="false" class="noselect" v-for="(value, key) in candidateTable.title"
-                            v-on:click="juntarColumnas(candidateTable, key, 'candidateTable', 'titulo');">
-                            {{ value }}
-                        </th>
+                    <tr v-for="(value, key) in candidateTable.data">
+                        <td draggable="false" class="noselect" v-for="(value2, key) in value"
+                            v-on:click="juntarColumnas(candidateTable, key, 'candidateTable', 'contenido');">
+                            {{ value2 }}
+                        </td>
                     </tr>
-                </thead>
-
-                <tr v-for="(value, key) in candidateTable.data">
-                    <td draggable="false" class="noselect" v-for="(value2, key) in value"
-                        v-on:click="juntarColumnas(candidateTable, key, 'candidateTable', 'contenido');">
-                        {{ value2 }}
-                    </td>
-                </tr>
-            </table>
+                </table>
 
 
-            <b-skeleton-table style="width: 75%;" :rows="5" :columns="3"
-                :table-props="{ bordered: true, striped: true }" v-if="lote.length == 0">
-            </b-skeleton-table>
+                <b-skeleton-table style="width: 75%;" :rows="5" :columns="3"
+                    :table-props="{ bordered: true, striped: true }" v-if="lote.length == 0">
+                </b-skeleton-table>
+
+
+            </div>
+
+
+
 
 
             <div class="d-flex" style="width: 100%; justify-content: space-evenly;">
@@ -626,42 +625,11 @@ export default {
         <div class="right_side">
             <h1 style="color: white;">Columnas seleccionadas</h1>
             <ul class="listaColumnas">
-                <!-- <div v-for="(value, key) in columnasRelacionadas" class="d-flex flex-column flex-wrap cristal"
-                    v-bind:id="'conjunto' + value[2]">
-                    <div className="table-titles" style="width: 100%">
-                        <span>
-                            L - {{ value[0] }}
-                        </span>
-                        <hr class="solid" />
-                        <span>
-                            R - {{ value[1] }}
-                        </span>
-                    </div>
+                <div v-for="(value, key) in columnasRelacionadas" class="card d-flex flex-column flex-wrap cristal"
+                    style="width: 15rem;">
 
-                    <div className="card-checkboxes">
-                        <div className="checkbox">
-                            <input v-bind:id="'titulo' + key" type="checkbox">
-                            <label for="checkbox">Por el título</label>
-                        </div>
-                        <div className="checkbox">
-                            <input v-bind:id="'contenido' + key" type="checkbox">
-                            <label for="checkbox2">Por el contenido</label>
-                        </div>
-                    </div>
-
-                    <div className="card-comment">
-                        <input v-bind:id="'comentario' + key" placeholder="Añade un comentario" />
-                        <div class="d-flex justify-content-center" style="width: 100%">
-                            <button class="btn btn-danger" v-on:click="deleteByButton(key)" style="margin-top: 5%;">
-                                Borrame</button>
-                        </div>
-                    </div>
-                </div> -->
-
-                <div v-for="(value, key) in columnasRelacionadas" class="card d-flex flex-column flex-wrap cristal" style="width: 15rem;">
-         
                     <div class="card-body">
-                        <h5 class="card-title text-center"  v-bind:id="'conjunto' + value[2]">Relación {{key}}</h5>
+                        <h5 class="card-title text-center" v-bind:id="'conjunto' + value[2]">Relación {{ key }}</h5>
 
                         <div className="table-titles" style="width: 100%">
                             <span>
@@ -683,10 +651,10 @@ export default {
                             <input v-bind:id="'contenido' + key" type="checkbox">
                             <label for="checkbox2">Por el contenido</label>
                         </div>
-                          <input v-bind:id="'comentario' + key" placeholder="Añade un comentario" />
+                        <input v-bind:id="'comentario' + key" placeholder="Añade un comentario" />
                     </ul>
                     <div class="card-body d-flex justify-content-center align-items-center">
-                        <button  class="btn btn-danger" v-on:click="deleteByButton(key)">Borrame</button>
+                        <button class="btn btn-danger" v-on:click="deleteByButton(key)">Borrame</button>
                     </div>
                 </div>
 
@@ -730,8 +698,6 @@ export default {
     display: flex;
     padding: 0.3em;
 }
-
-.left_side th {}
 
 .motivo-button {
     display: flex;
@@ -788,27 +754,30 @@ export default {
     align-items: center;
     width: 40%;
     height: 100% !important;
-    border-left: 1px solid black;
 }
 
 .active {
     color: brown;
 }
 
-.left_side table {
+
+table {
     border-collapse: collapse;
     table-layout: fixed;
     border: 1px solid #ddd;
-}
-
-table {
     table-layout: fixed;
     border: 1px solid black;
     color: black;
+    word-wrap: break-word;
+    white-space: nowrap;
+    border-collapse: collapse;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background-color: white;
 }
 
 .red {
-        color: white !important;
+    color: white !important;
 
     background-color: #e6194B;
 }
@@ -823,7 +792,7 @@ table {
 }
 
 .yellow {
-    
+
     background-color: #ffe119;
 }
 
@@ -872,14 +841,6 @@ body {
     transform: translate(-50%, -50%);
 }
 
-table {
-    border-collapse: collapse;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    margin: 2%;
-    background-color: white;
-}
-
 
 td {
     background-color: rgba(255, 255, 255, 0.2);
@@ -900,9 +861,7 @@ td:hover {
     opacity: 0.9;
 }
 
-.left_side table td {
-    word-wrap: break-word;
-}
+
 
 
 .cristal {
@@ -946,6 +905,25 @@ td:hover {
     overflow: auto;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
 
 /* Desktops and laptops ----------- */
 

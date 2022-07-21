@@ -163,6 +163,34 @@ a.router-link-active {
     animation-direction: alternate;
 }
 
+table {
+    border-collapse: collapse;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin: 2%;
+    background-color: white;
+}
+
+
+td {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid black !important;
+    text-align: center;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+th {
+    color: white;
+    text-align: center;
+    background-color: #55608f
+}
+
+td:hover {
+    background-color: #ddd;
+    opacity: 0.9;
+}
+
 .dropy {
     border: 1px solid black;
 }
