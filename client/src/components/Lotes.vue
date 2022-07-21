@@ -1,6 +1,5 @@
 <script>
 import TablesDataService from '@/services/TablesDataService';
-import { enableMultiTabIndexedDbPersistence } from '@firebase/firestore';
 import { nextTick } from 'vue'
 import { useUserStore } from "../stores/user";
 
