@@ -534,8 +534,7 @@ export default {
 
     <div class="container_center">
         <div class="left_side">
-            <div  class="d-flex justify-content-center"  style="height: 50%;   width: 100%;">
-                <div class="d-flex justify-content-center" style=" overflow-y: auto; overflow-y: auto; padding: 2%; " >
+            <div  class="d-flex justify-content-center scrollbar"  style="height: 50%;   width: 100%; overflow-y: auto; overflow-y: auto; border-radius: 10px; ">
                 <table>
                     <colgroup>
                         <col v-for="(value, key) in referenceTable.title" v-bind:id="'referenceTable' + key">
@@ -561,8 +560,6 @@ export default {
                 <b-skeleton-table style="width: 75%;" :rows="5" :columns="3"
                     :table-props="{ bordered: true, striped: true }" v-if="lote.length == 0">
                 </b-skeleton-table>
-
-                </div>
             </div>
 
         
@@ -689,6 +686,7 @@ export default {
 
 .listaColumnas hr {
     margin: 0.1em;
+    width: 10%;
 }
 
 .card-comment {
@@ -714,6 +712,7 @@ export default {
     width: 100%;
 }
 
+
 .table-titles {
     justify-content: center;
     align-items: center;
@@ -728,7 +727,7 @@ export default {
 
 .container_center {
     height: 100%;
-    height: 80vh;
+    height: 85vh;
     width: 100%;
     min-height: 100%;
     display: flex;
@@ -863,7 +862,6 @@ td:hover {
 
 
 
-
 .cristal {
     margin: 2%;
     box-shadow: 0 8px 16px 0 rgba(31, 38, 135, 0.25);
@@ -911,20 +909,39 @@ td:hover {
 }
 
 /* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-}
- 
+
 /* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888; 
-}
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+  background: grey; 
 }
 
+::-webkit-scrollbar
+{
+  width: 10px;
+  background-color: #F5F5F5;
+  border-radius: 10px;
+}
+
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-image: -webkit-gradient(linear,
+									   left bottom,
+									   left top,
+									   color-stop(0.44, rgb(122,153,217)),
+									   color-stop(0.72, rgb(73,125,189)),
+									   color-stop(0.86, rgb(28,58,148)));
+}
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+	border-radius: 10px;
+}
 /* Desktops and laptops ----------- */
 
 
