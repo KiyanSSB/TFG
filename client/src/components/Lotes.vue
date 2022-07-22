@@ -639,18 +639,26 @@ export default {
                         </div>
 
                     </div>
-                    <ul class="list-group list-group-flush d-flex">
-                        <div className="checkbox">
-                            <input v-bind:id="'titulo' + key" type="checkbox">
-                            <label for="checkbox">Por el título</label>
-                        </div>
-                        <div className="checkbox">
-                            <input v-bind:id="'contenido' + key" type="checkbox">
-                            <label for="checkbox2">Por el contenido</label>
-                        </div>
-                        <input v-bind:id="'comentario' + key" placeholder="Añade un comentario" />
-                    </ul>
-                    <div class="card-body d-flex justify-content-center align-items-center">
+
+                    <div class="card-body" >
+                        <ul class="list-group list-group-flush d-flex">
+                            <div className="checkbox">
+                                <input v-bind:id="'titulo' + key" type="checkbox">
+                                <label for="checkbox">Por el título</label>
+                            </div>
+                            <div className="checkbox">
+                                <input v-bind:id="'contenido' + key" type="checkbox">
+                                <label for="checkbox2">Por el contenido</label>
+                            </div>
+                          
+                        </ul>
+
+                    </div>
+
+                    <div class="card-body d-flex jutify-content-center align-items-center">
+                      <input style="border: none transparent; margin-top: 5%; " v-bind:id="'comentario' + key" placeholder="Añade un comentario" />
+                    </div>
+                    <div style="flex: 1 1 auto;padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);" class="d-flex justify-content-center align-items-center">
                         <button class="btn btn-danger" v-on:click="deleteByButton(key)">Borrame</button>
                     </div>
                 </div>
@@ -718,11 +726,14 @@ export default {
     align-items: center;
     padding: 0.3em;
     margin-top: 0.5em;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
 }
 
 .checkbox input {
     margin: 0.5em;
+}
+
+.input{
+    text-align: center;
 }
 
 .container_center {
@@ -941,6 +952,10 @@ td:hover {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	background-color: #F5F5F5;
 	border-radius: 10px;
+}
+
+.card-body{
+    border-bottom:  1px grey solid;
 }
 /* Desktops and laptops ----------- */
 
