@@ -1,7 +1,7 @@
 <template>
     <div className="register-container">
         <form @submit.prevent="handleSubmit">
-        <h1 class="text-center" style="margin-bottom: 10%;">Register</h1>
+        <h1 class="text-center" style="margin-bottom: 10%; color: black;">Register</h1>
 
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label" style="color: black;" >Email address</label>
@@ -17,6 +17,10 @@
                     v-model.trim="password"
                 />
             </div>
+
+                <RouterLink to="/login"  style="width: 50%;" >
+                    Already have an account?
+                </RouterLink>
             
             <div class="d-flex justify-content-center" style="margin-top: 5%;">
                 <button class="btn btn-primary text-center" style="width: 50%;" type="submit" :disabled="userStore.loadingUser">

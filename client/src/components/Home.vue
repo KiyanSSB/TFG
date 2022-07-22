@@ -30,6 +30,9 @@ const userStore = useUserStore()
                         <p>Our user oriented mindset allows for an easy, yet really valuable tool</p>
                     </div>
                 </div>
+                <div style="margin-top: 5%;" >
+                    <RouterLink type="button " to ="register" className="btn btn-success" v-if="userStore.logged === false" >Get Started!</RouterLink>
+                </div>
             </div>
         </div>
         <footer class="sticky-footer">
