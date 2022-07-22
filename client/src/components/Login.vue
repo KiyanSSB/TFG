@@ -1,13 +1,14 @@
 <template>
     <div className="login-div">
         <form @submit.prevent>
+            <h1 class="text-center" style="margin-bottom: 10%;" >Login</h1>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <label for="exampleFormControlInput1" class="form-label" style="color: black;" >Email address</label>
                 <input class="form-control" type="email" placeholder="email" v-model.trim="email" />
             </div>
 
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Password</label>
+                <label for="exampleFormControlInput1" class="form-label" style="color: black;">Password</label>
                 <input class="form-control" type="password" placeholder="password" v-model.trim="password" />
             </div>
 
@@ -17,7 +18,7 @@
                 </button>
             </div>
 
-            <h5 class="text-center">Or login with: </h5>
+            <h5  class="text-center" style="color: black; margin-top: 5%;">Or login with: </h5>
 
             <div class="d-flex justify-content-evenly">
                 <button className="google-login" v-on:click="googleSignIn">
@@ -87,6 +88,10 @@ async function googleSignIn(){
     align-items: center;
     align-content: center;
     min-height: 80%;
+}
+
+h1{
+    color: #000;
 }
 
 form {

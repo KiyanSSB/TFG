@@ -1,15 +1,15 @@
 <template>
     <div className="register-container">
-        <h1>Register</h1>
         <form @submit.prevent="handleSubmit">
+        <h1 class="text-center" style="margin-bottom: 10%;">Register</h1>
 
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <label for="exampleFormControlInput1" class="form-label" style="color: black;" >Email address</label>
                 <input class="form-control" type="email" placeholder="email" v-model.trim="email" />
             </div>
 
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Password</label>
+                <label for="exampleFormControlInput1" class="form-label" style="color: black;">Password</label>
                 <input
                     class="form-control"
                     type="password"
@@ -18,9 +18,11 @@
                 />
             </div>
             
-            <button class="btn btn-primary" type="submit" :disabled="userStore.loadingUser">
-                Crear cuenta
-            </button>
+            <div class="d-flex justify-content-center" style="margin-top: 5%;">
+                <button class="btn btn-primary text-center" style="width: 50%;" type="submit" :disabled="userStore.loadingUser">
+                    Crear cuenta
+                </button>
+            </div>
         </form>
     </div>
 </template>
@@ -42,7 +44,9 @@ const handleSubmit = () => {
 </script>
 
 
-<style>
+<style scoped>
+
+
 
 .register-container {
     display: flex;
@@ -50,7 +54,7 @@ const handleSubmit = () => {
     justify-content: center;
     align-items: center;
     align-content: center;
-    height: 500px;
+    min-height: 80vh;
 }
 
 form {

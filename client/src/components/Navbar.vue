@@ -156,7 +156,8 @@ function color(column){
     </nav>
 </template>
 
-<style>
+<style scoped>
+
 a:hover,
 a.router-link-active {
     border-bottom: red solid 2px;

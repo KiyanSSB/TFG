@@ -684,6 +684,8 @@ export default {
     padding: 0.4em;
 }
 
+
+
 .card-checkboxes {
     display: flex;
     flex-direction: column;
@@ -734,6 +736,8 @@ export default {
 
 .input{
     text-align: center;
+    
+
 }
 
 .container_center {

@@ -36,13 +36,10 @@ export const useUserStore = defineStore("user", {
         },
 
         async signOutUser() {
-
             const auth = getAuth();
             signOut(auth).then(() => {
                 this.userData = {};
                 this.logged = false;
-              
-                
                 router.push("/login");
             });
         },

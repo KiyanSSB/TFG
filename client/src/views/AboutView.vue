@@ -4,14 +4,14 @@
       <img src="https://avatars.githubusercontent.com/u/49482087?v=4"/>
   </div>
   <div className="description">
-    <h2>About Me</h2>
+    <h1>About Me</h1>
     <p>Hi! My name is Gabriel and i'm the current developer of TableFG websit, please feel free to contact me through my Email: gdld1@alu.ua.es</p>
   </div>  
   </div>
   
 </template>
 
-<style>
+<style scoped>
 
 .about-container{
   display: flex;
@@ -21,6 +21,15 @@
   height: 100%;
   margin-top: 5%;
 }
+
+h1{
+    color: #000;
+}
+
+p{
+    color: #000;
+}
+
 
 .gepeto{
   display: flex;
