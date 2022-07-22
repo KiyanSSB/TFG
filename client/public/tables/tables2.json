@@ -5,6 +5,7 @@
             "Nombre",
             "Apellido",
             "Ciudad"
+            
         ],
         "numCols": 10,
         "numericColumns": [],
@@ -36,16 +37,16 @@
     },
     "table-0000-000": {
         "title": [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"
+            "Id",
+            "Nombre",
+            "Apellido",
+            "Ciudad",
+            "Edad",
+            "Peso",
+            "Altura",
+            "Puntos",
+            "Posicion"
+            
         ],
         "numCols": 10,
         "numericColumns": [
@@ -58,271 +59,49 @@
         "caption": "Peak positions",
         "data": [
             [
-                "Austrian Singles Chart",
+                "1",
+                "Gabriel",
+                "De Lamo",
+                "Elda",
+                "21",
+                "70",
+                "1.80",
+                "0",
+                "1"
+            ],
+            [
                 "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
+                "David",
+                "Brotons Civera",
+                "Alicante",
+                "21",
+                "70",
+                "1.80",
+                "0",
                 "2"
             ],
             [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ]
+                "3",
+                "Pablo",
+                "Brotons Civera",
+                "Novelda",
+                "21",
+                "70",
+                "1.80",
+                "0",
+                "3"
+            ]          
         ]
     },
     "table-1234-345": {
         "title": [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"
+            "Nº Identificación",
+            "Nombre",
+            "Apellido",
+            "Localidad",
+            "Provincia",
+            "Fecha de Nacimiento" ,   
+            "Clasificacion"
         ],
         "numCols": 10,
         "numericColumns": [
@@ -335,232 +114,32 @@
         "caption": "Peak positions",
         "data": [
             [
-                "Austrian Singles Chart",
+                "1",
+                "Adrian",
+                "Terroba",
+                "Elda",
+                "Alicante",
+                "21/12/1990",
+                "1"
+            ],
+            [
                 "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
+                "Jesus",
+                "Vinilo",
+                "Polop",
+                "Alicante",
+                "21/12/1990",
                 "2"
             ],
             [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-                
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-                
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-                
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-                
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-                
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-                
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-                
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-                
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
-                
-            ],
-            [
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2",
-                "Austrian Singles Chart",
-                "2"
+                "3",
+                "Enrique",
+                "Millaverde",
+                "Ontinyent",
+                "Valencia",
+                "21/12/1990",
+                "3"
             ]
-                
-
         ]
     }
 

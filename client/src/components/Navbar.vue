@@ -23,7 +23,6 @@ function color(column){
         tabla2.value = true
     }
 
-
     var patata = document.getElementById(column);
     console.log(patata);
     patata.classList.add("red")
@@ -163,15 +162,6 @@ a.router-link-active {
     border-bottom: red solid 2px;
     animation-direction: alternate;
 }
-
-table {
-    border-collapse: collapse;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    margin: 2%;
-    background-color: white;
-}
-
 
 td {
     background-color: rgba(255, 255, 255, 0.2);

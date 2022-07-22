@@ -534,7 +534,7 @@ export default {
 
     <div class="container_center">
         <div class="left_side">
-            <div  class="d-flex justify-content-center scrollbar"  style="height: 50%;   width: 100%; overflow-y: auto; overflow-y: auto; border-radius: 10px; ">
+            <div  class="d-flex justify-content-center scrollbar"  style="height: 50%;   width: 90%; overflow-y: auto; overflow-y: auto; border-radius: 10px; ">
                 <table>
                     <colgroup>
                         <col v-for="(value, key) in referenceTable.title" v-bind:id="'referenceTable' + key">
@@ -563,7 +563,7 @@ export default {
             </div>
 
         
-            <div class="d-flex justify-content-center" style="height: 50%;  overflow-y: auto; width: 100%; margin-top: 2%;">
+            <div class="d-flex justify-content-center" style="height: 50%;  overflow-y: auto; width: 90%; margin-top: 2%;">
 
                 <table>
                     <colgroup>
@@ -757,7 +757,7 @@ export default {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    width: 60%;
+    width: 70%;
     height: 100%;
 }
 
@@ -766,7 +766,7 @@ export default {
     flex-direction: column;
     justify-content: space;
     align-items: center;
-    width: 40%;
+    width: 30%;
     height: 100% !important;
 }
 
@@ -776,16 +776,10 @@ export default {
 
 
 table {
-    border-collapse: collapse;
-    table-layout: fixed;
-    border: 1px solid #ddd;
-    table-layout: fixed;
+    table-layout: fixed !important;
+    width: 95%;
     border: 1px solid black;
     color: black;
-    word-wrap: break-word;
-    white-space: nowrap;
-    border-collapse: collapse;
-    overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     background-color: white;
 }
