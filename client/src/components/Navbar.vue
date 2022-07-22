@@ -46,7 +46,7 @@ function color(column){
                         <RouterLink to="/about" class="nav-link active">About</RouterLink>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="userStore.logged === true">
                         <RouterLink to="/lotes" class="nav-link active">Lotes</RouterLink>
                     </li>
 
