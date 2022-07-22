@@ -41,39 +41,10 @@ export const useUserStore = defineStore("user", {
             signOut(auth).then(() => {
                 this.userData = {};
                 this.logged = false;
-                localStorage.clear();
-                (function () {
-                    var cookies = document.cookie.split("; ");
-                    for (var c = 0; c < cookies.length; c++) {
-                        var d = window.location.hostname.split(".");
-                        while (d.length > 0) {
-                            var cookieBase = encodeURIComponent(cookies[c].split(";")[0].split("=")[0]) + '=; expires=Thu, 01-Jan-1970 00:00:01 GMT; domain=' + d.join('.') + ' ;path=';
-                            var p = location.pathname.split('/');
-                            document.cookie = cookieBase + '/';
-                            while (p.length > 0) {
-                                document.cookie = cookieBase + p.join('/');
-                                p.pop();
-                            };
-                            d.shift();
-                        }
-                    }
-                })();
+              
                 
                 router.push("/login");
             });
-
-            // this.loading = true;
-            // try {
-            //     await signOut(auth);
-            // } catch (error) {
-            //     console.log(error);
-            // } finally {
-            //     this.userData = {};
-            //     this.loading = false;
-            //     this.logged = false;
-            //     this.$cookie.remove("");
-            //     router.push("/login");
-            // }
         },
 
         async login(email, password) {
