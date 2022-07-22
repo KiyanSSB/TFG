@@ -31,7 +31,11 @@ const userStore = useUserStore()
                     </div>
                 </div>
                 <div style="margin-top: 5%;" >
-                    <RouterLink type="button " to ="register" className="btn btn-success" v-if="userStore.logged === false" >Get Started!</RouterLink>
+                    <RouterLink type="button " to ="register" className="btn btn-success" v-if="userStore.logged === false" >¡Únete!</RouterLink>
+                </div>
+
+                <div style="margin-top: 5%;" >
+                    <RouterLink type="button " to ="/lotes" className="btn btn-success" v-if="userStore.logged === true" >¡Comienza a contribuir!</RouterLink>
                 </div>
             </div>
         </div>
